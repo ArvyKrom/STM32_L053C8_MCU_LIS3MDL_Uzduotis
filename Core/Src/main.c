@@ -52,6 +52,9 @@ TIM_HandleTypeDef htim6;
 
 /* USER CODE BEGIN PV */
 
+int SPI_DMA_State = 0;
+uint8_t rx_data = 0;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -62,6 +65,8 @@ static void MX_SPI2_Init(void);
 static void MX_TIM6_Init(void);
 static void MX_IWDG_Init(void);
 /* USER CODE BEGIN PFP */
+
+int CheckForWatchdogReset(void);
 
 /* USER CODE END PFP */
 
@@ -104,26 +109,25 @@ int main(void)
   MX_TIM6_Init();
   MX_IWDG_Init();
   /* USER CODE BEGIN 2 */
+//  LIS3MDL_Comm_Interface_t interface = {
+//		  .spi_handle = &hspi2,
+//		  .cs_gpio_port_handle = SS2_GPIO_Port,
+//		  .cs_pin = SS2_Pin,
+//
+//		  .spi_transmit = HAL_SPI_Transmit,
+//		  .spi_receive = HAL_SPI_Receive,
+//		  .spi_timeout_ms = 1,
+//		  .gpio_write = HAL_GPIO_WritePin
+//  };
 
-  LIS3MDL_Comm_Interface_t interface = {
-		  .spi_handle = &hspi2,
-		  .cs_gpio_port_handle = SS2_GPIO_Port,
-		  .cs_pin = SS2_Pin,
+//  int ret = 0;
+//  while(ret != 61){
+//	  ret = lis3mdl_get_who_am_i(interface);
+//  }
+//  ret = ret++;
 
-		  .spi_transmit = HAL_SPI_Transmit,
-		  .spi_receive = HAL_SPI_Receive,
-		  .spi_timeout_ms = 1,
-		  .gpio_write = HAL_GPIO_WritePin
-  };
-
-  HAL_SPI_Tra
-
-  int ret = 0;
-  while(ret != 61){
-	  ret = lis3mdl_get_who_am_i(interface);
-  }
-  ret = ret++;
-
+  uint8_t reg_addr = WHO_AM_I_REG_ADDR | LIS3MDL_READ_BIT;
+//  HAL_TIM_Base_Start(&htim2);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -132,9 +136,21 @@ int main(void)
   {
 	HAL_IWDG_Refresh(&hiwdg);
 
+	if(SPI_DMA_State == 0){
+		HAL_GPIO_WritePin(SS2_GPIO_Port, SS2_Pin, GPIO_PIN_RESET);
+		HAL_SPI_Transmit_DMA(&hspi2, &reg_addr, 1);
+	}
+
+	if(SPI_DMA_State == 1){
+		HAL_SPI_Receive_DMA(&hspi2, &rx_data, 1);
+	}
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+
+	if(SPI_DMA_State == 2){
+		int a = -4;
+	}
   }
   /* USER CODE END 3 */
 }
@@ -200,8 +216,8 @@ static void MX_IWDG_Init(void)
   /* USER CODE END IWDG_Init 1 */
   hiwdg.Instance = IWDG;
   hiwdg.Init.Prescaler = IWDG_PRESCALER_4;
-  hiwdg.Init.Window = 3;
-  hiwdg.Init.Reload = 3;
+  hiwdg.Init.Window = 10;
+  hiwdg.Init.Reload = 10;
   if (HAL_IWDG_Init(&hiwdg) != HAL_OK)
   {
     Error_Handler();
@@ -347,6 +363,19 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 
+void HAL_SPI_TxCpltCallback(SPI_HandleTypeDef *hspi){
+	if(hspi->Instance == SPI2){
+		SPI_DMA_State = 1;
+	}
+}
+
+void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi){
+	if(hspi->Instance == SPI2){
+		SPI_DMA_State = 2;
+		HAL_GPIO_WritePin(SS2_GPIO_Port, SS2_Pin, GPIO_PIN_RESET);
+	}
+}
+
 /* USER CODE END 4 */
 
 /**
@@ -363,8 +392,7 @@ void Error_Handler(void)
   }
   /* USER CODE END Error_Handler_Debug */
 }
-
-#ifdef  USE_FULL_ASSERT
+#ifdef USE_FULL_ASSERT
 /**
   * @brief  Reports the name of the source file and the source line number
   *         where the assert_param error has occurred.
