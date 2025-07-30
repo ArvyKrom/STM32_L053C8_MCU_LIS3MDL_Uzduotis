@@ -1,0 +1,4 @@
+../Drivers/lis3mdl/lis3mdl.c:20:5:lis3mdl_get_who_am_i	56	static
+../Drivers/lis3mdl/lis3mdl.c:47:18:lis3mdl_write_byte	24	static
+../Drivers/lis3mdl/lis3mdl.c:87:18:lis3mdl_read_byte	24	static
+../Drivers/lis3mdl/lis3mdl.c:130:18:lis3mdl_read_consecutive_bytes	40	static

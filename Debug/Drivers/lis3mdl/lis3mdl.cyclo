@@ -1,0 +1,4 @@
+../Drivers/lis3mdl/lis3mdl.c:20:5:lis3mdl_get_who_am_i	2
+../Drivers/lis3mdl/lis3mdl.c:47:18:lis3mdl_write_byte	5
+../Drivers/lis3mdl/lis3mdl.c:87:18:lis3mdl_read_byte	5
+../Drivers/lis3mdl/lis3mdl.c:130:18:lis3mdl_read_consecutive_bytes	6
