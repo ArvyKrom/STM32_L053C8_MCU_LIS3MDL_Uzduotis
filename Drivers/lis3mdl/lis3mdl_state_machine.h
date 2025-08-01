@@ -1,0 +1,30 @@
+/*
+ * lis3mdl_state_machine.h
+ *
+ *  Created on: Jul 31, 2025
+ *      Author: arvyd
+ */
+
+#ifndef LIS3MDL_LIS3MDL_STATE_MACHINE_H_
+#define LIS3MDL_LIS3MDL_STATE_MACHINE_H_
+
+typedef enum {
+	LIS3MDL_INITIALIZING_OFFSET_REGS = 0x00,
+	LIS3MDL_INITIALIZING_CTRL_REGS = 0x01,
+	LIS3MDL_INITIALIZING_INT_REGS = 0x02,
+	LIS3MDL_IDLE = 0x03,
+	LIS3MDL_SENDING_ADDRESS_TO_READ_FROM = 0x04,
+	LIS3MDL_SENDING_ADDRESS_TO_WRITE_TO = 0x05,
+	LIS3MDL_READING_DATA = 0x06,
+	LIS3MDL_WRITING_DATA = 0x07
+} LIS3MDL_State_t;
+
+typedef enum {
+	LIS3MDL_STATE_CHANGE_OK = 0x00,
+	LIS3MDL_STATE_CHANGE_NO_SPI_CPLT_SIGNALS = 0x01,
+	LIS3MDL_STATE_CHANGE_INVALID_CHANGE = 0x02
+} LIS3MDL_State_Change_Error_t;
+
+LIS3MDL_State_Change_Error_t lis3mdl_change_state_due_to_spi_cplt(LIS3MDL_State_t *state, uint8_t spi_tx_cplt_signal, uint8_t spi_rx_cplt_signal);
+
+#endif /* LIS3MDL_LIS3MDL_STATE_MACHINE_H_ */

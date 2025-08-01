@@ -10,12 +10,12 @@
  *      the driver.
  */
 
-#ifndef LIS3MDL_LIS3MDL_INTERFACE_H_
-#define LIS3MDL_LIS3MDL_INTERFACE_H_
-
-
+#ifndef LIS3MDL_LIS3MDL_DEVICE_H_
+#define LIS3MDL_LIS3MDL_DEVICE_H_
 
 #include <stdint.h>
+#include "lis3mdl_state_machine.h"
+#include "lis3mdl_init_params.h"
 
 /*
  * Enum used as a HAL_StatusTypeDef substitute
@@ -26,20 +26,19 @@ typedef enum {
 	LIS3MDL_ERROR    = 0x01U,
 	LIS3MDL_BUSY     = 0x02U,
 	LIS3MDL_TIMEOUT  = 0x03U,
-	LIS3MDL_NOT_INIT = 0x04U
 } LIS3MDL_Status_t;
 
 /*
  * Pointer to HAL_SPI_Transmit(hspi, pData, Size, Timeout)
  */
 
-typedef LIS3MDL_Status_t (*LIS3MDL_SPI_Transmit_Func)(void *hande_data, uint8_t *tx_data, uint16_t size, uint32_t timeout_ms);
+typedef LIS3MDL_Status_t (*LIS3MDL_SPI_Transmit_DMA_Func)(void *hande_data, uint8_t *tx_data, uint16_t size);
 
 /*
  * Pointer to HAL_SPI_Receive(hspi, pData, Size, Timeout)
  */
 
-typedef LIS3MDL_Status_t (*LIS3MDL_SPI_Receive_Func)(void *hande_data, uint8_t *rx_data, uint16_t size, uint32_t timeout_ms);
+typedef LIS3MDL_Status_t (*LIS3MDL_SPI_Receive_DMA_Func)(void *hande_data, uint8_t *rx_data, uint16_t size);
 
 /*
  * Pointer to HAL_GPIO_WritePin(GPIOx, GPIO_Pin, PinState)
@@ -48,20 +47,22 @@ typedef LIS3MDL_Status_t (*LIS3MDL_SPI_Receive_Func)(void *hande_data, uint8_t *
 typedef void (*LIS3MDL_GPIO_Write_Func)(void *port_handle_data, uint16_t pin, int state);
 
 /*
- * Struct that holds all the neccesary pointers to communication functions and peripheral data
+ * Struct that holds all the neccesary information about an LIS3MDL device
  * Must be initialized and populated before use
  */
 
 typedef struct {
-	void *spi_handle;
+	LIS3MDL_Init_Params init_params;
+	LIS3MDL_State_t state;
+
 	void *cs_gpio_port_handle;
 	uint16_t cs_pin;
 
-	LIS3MDL_SPI_Transmit_Func spi_transmit;
-	LIS3MDL_SPI_Receive_Func spi_receive;
-	uint32_t spi_timeout_ms;
+	void *spi_handle;
+	LIS3MDL_SPI_Transmit_DMA_Func spi_transmit_dma;
+	LIS3MDL_SPI_Receive_DMA_Func spi_receive_dma;
 	LIS3MDL_GPIO_Write_Func gpio_write;
 
-} LIS3MDL_Comm_Interface_t;
+} LIS3MDL_Device;
 
-#endif /* LIS3MDL_LIS3MDL_INTERFACE_H_ */
+#endif /* LIS3MDL_LIS3MDL_DEVICE_H_ */
