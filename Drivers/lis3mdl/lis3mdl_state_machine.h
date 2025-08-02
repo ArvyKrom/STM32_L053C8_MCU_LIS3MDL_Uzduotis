@@ -25,6 +25,6 @@ typedef enum {
 	LIS3MDL_STATE_CHANGE_INVALID_CHANGE = 0x02
 } LIS3MDL_State_Change_Error_t;
 
-LIS3MDL_State_Change_Error_t lis3mdl_change_state_due_to_spi_cplt(LIS3MDL_State_t *state, uint8_t spi_tx_cplt_signal, uint8_t spi_rx_cplt_signal);
+LIS3MDL_State_Change_Error_t lis3mdl_change_state_due_to_spi_cplt(LIS3MDL_State_t *state, uint8_t *spi_tx_cplt_flag, uint8_t *spi_rx_cplt_flag);
 
 #endif /* LIS3MDL_LIS3MDL_STATE_MACHINE_H_ */

@@ -16,35 +16,9 @@
 #include <stdint.h>
 #include "lis3mdl_state_machine.h"
 #include "lis3mdl_init_params.h"
+#include "main.h"
 
-/*
- * Enum used as a HAL_StatusTypeDef substitute
- */
-
-typedef enum {
-	LIS3MDL_OK       = 0x00U,
-	LIS3MDL_ERROR    = 0x01U,
-	LIS3MDL_BUSY     = 0x02U,
-	LIS3MDL_TIMEOUT  = 0x03U,
-} LIS3MDL_Status_t;
-
-/*
- * Pointer to HAL_SPI_Transmit(hspi, pData, Size, Timeout)
- */
-
-typedef LIS3MDL_Status_t (*LIS3MDL_SPI_Transmit_DMA_Func)(void *hande_data, uint8_t *tx_data, uint16_t size);
-
-/*
- * Pointer to HAL_SPI_Receive(hspi, pData, Size, Timeout)
- */
-
-typedef LIS3MDL_Status_t (*LIS3MDL_SPI_Receive_DMA_Func)(void *hande_data, uint8_t *rx_data, uint16_t size);
-
-/*
- * Pointer to HAL_GPIO_WritePin(GPIOx, GPIO_Pin, PinState)
- */
-
-typedef void (*LIS3MDL_GPIO_Write_Func)(void *port_handle_data, uint16_t pin, int state);
+#define LIS3MDL_BUFFER_SIZE 6 // User shouldn't ever need to write to or read from more than 6 registers consecutively
 
 /*
  * Struct that holds all the neccesary information about an LIS3MDL device
@@ -55,13 +29,15 @@ typedef struct {
 	LIS3MDL_Init_Params init_params;
 	LIS3MDL_State_t state;
 
-	void *cs_gpio_port_handle;
-	uint16_t cs_pin;
+	uint8_t reg_addr;
+	uint8_t tx[LIS3MDL_BUFFER_SIZE];
+	uint8_t rx[LIS3MDL_BUFFER_SIZE];
+	uint8_t data_size;
+	uint8_t read_data_available;
 
-	void *spi_handle;
-	LIS3MDL_SPI_Transmit_DMA_Func spi_transmit_dma;
-	LIS3MDL_SPI_Receive_DMA_Func spi_receive_dma;
-	LIS3MDL_GPIO_Write_Func gpio_write;
+	GPIO_TypeDef *cs_gpio_port_handle;
+	uint16_t cs_pin;
+	SPI_HandleTypeDef *hspi;
 
 } LIS3MDL_Device;
 

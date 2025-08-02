@@ -9,6 +9,13 @@
 #define LIS3MDL_LIS3MDL_REGISTERS_H_
 
 /*
+ * Command bits
+ */
+
+#define LIS3MDL_READ_BIT 0x80
+#define LIS3MDL_MD_BIT 0x40
+
+/*
  * OFFSET Registers
  */
 
