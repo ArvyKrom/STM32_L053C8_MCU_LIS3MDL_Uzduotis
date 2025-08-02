@@ -1,0 +1,1 @@
+../Drivers/lis3mdl/lis3mdl_state_machine.c:10:30:lis3mdl_change_state_due_to_spi_cplt	16	static

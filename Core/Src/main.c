@@ -24,6 +24,7 @@
 /* USER CODE BEGIN Includes */
 
 #include "lis3mdl.h"
+#include "lis3mdl_registers.h"
 
 /* USER CODE END Includes */
 
@@ -52,8 +53,7 @@ TIM_HandleTypeDef htim6;
 
 /* USER CODE BEGIN PV */
 
-int SPI_DMA_State = 0;
-uint8_t rx_data = 0;
+uint8_t spi_cplt_flag = 0;
 
 /* USER CODE END PV */
 
@@ -84,6 +84,17 @@ int main(void)
 
   /* USER CODE BEGIN 1 */
 
+
+
+	LIS3MDL_Device my_device = {
+			.state = LIS3MDL_SENDING_ADDRESS_TO_READ_FROM,
+			.reg_addr = LIS3MDL_WHO_AM_I_REG_ADDR | LIS3MDL_READ_BIT,
+			.data_size = 1,
+			.cs_gpio_port_handle = SS2_GPIO_Port,
+			.cs_pin = SS2_Pin,
+			.hspi = &hspi2
+	};
+
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -109,25 +120,7 @@ int main(void)
   MX_TIM6_Init();
   MX_IWDG_Init();
   /* USER CODE BEGIN 2 */
-//  LIS3MDL_Comm_Interface_t interface = {
-//		  .spi_handle = &hspi2,
-//		  .cs_gpio_port_handle = SS2_GPIO_Port,
-//		  .cs_pin = SS2_Pin,
-//
-//		  .spi_transmit = HAL_SPI_Transmit,
-//		  .spi_receive = HAL_SPI_Receive,
-//		  .spi_timeout_ms = 1,
-//		  .gpio_write = HAL_GPIO_WritePin
-//  };
 
-//  int ret = 0;
-//  while(ret != 61){
-//	  ret = lis3mdl_get_who_am_i(interface);
-//  }
-//  ret = ret++;
-
-  uint8_t reg_addr = WHO_AM_I_REG_ADDR | LIS3MDL_READ_BIT;
-//  HAL_TIM_Base_Start(&htim2);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -135,22 +128,14 @@ int main(void)
   while (1)
   {
 	HAL_IWDG_Refresh(&hiwdg);
-
-	if(SPI_DMA_State == 0){
-		HAL_GPIO_WritePin(SS2_GPIO_Port, SS2_Pin, GPIO_PIN_RESET);
-		HAL_SPI_Transmit_DMA(&hspi2, &reg_addr, 1);
-	}
-
-	if(SPI_DMA_State == 1){
-		HAL_SPI_Receive_DMA(&hspi2, &rx_data, 1);
-	}
+	lis3mdl_process(&my_device, 1, &spi_cplt_flag);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-
-	if(SPI_DMA_State == 2){
-		int a = -4;
+	if(my_device.rx[0] !='\0'){
+		int ret = 5;
 	}
+
   }
   /* USER CODE END 3 */
 }
@@ -365,14 +350,13 @@ static void MX_GPIO_Init(void)
 
 void HAL_SPI_TxCpltCallback(SPI_HandleTypeDef *hspi){
 	if(hspi->Instance == SPI2){
-		SPI_DMA_State = 1;
+		spi_cplt_flag = 1;
 	}
 }
 
 void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi){
 	if(hspi->Instance == SPI2){
-		SPI_DMA_State = 2;
-		HAL_GPIO_WritePin(SS2_GPIO_Port, SS2_Pin, GPIO_PIN_RESET);
+		spi_cplt_flag = 1;
 	}
 }
 

@@ -94,7 +94,7 @@
 #define LIS3MDL_ZYXDA 0x08 // all axis new data is available
 #define LIS3MDL_ZDA 0x04 // Z axis new data is available
 #define LIS3MDL_YDA 0x02 // Y axis new data is available
-#define LIS3MDL_ZDA 0x01 // X axis new data is available
+#define LIS3MDL_XDA 0x01 // X axis new data is available
 
 /*
  * OUTPUT registers
