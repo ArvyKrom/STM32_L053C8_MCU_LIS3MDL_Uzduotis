@@ -54,6 +54,7 @@ TIM_HandleTypeDef htim6;
 /* USER CODE BEGIN PV */
 
 uint8_t spi_cplt_flag = 0;
+uint8_t who_am_i_reg = LIS3MDL_WHO_AM_I_REG_ADDR;
 
 /* USER CODE END PV */
 
@@ -65,8 +66,6 @@ static void MX_SPI2_Init(void);
 static void MX_TIM6_Init(void);
 static void MX_IWDG_Init(void);
 /* USER CODE BEGIN PFP */
-
-int CheckForWatchdogReset(void);
 
 /* USER CODE END PFP */
 
@@ -84,16 +83,16 @@ int main(void)
 
   /* USER CODE BEGIN 1 */
 
+	LIS3MDL_Device lis3mdl_devices[1];
+	lis3mdl_initialize_device_struct(&lis3mdl_devices[0], &hspi2, SS2_GPIO_Port, SS2_Pin);
 
+	LIS3MDL_Init_Params init_params;
+	lis3mdl_set_default_params(&init_params);
+	// Init parameters can be tweaked manually
+	// For example init_params.full_scale = LIS3MDL_FULL_SCALE_4_GAUSS
+	// All configurable options available under lis3mdl_init_params.h
 
-	LIS3MDL_Device my_device = {
-			.state = LIS3MDL_SENDING_ADDRESS_TO_READ_FROM,
-			.reg_addr = LIS3MDL_WHO_AM_I_REG_ADDR | LIS3MDL_READ_BIT,
-			.data_size = 1,
-			.cs_gpio_port_handle = SS2_GPIO_Port,
-			.cs_pin = SS2_Pin,
-			.hspi = &hspi2
-	};
+	lis3mdl_setup_config_registers(&lis3mdl_devices[0], init_params);
 
   /* USER CODE END 1 */
 
@@ -128,11 +127,12 @@ int main(void)
   while (1)
   {
 	HAL_IWDG_Refresh(&hiwdg);
-	lis3mdl_process(&my_device, 1, &spi_cplt_flag);
+	lis3mdl_process(lis3mdl_devices, 1, &spi_cplt_flag);
+	lis3mdl_read_reg(lis3mdl_devices, 1, 0, who_am_i_reg, 1);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	if(my_device.rx[0] !='\0'){
+	if(lis3mdl_devices[0].rx[0] !='\0'){
 		int ret = 5;
 	}
 

@@ -5,47 +5,47 @@ Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
   0 .isr_vector   000000c0  08000000  08000000  00001000  2**0
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  1 .text         00003370  080000c0  080000c0  000010c0  2**2
+  1 .text         0000397c  080000c0  080000c0  000010c0  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .rodata       0000005c  08003430  08003430  00004430  2**2
+  2 .rodata       0000005c  08003a3c  08003a3c  00004a3c  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  3 .ARM.extab    00000000  0800348c  0800348c  0000500c  2**0
+  3 .ARM.extab    00000000  08003a98  08003a98  0000500c  2**0
                   CONTENTS, READONLY
-  4 .ARM          00000000  0800348c  0800348c  0000500c  2**0
+  4 .ARM          00000000  08003a98  08003a98  0000500c  2**0
                   CONTENTS, READONLY
-  5 .preinit_array 00000000  0800348c  0800348c  0000500c  2**0
+  5 .preinit_array 00000000  08003a98  08003a98  0000500c  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  6 .init_array   00000004  0800348c  0800348c  0000448c  2**2
+  6 .init_array   00000004  08003a98  08003a98  00004a98  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  7 .fini_array   00000004  08003490  08003490  00004490  2**2
+  7 .fini_array   00000004  08003a9c  08003a9c  00004a9c  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  8 .data         0000000c  20000000  08003494  00005000  2**2
+  8 .data         0000000c  20000000  08003aa0  00005000  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  9 .bss          00000164  2000000c  080034a0  0000500c  2**2
+  9 .bss          00000164  2000000c  08003aac  0000500c  2**2
                   ALLOC
- 10 ._user_heap_stack 00000600  20000170  080034a0  00005170  2**0
+ 10 ._user_heap_stack 00000600  20000170  08003aac  00005170  2**0
                   ALLOC
  11 .ARM.attributes 00000028  00000000  00000000  0000500c  2**0
                   CONTENTS, READONLY
- 12 .debug_info   0000ae3e  00000000  00000000  00005034  2**0
+ 12 .debug_info   0000bccf  00000000  00000000  00005034  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 13 .debug_abbrev 00001f24  00000000  00000000  0000fe72  2**0
+ 13 .debug_abbrev 00002152  00000000  00000000  00010d03  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_aranges 00000b88  00000000  00000000  00011d98  2**3
+ 14 .debug_aranges 00000bd8  00000000  00000000  00012e58  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_rnglists 000008c3  00000000  00000000  00012920  2**0
+ 15 .debug_rnglists 000008f7  00000000  00000000  00013a30  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_macro  00013d7c  00000000  00000000  000131e3  2**0
+ 16 .debug_macro  00014058  00000000  00000000  00014327  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   0000d249  00000000  00000000  00026f5f  2**0
+ 17 .debug_line   0000e2b6  00000000  00000000  0002837f  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    0007c04e  00000000  00000000  000341a8  2**0
+ 18 .debug_str    0007c208  00000000  00000000  00036635  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000043  00000000  00000000  000b01f6  2**0
+ 19 .comment      00000043  00000000  00000000  000b283d  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00002818  00000000  00000000  000b023c  2**2
+ 20 .debug_frame  000028f0  00000000  00000000  000b2880  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .debug_line_str 0000007d  00000000  00000000  000b2a54  2**0
+ 21 .debug_line_str 0000007d  00000000  00000000  000b5170  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -67,7 +67,7 @@ Disassembly of section .text:
  80000da:	bd10      	pop	{r4, pc}
  80000dc:	2000000c 	.word	0x2000000c
  80000e0:	00000000 	.word	0x00000000
- 80000e4:	08003418 	.word	0x08003418
+ 80000e4:	08003a24 	.word	0x08003a24
 
 080000e8 <frame_dummy>:
  80000e8:	4b04      	ldr	r3, [pc, #16]	@ (80000fc <frame_dummy+0x14>)
@@ -82,7 +82,7 @@ Disassembly of section .text:
  80000fa:	46c0      	nop			@ (mov r8, r8)
  80000fc:	00000000 	.word	0x00000000
  8000100:	20000010 	.word	0x20000010
- 8000104:	08003418 	.word	0x08003418
+ 8000104:	08003a24 	.word	0x08003a24
 
 08000108 <__udivsi3>:
  8000108:	2200      	movs	r2, #0
@@ -236,41 +236,46 @@ Disassembly of section .text:
   */
 int main(void)
 {
- 8000220:	b580      	push	{r7, lr}
- 8000222:	b08e      	sub	sp, #56	@ 0x38
- 8000224:	af00      	add	r7, sp, #0
+ 8000220:	b5f0      	push	{r4, r5, r6, r7, lr}
+ 8000222:	b09b      	sub	sp, #108	@ 0x6c
+ 8000224:	af06      	add	r7, sp, #24
 
   /* USER CODE BEGIN 1 */
 
+	LIS3MDL_Device lis3mdl_devices[1];
+	lis3mdl_initialize_device_struct(&lis3mdl_devices[0], &hspi2, SS2_GPIO_Port, SS2_Pin);
+ 8000226:	2380      	movs	r3, #128	@ 0x80
+ 8000228:	015b      	lsls	r3, r3, #5
+ 800022a:	4a1c      	ldr	r2, [pc, #112]	@ (800029c <main+0x7c>)
+ 800022c:	491c      	ldr	r1, [pc, #112]	@ (80002a0 <main+0x80>)
+ 800022e:	2420      	movs	r4, #32
+ 8000230:	1938      	adds	r0, r7, r4
+ 8000232:	f003 f8d3 	bl	80033dc <lis3mdl_initialize_device_struct>
 
+	LIS3MDL_Init_Params init_params;
+	lis3mdl_set_default_params(&init_params);
+ 8000236:	003b      	movs	r3, r7
+ 8000238:	0018      	movs	r0, r3
+ 800023a:	f003 f92c 	bl	8003496 <lis3mdl_set_default_params>
+	// Init parameters can be tweaked manually
+	// For example init_params.full_scale = LIS3MDL_FULL_SCALE_4_GAUSS
+	// All configurable options available under lis3mdl_init_params.h
 
-	LIS3MDL_Device my_device = {
- 8000226:	1d3b      	adds	r3, r7, #4
- 8000228:	0018      	movs	r0, r3
- 800022a:	2330      	movs	r3, #48	@ 0x30
- 800022c:	001a      	movs	r2, r3
- 800022e:	2100      	movs	r1, #0
- 8000230:	f003 f8c6 	bl	80033c0 <memset>
- 8000234:	1d3b      	adds	r3, r7, #4
- 8000236:	2204      	movs	r2, #4
- 8000238:	749a      	strb	r2, [r3, #18]
- 800023a:	1d3b      	adds	r3, r7, #4
- 800023c:	228f      	movs	r2, #143	@ 0x8f
- 800023e:	74da      	strb	r2, [r3, #19]
- 8000240:	1d3b      	adds	r3, r7, #4
- 8000242:	2220      	movs	r2, #32
- 8000244:	2101      	movs	r1, #1
- 8000246:	5499      	strb	r1, [r3, r2]
- 8000248:	1d3b      	adds	r3, r7, #4
- 800024a:	4a14      	ldr	r2, [pc, #80]	@ (800029c <main+0x7c>)
- 800024c:	625a      	str	r2, [r3, #36]	@ 0x24
- 800024e:	1d3b      	adds	r3, r7, #4
- 8000250:	2280      	movs	r2, #128	@ 0x80
- 8000252:	0152      	lsls	r2, r2, #5
- 8000254:	851a      	strh	r2, [r3, #40]	@ 0x28
- 8000256:	1d3b      	adds	r3, r7, #4
- 8000258:	4a11      	ldr	r2, [pc, #68]	@ (80002a0 <main+0x80>)
- 800025a:	62da      	str	r2, [r3, #44]	@ 0x2c
+	lis3mdl_setup_config_registers(&lis3mdl_devices[0], init_params);
+ 800023e:	003b      	movs	r3, r7
+ 8000240:	1938      	adds	r0, r7, r4
+ 8000242:	466a      	mov	r2, sp
+ 8000244:	0011      	movs	r1, r2
+ 8000246:	001a      	movs	r2, r3
+ 8000248:	320c      	adds	r2, #12
+ 800024a:	ca70      	ldmia	r2!, {r4, r5, r6}
+ 800024c:	c170      	stmia	r1!, {r4, r5, r6}
+ 800024e:	ca30      	ldmia	r2!, {r4, r5}
+ 8000250:	c130      	stmia	r1!, {r4, r5}
+ 8000252:	6819      	ldr	r1, [r3, #0]
+ 8000254:	685a      	ldr	r2, [r3, #4]
+ 8000256:	689b      	ldr	r3, [r3, #8]
+ 8000258:	f003 f8ef 	bl	800343a <lis3mdl_setup_config_registers>
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -309,26 +314,27 @@ int main(void)
  8000278:	4b0a      	ldr	r3, [pc, #40]	@ (80002a4 <main+0x84>)
  800027a:	0018      	movs	r0, r3
  800027c:	f001 f850 	bl	8001320 <HAL_IWDG_Refresh>
-	lis3mdl_process(&my_device, 1, &spi_cplt_flag);
+	lis3mdl_process(lis3mdl_devices, 1, &spi_cplt_flag);
  8000280:	4a09      	ldr	r2, [pc, #36]	@ (80002a8 <main+0x88>)
- 8000282:	1d3b      	adds	r3, r7, #4
- 8000284:	2101      	movs	r1, #1
- 8000286:	0018      	movs	r0, r3
- 8000288:	f002 ff30 	bl	80030ec <lis3mdl_process>
+ 8000282:	2420      	movs	r4, #32
+ 8000284:	193b      	adds	r3, r7, r4
+ 8000286:	2101      	movs	r1, #1
+ 8000288:	0018      	movs	r0, r3
+ 800028a:	f002 ff2f 	bl	80030ec <lis3mdl_process>
+	//lis3mdl_read_reg(lis3mdl_devices, 1, 0, who_am_i_reg, 1);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	if(my_device.rx[0] !='\0'){
- 800028c:	1d3b      	adds	r3, r7, #4
- 800028e:	7e9b      	ldrb	r3, [r3, #26]
- 8000290:	2b00      	cmp	r3, #0
- 8000292:	d0f1      	beq.n	8000278 <main+0x58>
+	if(lis3mdl_devices[0].rx[0] !='\0'){
+ 800028e:	193b      	adds	r3, r7, r4
+ 8000290:	7ddb      	ldrb	r3, [r3, #23]
+ 8000292:	2b00      	cmp	r3, #0
+ 8000294:	d0f0      	beq.n	8000278 <main+0x58>
 		int ret = 5;
- 8000294:	2305      	movs	r3, #5
- 8000296:	637b      	str	r3, [r7, #52]	@ 0x34
+ 8000296:	2305      	movs	r3, #5
+ 8000298:	64fb      	str	r3, [r7, #76]	@ 0x4c
 	HAL_IWDG_Refresh(&hiwdg);
- 8000298:	e7ee      	b.n	8000278 <main+0x58>
- 800029a:	46c0      	nop			@ (mov r8, r8)
+ 800029a:	e7ed      	b.n	8000278 <main+0x58>
  800029c:	50000400 	.word	0x50000400
  80002a0:	20000038 	.word	0x20000038
  80002a4:	20000028 	.word	0x20000028
@@ -351,14 +357,14 @@ void SystemClock_Config(void)
  80002b8:	2338      	movs	r3, #56	@ 0x38
  80002ba:	001a      	movs	r2, r3
  80002bc:	2100      	movs	r1, #0
- 80002be:	f003 f87f 	bl	80033c0 <memset>
+ 80002be:	f003 fb7b 	bl	80039b8 <memset>
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
  80002c2:	1d3b      	adds	r3, r7, #4
  80002c4:	0018      	movs	r0, r3
  80002c6:	2314      	movs	r3, #20
  80002c8:	001a      	movs	r2, r3
  80002ca:	2100      	movs	r1, #0
- 80002cc:	f003 f878 	bl	80033c0 <memset>
+ 80002cc:	f003 fb74 	bl	80039b8 <memset>
 
   /** Configure the main internal regulator output voltage
   */
@@ -626,7 +632,7 @@ static void MX_TIM6_Init(void)
  8000422:	2308      	movs	r3, #8
  8000424:	001a      	movs	r2, r3
  8000426:	2100      	movs	r1, #0
- 8000428:	f002 ffca 	bl	80033c0 <memset>
+ 8000428:	f003 fac6 	bl	80039b8 <memset>
 
   /* USER CODE BEGIN TIM6_Init 1 */
 
@@ -756,7 +762,7 @@ static void MX_GPIO_Init(void)
  80004d4:	2314      	movs	r3, #20
  80004d6:	001a      	movs	r2, r3
  80004d8:	2100      	movs	r1, #0
- 80004da:	f002 ff71 	bl	80033c0 <memset>
+ 80004da:	f003 fa6d 	bl	80039b8 <memset>
   /* USER CODE BEGIN MX_GPIO_Init_1 */
 
   /* USER CODE END MX_GPIO_Init_1 */
@@ -970,7 +976,7 @@ void HAL_MspInit(void)
  80005f2:	2308      	movs	r3, #8
  80005f4:	001a      	movs	r2, r3
  80005f6:	2100      	movs	r1, #0
- 80005f8:	f002 fee2 	bl	80033c0 <memset>
+ 80005f8:	f003 f9de 	bl	80039b8 <memset>
 
   __HAL_RCC_SYSCFG_CLK_ENABLE();
  80005fc:	4b0e      	ldr	r3, [pc, #56]	@ (8000638 <HAL_MspInit+0x50>)
@@ -1039,7 +1045,7 @@ void HAL_SPI_MspInit(SPI_HandleTypeDef* hspi)
  800064a:	2314      	movs	r3, #20
  800064c:	001a      	movs	r2, r3
  800064e:	2100      	movs	r1, #0
- 8000650:	f002 feb6 	bl	80033c0 <memset>
+ 8000650:	f003 f9b2 	bl	80039b8 <memset>
   if(hspi->Instance==SPI2)
  8000654:	687b      	ldr	r3, [r7, #4]
  8000656:	681b      	ldr	r3, [r3, #0]
@@ -1570,7 +1576,7 @@ LoopFillZerobss:
  800088a:	f7ff ffe3 	bl	8000854 <SystemInit>
 /* Call static constructors */
     bl __libc_init_array
- 800088e:	f002 fd9f 	bl	80033d0 <__libc_init_array>
+ 800088e:	f003 f89b 	bl	80039c8 <__libc_init_array>
 /* Call the application's entry point.*/
   bl  main
  8000892:	f7ff fcc5 	bl	8000220 <main>
@@ -1587,7 +1593,7 @@ LoopForever:
   ldr r1, =_edata
  80008a0:	2000000c 	.word	0x2000000c
   ldr r2, =_sidata
- 80008a4:	08003494 	.word	0x08003494
+ 80008a4:	08003aa0 	.word	0x08003aa0
   ldr r2, =_sbss
  80008a8:	2000000c 	.word	0x2000000c
   ldr r4, =_ebss
@@ -4396,7 +4402,7 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(const RCC_OscInitTypeDef  *RCC_OscInitStruct
  8001778:	fffeffff 	.word	0xfffeffff
  800177c:	fffbffff 	.word	0xfffbffff
  8001780:	ffffe0ff 	.word	0xffffe0ff
- 8001784:	08003430 	.word	0x08003430
+ 8001784:	08003a3c 	.word	0x08003a3c
  8001788:	20000000 	.word	0x20000000
  800178c:	20000004 	.word	0x20000004
  8001790:	ffff1fff 	.word	0xffff1fff
@@ -5642,7 +5648,7 @@ HAL_StatusTypeDef HAL_RCC_ClockConfig(const RCC_ClkInitTypeDef  *RCC_ClkInitStru
  8001e20:	40021000 	.word	0x40021000
  8001e24:	fffff8ff 	.word	0xfffff8ff
  8001e28:	ffffc7ff 	.word	0xffffc7ff
- 8001e2c:	08003430 	.word	0x08003430
+ 8001e2c:	08003a3c 	.word	0x08003a3c
  8001e30:	20000000 	.word	0x20000000
  8001e34:	20000004 	.word	0x20000004
 
@@ -5838,7 +5844,7 @@ uint32_t HAL_RCC_GetSysClockFreq(void)
  8001f34:	003d0900 	.word	0x003d0900
  8001f38:	00f42400 	.word	0x00f42400
  8001f3c:	007a1200 	.word	0x007a1200
- 8001f40:	08003440 	.word	0x08003440
+ 8001f40:	08003a4c 	.word	0x08003a4c
 
 08001f44 <HAL_SPI_Init>:
   * @param  hspi pointer to a SPI_HandleTypeDef structure that contains
@@ -9398,8 +9404,8 @@ HAL_StatusTypeDef HAL_TIMEx_MasterConfigSynchronization(TIM_HandleTypeDef *htim,
 #include "lis3mdl_registers.h"
 
 LIS3MDL_Process_Status_t lis3mdl_process(LIS3MDL_Device *devices, uint8_t num_of_devices, uint8_t *spi_cplt_flag){
- 80030ec:	b580      	push	{r7, lr}
- 80030ee:	b084      	sub	sp, #16
+ 80030ec:	b590      	push	{r4, r7, lr}
+ 80030ee:	b08b      	sub	sp, #44	@ 0x2c
  80030f0:	af00      	add	r7, sp, #0
  80030f2:	60f8      	str	r0, [r7, #12]
  80030f4:	607a      	str	r2, [r7, #4]
@@ -9413,11 +9419,11 @@ LIS3MDL_Process_Status_t lis3mdl_process(LIS3MDL_Device *devices, uint8_t num_of
  8003102:	d101      	bne.n	8003108 <lis3mdl_process+0x1c>
 		return LIS3MDL_PROCESS_ERROR;
  8003104:	2303      	movs	r3, #3
- 8003106:	e0f3      	b.n	80032f0 <lis3mdl_process+0x204>
+ 8003106:	e136      	b.n	8003376 <lis3mdl_process+0x28a>
 
 	static int dev_index = 0;
 	if(dev_index == 0){
- 8003108:	4b7b      	ldr	r3, [pc, #492]	@ (80032f8 <lis3mdl_process+0x20c>)
+ 8003108:	4b9d      	ldr	r3, [pc, #628]	@ (8003380 <lis3mdl_process+0x294>)
  800310a:	681b      	ldr	r3, [r3, #0]
  800310c:	2b00      	cmp	r3, #0
  800310e:	d10a      	bne.n	8003126 <lis3mdl_process+0x3a>
@@ -9428,28 +9434,28 @@ LIS3MDL_Process_Status_t lis3mdl_process(LIS3MDL_Device *devices, uint8_t num_of
  8003116:	68fb      	ldr	r3, [r7, #12]
  8003118:	0011      	movs	r1, r2
  800311a:	0018      	movs	r0, r3
- 800311c:	f000 f8f2 	bl	8003304 <get_first_non_idling_device_index>
+ 800311c:	f000 f936 	bl	800338c <get_first_non_idling_device_index>
  8003120:	0002      	movs	r2, r0
- 8003122:	4b75      	ldr	r3, [pc, #468]	@ (80032f8 <lis3mdl_process+0x20c>)
+ 8003122:	4b97      	ldr	r3, [pc, #604]	@ (8003380 <lis3mdl_process+0x294>)
  8003124:	601a      	str	r2, [r3, #0]
 	}
 
 	if(dev_index < 0)
- 8003126:	4b74      	ldr	r3, [pc, #464]	@ (80032f8 <lis3mdl_process+0x20c>)
+ 8003126:	4b96      	ldr	r3, [pc, #600]	@ (8003380 <lis3mdl_process+0x294>)
  8003128:	681b      	ldr	r3, [r3, #0]
  800312a:	2b00      	cmp	r3, #0
  800312c:	da01      	bge.n	8003132 <lis3mdl_process+0x46>
 		return LIS3MDL_PROCESS_ALL_DEVICES_IDLING;
  800312e:	2301      	movs	r3, #1
- 8003130:	e0de      	b.n	80032f0 <lis3mdl_process+0x204>
+ 8003130:	e121      	b.n	8003376 <lis3mdl_process+0x28a>
 
 	static uint8_t spi_transaction_started = 0;
 
 	if(spi_transaction_started){
- 8003132:	4b72      	ldr	r3, [pc, #456]	@ (80032fc <lis3mdl_process+0x210>)
+ 8003132:	4b94      	ldr	r3, [pc, #592]	@ (8003384 <lis3mdl_process+0x298>)
  8003134:	781b      	ldrb	r3, [r3, #0]
  8003136:	2b00      	cmp	r3, #0
- 8003138:	d055      	beq.n	80031e6 <lis3mdl_process+0xfa>
+ 8003138:	d046      	beq.n	80031c8 <lis3mdl_process+0xdc>
 		if(!*spi_cplt_flag)
  800313a:	687b      	ldr	r3, [r7, #4]
  800313c:	781b      	ldrb	r3, [r3, #0]
@@ -9457,477 +9463,1401 @@ LIS3MDL_Process_Status_t lis3mdl_process(LIS3MDL_Device *devices, uint8_t num_of
  8003140:	d101      	bne.n	8003146 <lis3mdl_process+0x5a>
 			return LIS3MDL_PROCESS_WAITING_FOR_SPI_CPLT;
  8003142:	2302      	movs	r3, #2
- 8003144:	e0d4      	b.n	80032f0 <lis3mdl_process+0x204>
+ 8003144:	e117      	b.n	8003376 <lis3mdl_process+0x28a>
 		*spi_cplt_flag = 0;
  8003146:	687b      	ldr	r3, [r7, #4]
  8003148:	2200      	movs	r2, #0
  800314a:	701a      	strb	r2, [r3, #0]
 
 		if(lis3mdl_change_state_due_to_spi_cplt(&devices[dev_index].state) == LIS3MDL_STATE_CHANGE_INVALID_CHANGE)
- 800314c:	4b6a      	ldr	r3, [pc, #424]	@ (80032f8 <lis3mdl_process+0x20c>)
+ 800314c:	4b8c      	ldr	r3, [pc, #560]	@ (8003380 <lis3mdl_process+0x294>)
  800314e:	681b      	ldr	r3, [r3, #0]
  8003150:	001a      	movs	r2, r3
- 8003152:	0013      	movs	r3, r2
- 8003154:	005b      	lsls	r3, r3, #1
- 8003156:	189b      	adds	r3, r3, r2
- 8003158:	011b      	lsls	r3, r3, #4
- 800315a:	001a      	movs	r2, r3
- 800315c:	68fb      	ldr	r3, [r7, #12]
- 800315e:	189b      	adds	r3, r3, r2
- 8003160:	3312      	adds	r3, #18
- 8003162:	0018      	movs	r0, r3
- 8003164:	f000 f8fa 	bl	800335c <lis3mdl_change_state_due_to_spi_cplt>
- 8003168:	0003      	movs	r3, r0
- 800316a:	2b01      	cmp	r3, #1
- 800316c:	d101      	bne.n	8003172 <lis3mdl_process+0x86>
+ 8003152:	232c      	movs	r3, #44	@ 0x2c
+ 8003154:	4353      	muls	r3, r2
+ 8003156:	68fa      	ldr	r2, [r7, #12]
+ 8003158:	18d3      	adds	r3, r2, r3
+ 800315a:	330f      	adds	r3, #15
+ 800315c:	0018      	movs	r0, r3
+ 800315e:	f000 fbf9 	bl	8003954 <lis3mdl_change_state_due_to_spi_cplt>
+ 8003162:	0003      	movs	r3, r0
+ 8003164:	2b01      	cmp	r3, #1
+ 8003166:	d101      	bne.n	800316c <lis3mdl_process+0x80>
 			return LIS3MDL_PROCESS_ERROR;
- 800316e:	2303      	movs	r3, #3
- 8003170:	e0be      	b.n	80032f0 <lis3mdl_process+0x204>
+ 8003168:	2303      	movs	r3, #3
+ 800316a:	e104      	b.n	8003376 <lis3mdl_process+0x28a>
 
 		if(devices[dev_index].state != LIS3MDL_WRITING_DATA && devices[dev_index].state != LIS3MDL_READING_DATA)
- 8003172:	4b61      	ldr	r3, [pc, #388]	@ (80032f8 <lis3mdl_process+0x20c>)
- 8003174:	681b      	ldr	r3, [r3, #0]
- 8003176:	001a      	movs	r2, r3
- 8003178:	0013      	movs	r3, r2
- 800317a:	005b      	lsls	r3, r3, #1
- 800317c:	189b      	adds	r3, r3, r2
- 800317e:	011b      	lsls	r3, r3, #4
- 8003180:	001a      	movs	r2, r3
- 8003182:	68fb      	ldr	r3, [r7, #12]
- 8003184:	189b      	adds	r3, r3, r2
- 8003186:	7c9b      	ldrb	r3, [r3, #18]
- 8003188:	2b07      	cmp	r3, #7
- 800318a:	d024      	beq.n	80031d6 <lis3mdl_process+0xea>
- 800318c:	4b5a      	ldr	r3, [pc, #360]	@ (80032f8 <lis3mdl_process+0x20c>)
- 800318e:	681b      	ldr	r3, [r3, #0]
- 8003190:	001a      	movs	r2, r3
- 8003192:	0013      	movs	r3, r2
- 8003194:	005b      	lsls	r3, r3, #1
- 8003196:	189b      	adds	r3, r3, r2
- 8003198:	011b      	lsls	r3, r3, #4
- 800319a:	001a      	movs	r2, r3
- 800319c:	68fb      	ldr	r3, [r7, #12]
- 800319e:	189b      	adds	r3, r3, r2
- 80031a0:	7c9b      	ldrb	r3, [r3, #18]
- 80031a2:	2b06      	cmp	r3, #6
- 80031a4:	d017      	beq.n	80031d6 <lis3mdl_process+0xea>
+ 800316c:	4b84      	ldr	r3, [pc, #528]	@ (8003380 <lis3mdl_process+0x294>)
+ 800316e:	681b      	ldr	r3, [r3, #0]
+ 8003170:	001a      	movs	r2, r3
+ 8003172:	232c      	movs	r3, #44	@ 0x2c
+ 8003174:	4353      	muls	r3, r2
+ 8003176:	68fa      	ldr	r2, [r7, #12]
+ 8003178:	18d3      	adds	r3, r2, r3
+ 800317a:	7bdb      	ldrb	r3, [r3, #15]
+ 800317c:	2b07      	cmp	r3, #7
+ 800317e:	d01b      	beq.n	80031b8 <lis3mdl_process+0xcc>
+ 8003180:	4b7f      	ldr	r3, [pc, #508]	@ (8003380 <lis3mdl_process+0x294>)
+ 8003182:	681b      	ldr	r3, [r3, #0]
+ 8003184:	001a      	movs	r2, r3
+ 8003186:	232c      	movs	r3, #44	@ 0x2c
+ 8003188:	4353      	muls	r3, r2
+ 800318a:	68fa      	ldr	r2, [r7, #12]
+ 800318c:	18d3      	adds	r3, r2, r3
+ 800318e:	7bdb      	ldrb	r3, [r3, #15]
+ 8003190:	2b06      	cmp	r3, #6
+ 8003192:	d011      	beq.n	80031b8 <lis3mdl_process+0xcc>
 			devices[dev_index].cs_gpio_port_handle->BSRR = devices[dev_index].cs_pin; // Pulling CS High
- 80031a6:	4b54      	ldr	r3, [pc, #336]	@ (80032f8 <lis3mdl_process+0x20c>)
- 80031a8:	681b      	ldr	r3, [r3, #0]
- 80031aa:	001a      	movs	r2, r3
- 80031ac:	0013      	movs	r3, r2
- 80031ae:	005b      	lsls	r3, r3, #1
- 80031b0:	189b      	adds	r3, r3, r2
- 80031b2:	011b      	lsls	r3, r3, #4
- 80031b4:	001a      	movs	r2, r3
- 80031b6:	68fb      	ldr	r3, [r7, #12]
- 80031b8:	189b      	adds	r3, r3, r2
- 80031ba:	8d19      	ldrh	r1, [r3, #40]	@ 0x28
- 80031bc:	4b4e      	ldr	r3, [pc, #312]	@ (80032f8 <lis3mdl_process+0x20c>)
- 80031be:	681b      	ldr	r3, [r3, #0]
- 80031c0:	001a      	movs	r2, r3
- 80031c2:	0013      	movs	r3, r2
- 80031c4:	005b      	lsls	r3, r3, #1
- 80031c6:	189b      	adds	r3, r3, r2
- 80031c8:	011b      	lsls	r3, r3, #4
- 80031ca:	001a      	movs	r2, r3
- 80031cc:	68fb      	ldr	r3, [r7, #12]
- 80031ce:	189b      	adds	r3, r3, r2
- 80031d0:	6a5b      	ldr	r3, [r3, #36]	@ 0x24
- 80031d2:	000a      	movs	r2, r1
- 80031d4:	619a      	str	r2, [r3, #24]
+ 8003194:	4b7a      	ldr	r3, [pc, #488]	@ (8003380 <lis3mdl_process+0x294>)
+ 8003196:	681b      	ldr	r3, [r3, #0]
+ 8003198:	001a      	movs	r2, r3
+ 800319a:	232c      	movs	r3, #44	@ 0x2c
+ 800319c:	4353      	muls	r3, r2
+ 800319e:	68fa      	ldr	r2, [r7, #12]
+ 80031a0:	18d3      	adds	r3, r2, r3
+ 80031a2:	8c99      	ldrh	r1, [r3, #36]	@ 0x24
+ 80031a4:	4b76      	ldr	r3, [pc, #472]	@ (8003380 <lis3mdl_process+0x294>)
+ 80031a6:	681b      	ldr	r3, [r3, #0]
+ 80031a8:	001a      	movs	r2, r3
+ 80031aa:	232c      	movs	r3, #44	@ 0x2c
+ 80031ac:	4353      	muls	r3, r2
+ 80031ae:	68fa      	ldr	r2, [r7, #12]
+ 80031b0:	18d3      	adds	r3, r2, r3
+ 80031b2:	6a1b      	ldr	r3, [r3, #32]
+ 80031b4:	000a      	movs	r2, r1
+ 80031b6:	619a      	str	r2, [r3, #24]
 
 		spi_transaction_started = 0;
- 80031d6:	4b49      	ldr	r3, [pc, #292]	@ (80032fc <lis3mdl_process+0x210>)
- 80031d8:	2200      	movs	r2, #0
- 80031da:	701a      	strb	r2, [r3, #0]
+ 80031b8:	4b72      	ldr	r3, [pc, #456]	@ (8003384 <lis3mdl_process+0x298>)
+ 80031ba:	2200      	movs	r2, #0
+ 80031bc:	701a      	strb	r2, [r3, #0]
 		dev_index = 0;
- 80031dc:	4b46      	ldr	r3, [pc, #280]	@ (80032f8 <lis3mdl_process+0x20c>)
- 80031de:	2200      	movs	r2, #0
- 80031e0:	601a      	str	r2, [r3, #0]
+ 80031be:	4b70      	ldr	r3, [pc, #448]	@ (8003380 <lis3mdl_process+0x294>)
+ 80031c0:	2200      	movs	r2, #0
+ 80031c2:	601a      	str	r2, [r3, #0]
 		return LIS3MDL_PROCESS_OK;
- 80031e2:	2300      	movs	r3, #0
- 80031e4:	e084      	b.n	80032f0 <lis3mdl_process+0x204>
+ 80031c4:	2300      	movs	r3, #0
+ 80031c6:	e0d6      	b.n	8003376 <lis3mdl_process+0x28a>
 	}
 
 	// If spi_transaction was not started
 	devices[dev_index].cs_gpio_port_handle->BSRR = (devices[dev_index].cs_pin) << 16; // Pulling CS Low
- 80031e6:	4b44      	ldr	r3, [pc, #272]	@ (80032f8 <lis3mdl_process+0x20c>)
- 80031e8:	681b      	ldr	r3, [r3, #0]
- 80031ea:	001a      	movs	r2, r3
- 80031ec:	0013      	movs	r3, r2
- 80031ee:	005b      	lsls	r3, r3, #1
- 80031f0:	189b      	adds	r3, r3, r2
- 80031f2:	011b      	lsls	r3, r3, #4
- 80031f4:	001a      	movs	r2, r3
- 80031f6:	68fb      	ldr	r3, [r7, #12]
- 80031f8:	189b      	adds	r3, r3, r2
- 80031fa:	8d1b      	ldrh	r3, [r3, #40]	@ 0x28
- 80031fc:	0019      	movs	r1, r3
- 80031fe:	4b3e      	ldr	r3, [pc, #248]	@ (80032f8 <lis3mdl_process+0x20c>)
- 8003200:	681b      	ldr	r3, [r3, #0]
- 8003202:	001a      	movs	r2, r3
- 8003204:	0013      	movs	r3, r2
- 8003206:	005b      	lsls	r3, r3, #1
- 8003208:	189b      	adds	r3, r3, r2
- 800320a:	011b      	lsls	r3, r3, #4
- 800320c:	001a      	movs	r2, r3
- 800320e:	68fb      	ldr	r3, [r7, #12]
- 8003210:	189b      	adds	r3, r3, r2
- 8003212:	6a5b      	ldr	r3, [r3, #36]	@ 0x24
- 8003214:	040a      	lsls	r2, r1, #16
- 8003216:	619a      	str	r2, [r3, #24]
+ 80031c8:	4b6d      	ldr	r3, [pc, #436]	@ (8003380 <lis3mdl_process+0x294>)
+ 80031ca:	681b      	ldr	r3, [r3, #0]
+ 80031cc:	001a      	movs	r2, r3
+ 80031ce:	232c      	movs	r3, #44	@ 0x2c
+ 80031d0:	4353      	muls	r3, r2
+ 80031d2:	68fa      	ldr	r2, [r7, #12]
+ 80031d4:	18d3      	adds	r3, r2, r3
+ 80031d6:	8c9b      	ldrh	r3, [r3, #36]	@ 0x24
+ 80031d8:	0019      	movs	r1, r3
+ 80031da:	4b69      	ldr	r3, [pc, #420]	@ (8003380 <lis3mdl_process+0x294>)
+ 80031dc:	681b      	ldr	r3, [r3, #0]
+ 80031de:	001a      	movs	r2, r3
+ 80031e0:	232c      	movs	r3, #44	@ 0x2c
+ 80031e2:	4353      	muls	r3, r2
+ 80031e4:	68fa      	ldr	r2, [r7, #12]
+ 80031e6:	18d3      	adds	r3, r2, r3
+ 80031e8:	6a1b      	ldr	r3, [r3, #32]
+ 80031ea:	040a      	lsls	r2, r1, #16
+ 80031ec:	619a      	str	r2, [r3, #24]
 	spi_transaction_started = 1;
- 8003218:	4b38      	ldr	r3, [pc, #224]	@ (80032fc <lis3mdl_process+0x210>)
- 800321a:	2201      	movs	r2, #1
- 800321c:	701a      	strb	r2, [r3, #0]
+ 80031ee:	4b65      	ldr	r3, [pc, #404]	@ (8003384 <lis3mdl_process+0x298>)
+ 80031f0:	2201      	movs	r2, #1
+ 80031f2:	701a      	strb	r2, [r3, #0]
 	switch(devices[dev_index].state){
- 800321e:	4b36      	ldr	r3, [pc, #216]	@ (80032f8 <lis3mdl_process+0x20c>)
- 8003220:	681b      	ldr	r3, [r3, #0]
- 8003222:	001a      	movs	r2, r3
- 8003224:	0013      	movs	r3, r2
- 8003226:	005b      	lsls	r3, r3, #1
- 8003228:	189b      	adds	r3, r3, r2
- 800322a:	011b      	lsls	r3, r3, #4
- 800322c:	001a      	movs	r2, r3
- 800322e:	68fb      	ldr	r3, [r7, #12]
- 8003230:	189b      	adds	r3, r3, r2
- 8003232:	7c9b      	ldrb	r3, [r3, #18]
- 8003234:	2b07      	cmp	r3, #7
- 8003236:	d85a      	bhi.n	80032ee <lis3mdl_process+0x202>
- 8003238:	009a      	lsls	r2, r3, #2
- 800323a:	4b31      	ldr	r3, [pc, #196]	@ (8003300 <lis3mdl_process+0x214>)
- 800323c:	18d3      	adds	r3, r2, r3
- 800323e:	681b      	ldr	r3, [r3, #0]
- 8003240:	469f      	mov	pc, r3
+ 80031f4:	4b62      	ldr	r3, [pc, #392]	@ (8003380 <lis3mdl_process+0x294>)
+ 80031f6:	681b      	ldr	r3, [r3, #0]
+ 80031f8:	001a      	movs	r2, r3
+ 80031fa:	232c      	movs	r3, #44	@ 0x2c
+ 80031fc:	4353      	muls	r3, r2
+ 80031fe:	68fa      	ldr	r2, [r7, #12]
+ 8003200:	18d3      	adds	r3, r2, r3
+ 8003202:	7bdb      	ldrb	r3, [r3, #15]
+ 8003204:	2b07      	cmp	r3, #7
+ 8003206:	d900      	bls.n	800320a <lis3mdl_process+0x11e>
+ 8003208:	e0b4      	b.n	8003374 <lis3mdl_process+0x288>
+ 800320a:	009a      	lsls	r2, r3, #2
+ 800320c:	4b5e      	ldr	r3, [pc, #376]	@ (8003388 <lis3mdl_process+0x29c>)
+ 800320e:	18d3      	adds	r3, r2, r3
+ 8003210:	681b      	ldr	r3, [r3, #0]
+ 8003212:	469f      	mov	pc, r3
 	case LIS3MDL_INITIALIZING_OFFSET_REGS:
-		// Start the SPI DMA for setting offsets
+		uint8_t tx_offsets[7];
+		tx_offsets[0] = LIS3MDL_OFFSET_X_REG_L_M_ADDR | LIS3MDL_MD_BIT;
+ 8003214:	2420      	movs	r4, #32
+ 8003216:	193b      	adds	r3, r7, r4
+ 8003218:	2245      	movs	r2, #69	@ 0x45
+ 800321a:	701a      	strb	r2, [r3, #0]
+		memcpy(tx_offsets + 1, devices[dev_index].config_regs.offsets, 6);
+ 800321c:	193b      	adds	r3, r7, r4
+ 800321e:	3301      	adds	r3, #1
+ 8003220:	4a57      	ldr	r2, [pc, #348]	@ (8003380 <lis3mdl_process+0x294>)
+ 8003222:	6812      	ldr	r2, [r2, #0]
+ 8003224:	0011      	movs	r1, r2
+ 8003226:	222c      	movs	r2, #44	@ 0x2c
+ 8003228:	434a      	muls	r2, r1
+ 800322a:	68f9      	ldr	r1, [r7, #12]
+ 800322c:	188a      	adds	r2, r1, r2
+ 800322e:	0011      	movs	r1, r2
+ 8003230:	2206      	movs	r2, #6
+ 8003232:	0018      	movs	r0, r3
+ 8003234:	f000 fbec 	bl	8003a10 <memcpy>
+		if(HAL_SPI_Transmit_DMA(devices[dev_index].hspi,tx_offsets, 7) != HAL_OK)
+ 8003238:	4b51      	ldr	r3, [pc, #324]	@ (8003380 <lis3mdl_process+0x294>)
+ 800323a:	681b      	ldr	r3, [r3, #0]
+ 800323c:	001a      	movs	r2, r3
+ 800323e:	232c      	movs	r3, #44	@ 0x2c
+ 8003240:	4353      	muls	r3, r2
+ 8003242:	68fa      	ldr	r2, [r7, #12]
+ 8003244:	18d3      	adds	r3, r2, r3
+ 8003246:	6a9b      	ldr	r3, [r3, #40]	@ 0x28
+ 8003248:	1939      	adds	r1, r7, r4
+ 800324a:	2207      	movs	r2, #7
+ 800324c:	0018      	movs	r0, r3
+ 800324e:	f7fe ff0d 	bl	800206c <HAL_SPI_Transmit_DMA>
+ 8003252:	1e03      	subs	r3, r0, #0
+ 8003254:	d001      	beq.n	800325a <lis3mdl_process+0x16e>
+			return LIS3MDL_PROCESS_ERROR;
+ 8003256:	2303      	movs	r3, #3
+ 8003258:	e08d      	b.n	8003376 <lis3mdl_process+0x28a>
 		return LIS3MDL_PROCESS_OK;
- 8003242:	2300      	movs	r3, #0
- 8003244:	e054      	b.n	80032f0 <lis3mdl_process+0x204>
+ 800325a:	2300      	movs	r3, #0
+ 800325c:	e08b      	b.n	8003376 <lis3mdl_process+0x28a>
+
 	case LIS3MDL_INITIALIZING_CTRL_REGS:
-		// Start the SPI DMA for setting CTRL regs
+		uint8_t tx_ctrls[6];
+		tx_ctrls[0] = LIS3MDL_CTRL_REG1_ADDR | LIS3MDL_MD_BIT;
+ 800325e:	2418      	movs	r4, #24
+ 8003260:	193b      	adds	r3, r7, r4
+ 8003262:	2260      	movs	r2, #96	@ 0x60
+ 8003264:	701a      	strb	r2, [r3, #0]
+		memcpy(tx_ctrls + 1, devices[dev_index].config_regs.ctrls, 5);
+ 8003266:	193b      	adds	r3, r7, r4
+ 8003268:	3301      	adds	r3, #1
+ 800326a:	4a45      	ldr	r2, [pc, #276]	@ (8003380 <lis3mdl_process+0x294>)
+ 800326c:	6812      	ldr	r2, [r2, #0]
+ 800326e:	0011      	movs	r1, r2
+ 8003270:	222c      	movs	r2, #44	@ 0x2c
+ 8003272:	434a      	muls	r2, r1
+ 8003274:	68f9      	ldr	r1, [r7, #12]
+ 8003276:	188a      	adds	r2, r1, r2
+ 8003278:	1d91      	adds	r1, r2, #6
+ 800327a:	2205      	movs	r2, #5
+ 800327c:	0018      	movs	r0, r3
+ 800327e:	f000 fbc7 	bl	8003a10 <memcpy>
+		if(HAL_SPI_Transmit_DMA(devices[dev_index].hspi,tx_ctrls, 6) != HAL_OK)
+ 8003282:	4b3f      	ldr	r3, [pc, #252]	@ (8003380 <lis3mdl_process+0x294>)
+ 8003284:	681b      	ldr	r3, [r3, #0]
+ 8003286:	001a      	movs	r2, r3
+ 8003288:	232c      	movs	r3, #44	@ 0x2c
+ 800328a:	4353      	muls	r3, r2
+ 800328c:	68fa      	ldr	r2, [r7, #12]
+ 800328e:	18d3      	adds	r3, r2, r3
+ 8003290:	6a9b      	ldr	r3, [r3, #40]	@ 0x28
+ 8003292:	1939      	adds	r1, r7, r4
+ 8003294:	2206      	movs	r2, #6
+ 8003296:	0018      	movs	r0, r3
+ 8003298:	f7fe fee8 	bl	800206c <HAL_SPI_Transmit_DMA>
+ 800329c:	1e03      	subs	r3, r0, #0
+ 800329e:	d001      	beq.n	80032a4 <lis3mdl_process+0x1b8>
+			return LIS3MDL_PROCESS_ERROR;
+ 80032a0:	2303      	movs	r3, #3
+ 80032a2:	e068      	b.n	8003376 <lis3mdl_process+0x28a>
 		return LIS3MDL_PROCESS_OK;
- 8003246:	2300      	movs	r3, #0
- 8003248:	e052      	b.n	80032f0 <lis3mdl_process+0x204>
+ 80032a4:	2300      	movs	r3, #0
+ 80032a6:	e066      	b.n	8003376 <lis3mdl_process+0x28a>
+
 	case LIS3MDL_INITIALIZING_INT_REGS:
-		// Start the SPI DMA for setting INT regs
+		uint8_t tx_ints[5];
+		tx_ints[0] = LIS3MDL_INT_CFG_REG_ADDR| LIS3MDL_MD_BIT;
+ 80032a8:	2410      	movs	r4, #16
+ 80032aa:	193b      	adds	r3, r7, r4
+ 80032ac:	2270      	movs	r2, #112	@ 0x70
+ 80032ae:	701a      	strb	r2, [r3, #0]
+		memcpy(tx_ints + 1, devices[dev_index].config_regs.ints, 4);
+ 80032b0:	193b      	adds	r3, r7, r4
+ 80032b2:	3301      	adds	r3, #1
+ 80032b4:	4a32      	ldr	r2, [pc, #200]	@ (8003380 <lis3mdl_process+0x294>)
+ 80032b6:	6812      	ldr	r2, [r2, #0]
+ 80032b8:	0011      	movs	r1, r2
+ 80032ba:	222c      	movs	r2, #44	@ 0x2c
+ 80032bc:	434a      	muls	r2, r1
+ 80032be:	68f9      	ldr	r1, [r7, #12]
+ 80032c0:	188a      	adds	r2, r1, r2
+ 80032c2:	320b      	adds	r2, #11
+ 80032c4:	0011      	movs	r1, r2
+ 80032c6:	2204      	movs	r2, #4
+ 80032c8:	0018      	movs	r0, r3
+ 80032ca:	f000 fba1 	bl	8003a10 <memcpy>
+		if(HAL_SPI_Transmit_DMA(devices[dev_index].hspi,tx_ints, 5) != HAL_OK)
+ 80032ce:	4b2c      	ldr	r3, [pc, #176]	@ (8003380 <lis3mdl_process+0x294>)
+ 80032d0:	681b      	ldr	r3, [r3, #0]
+ 80032d2:	001a      	movs	r2, r3
+ 80032d4:	232c      	movs	r3, #44	@ 0x2c
+ 80032d6:	4353      	muls	r3, r2
+ 80032d8:	68fa      	ldr	r2, [r7, #12]
+ 80032da:	18d3      	adds	r3, r2, r3
+ 80032dc:	6a9b      	ldr	r3, [r3, #40]	@ 0x28
+ 80032de:	1939      	adds	r1, r7, r4
+ 80032e0:	2205      	movs	r2, #5
+ 80032e2:	0018      	movs	r0, r3
+ 80032e4:	f7fe fec2 	bl	800206c <HAL_SPI_Transmit_DMA>
+ 80032e8:	1e03      	subs	r3, r0, #0
+ 80032ea:	d001      	beq.n	80032f0 <lis3mdl_process+0x204>
+			return LIS3MDL_PROCESS_ERROR;
+ 80032ec:	2303      	movs	r3, #3
+ 80032ee:	e042      	b.n	8003376 <lis3mdl_process+0x28a>
 		return LIS3MDL_PROCESS_OK;
- 800324a:	2300      	movs	r3, #0
- 800324c:	e050      	b.n	80032f0 <lis3mdl_process+0x204>
+ 80032f0:	2300      	movs	r3, #0
+ 80032f2:	e040      	b.n	8003376 <lis3mdl_process+0x28a>
+
 	case LIS3MDL_SENDING_ADDRESS_TO_WRITE_TO:
 		// Start the SPI DMA
 		return LIS3MDL_PROCESS_OK;
- 800324e:	2300      	movs	r3, #0
- 8003250:	e04e      	b.n	80032f0 <lis3mdl_process+0x204>
+ 80032f4:	2300      	movs	r3, #0
+ 80032f6:	e03e      	b.n	8003376 <lis3mdl_process+0x28a>
+
 	case LIS3MDL_SENDING_ADDRESS_TO_READ_FROM:
 		if(HAL_SPI_Transmit_DMA(devices[dev_index].hspi,&devices[dev_index].reg_addr, 1) != HAL_OK)
- 8003252:	4b29      	ldr	r3, [pc, #164]	@ (80032f8 <lis3mdl_process+0x20c>)
- 8003254:	681b      	ldr	r3, [r3, #0]
- 8003256:	001a      	movs	r2, r3
- 8003258:	0013      	movs	r3, r2
- 800325a:	005b      	lsls	r3, r3, #1
- 800325c:	189b      	adds	r3, r3, r2
- 800325e:	011b      	lsls	r3, r3, #4
- 8003260:	001a      	movs	r2, r3
- 8003262:	68fb      	ldr	r3, [r7, #12]
- 8003264:	189b      	adds	r3, r3, r2
- 8003266:	6ad8      	ldr	r0, [r3, #44]	@ 0x2c
- 8003268:	4b23      	ldr	r3, [pc, #140]	@ (80032f8 <lis3mdl_process+0x20c>)
- 800326a:	681b      	ldr	r3, [r3, #0]
- 800326c:	001a      	movs	r2, r3
- 800326e:	0013      	movs	r3, r2
- 8003270:	005b      	lsls	r3, r3, #1
- 8003272:	189b      	adds	r3, r3, r2
- 8003274:	011b      	lsls	r3, r3, #4
- 8003276:	001a      	movs	r2, r3
- 8003278:	68fb      	ldr	r3, [r7, #12]
- 800327a:	189b      	adds	r3, r3, r2
- 800327c:	3313      	adds	r3, #19
- 800327e:	2201      	movs	r2, #1
- 8003280:	0019      	movs	r1, r3
- 8003282:	f7fe fef3 	bl	800206c <HAL_SPI_Transmit_DMA>
- 8003286:	1e03      	subs	r3, r0, #0
- 8003288:	d001      	beq.n	800328e <lis3mdl_process+0x1a2>
+ 80032f8:	4b21      	ldr	r3, [pc, #132]	@ (8003380 <lis3mdl_process+0x294>)
+ 80032fa:	681b      	ldr	r3, [r3, #0]
+ 80032fc:	001a      	movs	r2, r3
+ 80032fe:	232c      	movs	r3, #44	@ 0x2c
+ 8003300:	4353      	muls	r3, r2
+ 8003302:	68fa      	ldr	r2, [r7, #12]
+ 8003304:	18d3      	adds	r3, r2, r3
+ 8003306:	6a98      	ldr	r0, [r3, #40]	@ 0x28
+ 8003308:	4b1d      	ldr	r3, [pc, #116]	@ (8003380 <lis3mdl_process+0x294>)
+ 800330a:	681b      	ldr	r3, [r3, #0]
+ 800330c:	001a      	movs	r2, r3
+ 800330e:	232c      	movs	r3, #44	@ 0x2c
+ 8003310:	4353      	muls	r3, r2
+ 8003312:	68fa      	ldr	r2, [r7, #12]
+ 8003314:	18d3      	adds	r3, r2, r3
+ 8003316:	3310      	adds	r3, #16
+ 8003318:	2201      	movs	r2, #1
+ 800331a:	0019      	movs	r1, r3
+ 800331c:	f7fe fea6 	bl	800206c <HAL_SPI_Transmit_DMA>
+ 8003320:	1e03      	subs	r3, r0, #0
+ 8003322:	d001      	beq.n	8003328 <lis3mdl_process+0x23c>
 			return LIS3MDL_PROCESS_ERROR;
- 800328a:	2303      	movs	r3, #3
- 800328c:	e030      	b.n	80032f0 <lis3mdl_process+0x204>
+ 8003324:	2303      	movs	r3, #3
+ 8003326:	e026      	b.n	8003376 <lis3mdl_process+0x28a>
 		return LIS3MDL_PROCESS_OK;
- 800328e:	2300      	movs	r3, #0
- 8003290:	e02e      	b.n	80032f0 <lis3mdl_process+0x204>
+ 8003328:	2300      	movs	r3, #0
+ 800332a:	e024      	b.n	8003376 <lis3mdl_process+0x28a>
+
 	case LIS3MDL_WRITING_DATA:
 		// Start the SPI DMA
 		return LIS3MDL_PROCESS_OK;
- 8003292:	2300      	movs	r3, #0
- 8003294:	e02c      	b.n	80032f0 <lis3mdl_process+0x204>
+ 800332c:	2300      	movs	r3, #0
+ 800332e:	e022      	b.n	8003376 <lis3mdl_process+0x28a>
+
 	case LIS3MDL_READING_DATA:
 		if(HAL_SPI_Receive_DMA(devices[dev_index].hspi,devices[dev_index].rx, devices[dev_index].data_size) != HAL_OK)
- 8003296:	4b18      	ldr	r3, [pc, #96]	@ (80032f8 <lis3mdl_process+0x20c>)
- 8003298:	681b      	ldr	r3, [r3, #0]
- 800329a:	001a      	movs	r2, r3
- 800329c:	0013      	movs	r3, r2
- 800329e:	005b      	lsls	r3, r3, #1
- 80032a0:	189b      	adds	r3, r3, r2
- 80032a2:	011b      	lsls	r3, r3, #4
- 80032a4:	001a      	movs	r2, r3
- 80032a6:	68fb      	ldr	r3, [r7, #12]
- 80032a8:	189b      	adds	r3, r3, r2
- 80032aa:	6ad8      	ldr	r0, [r3, #44]	@ 0x2c
- 80032ac:	4b12      	ldr	r3, [pc, #72]	@ (80032f8 <lis3mdl_process+0x20c>)
- 80032ae:	681b      	ldr	r3, [r3, #0]
- 80032b0:	001a      	movs	r2, r3
- 80032b2:	0013      	movs	r3, r2
- 80032b4:	005b      	lsls	r3, r3, #1
- 80032b6:	189b      	adds	r3, r3, r2
- 80032b8:	011b      	lsls	r3, r3, #4
- 80032ba:	001a      	movs	r2, r3
- 80032bc:	68fb      	ldr	r3, [r7, #12]
- 80032be:	189b      	adds	r3, r3, r2
- 80032c0:	331a      	adds	r3, #26
- 80032c2:	0019      	movs	r1, r3
- 80032c4:	4b0c      	ldr	r3, [pc, #48]	@ (80032f8 <lis3mdl_process+0x20c>)
- 80032c6:	681b      	ldr	r3, [r3, #0]
- 80032c8:	001a      	movs	r2, r3
- 80032ca:	0013      	movs	r3, r2
- 80032cc:	005b      	lsls	r3, r3, #1
- 80032ce:	189b      	adds	r3, r3, r2
- 80032d0:	011b      	lsls	r3, r3, #4
- 80032d2:	001a      	movs	r2, r3
- 80032d4:	68fb      	ldr	r3, [r7, #12]
- 80032d6:	189b      	adds	r3, r3, r2
- 80032d8:	2220      	movs	r2, #32
- 80032da:	5c9b      	ldrb	r3, [r3, r2]
- 80032dc:	001a      	movs	r2, r3
- 80032de:	f7fe ff7b 	bl	80021d8 <HAL_SPI_Receive_DMA>
- 80032e2:	1e03      	subs	r3, r0, #0
- 80032e4:	d001      	beq.n	80032ea <lis3mdl_process+0x1fe>
+ 8003330:	4b13      	ldr	r3, [pc, #76]	@ (8003380 <lis3mdl_process+0x294>)
+ 8003332:	681b      	ldr	r3, [r3, #0]
+ 8003334:	001a      	movs	r2, r3
+ 8003336:	232c      	movs	r3, #44	@ 0x2c
+ 8003338:	4353      	muls	r3, r2
+ 800333a:	68fa      	ldr	r2, [r7, #12]
+ 800333c:	18d3      	adds	r3, r2, r3
+ 800333e:	6a98      	ldr	r0, [r3, #40]	@ 0x28
+ 8003340:	4b0f      	ldr	r3, [pc, #60]	@ (8003380 <lis3mdl_process+0x294>)
+ 8003342:	681b      	ldr	r3, [r3, #0]
+ 8003344:	001a      	movs	r2, r3
+ 8003346:	232c      	movs	r3, #44	@ 0x2c
+ 8003348:	4353      	muls	r3, r2
+ 800334a:	68fa      	ldr	r2, [r7, #12]
+ 800334c:	18d3      	adds	r3, r2, r3
+ 800334e:	3317      	adds	r3, #23
+ 8003350:	0019      	movs	r1, r3
+ 8003352:	4b0b      	ldr	r3, [pc, #44]	@ (8003380 <lis3mdl_process+0x294>)
+ 8003354:	681b      	ldr	r3, [r3, #0]
+ 8003356:	001a      	movs	r2, r3
+ 8003358:	232c      	movs	r3, #44	@ 0x2c
+ 800335a:	4353      	muls	r3, r2
+ 800335c:	68fa      	ldr	r2, [r7, #12]
+ 800335e:	18d3      	adds	r3, r2, r3
+ 8003360:	7f5b      	ldrb	r3, [r3, #29]
+ 8003362:	001a      	movs	r2, r3
+ 8003364:	f7fe ff38 	bl	80021d8 <HAL_SPI_Receive_DMA>
+ 8003368:	1e03      	subs	r3, r0, #0
+ 800336a:	d001      	beq.n	8003370 <lis3mdl_process+0x284>
 			return LIS3MDL_PROCESS_ERROR;
- 80032e6:	2303      	movs	r3, #3
- 80032e8:	e002      	b.n	80032f0 <lis3mdl_process+0x204>
+ 800336c:	2303      	movs	r3, #3
+ 800336e:	e002      	b.n	8003376 <lis3mdl_process+0x28a>
 		return LIS3MDL_PROCESS_OK;
- 80032ea:	2300      	movs	r3, #0
- 80032ec:	e000      	b.n	80032f0 <lis3mdl_process+0x204>
+ 8003370:	2300      	movs	r3, #0
+ 8003372:	e000      	b.n	8003376 <lis3mdl_process+0x28a>
+
 	default:
 		return LIS3MDL_PROCESS_ERROR;
- 80032ee:	2303      	movs	r3, #3
+ 8003374:	2303      	movs	r3, #3
 	}
 
 	return LIS3MDL_PROCESS_ERROR;
 }
- 80032f0:	0018      	movs	r0, r3
- 80032f2:	46bd      	mov	sp, r7
- 80032f4:	b004      	add	sp, #16
- 80032f6:	bd80      	pop	{r7, pc}
- 80032f8:	20000168 	.word	0x20000168
- 80032fc:	2000016c 	.word	0x2000016c
- 8003300:	0800344c 	.word	0x0800344c
+ 8003376:	0018      	movs	r0, r3
+ 8003378:	46bd      	mov	sp, r7
+ 800337a:	b00b      	add	sp, #44	@ 0x2c
+ 800337c:	bd90      	pop	{r4, r7, pc}
+ 800337e:	46c0      	nop			@ (mov r8, r8)
+ 8003380:	20000168 	.word	0x20000168
+ 8003384:	2000016c 	.word	0x2000016c
+ 8003388:	08003a58 	.word	0x08003a58
 
-08003304 <get_first_non_idling_device_index>:
+0800338c <get_first_non_idling_device_index>:
 
 int get_first_non_idling_device_index(LIS3MDL_Device *devices, uint8_t num_of_devices){
- 8003304:	b580      	push	{r7, lr}
- 8003306:	b084      	sub	sp, #16
- 8003308:	af00      	add	r7, sp, #0
- 800330a:	6078      	str	r0, [r7, #4]
- 800330c:	000a      	movs	r2, r1
- 800330e:	1cfb      	adds	r3, r7, #3
- 8003310:	701a      	strb	r2, [r3, #0]
+ 800338c:	b580      	push	{r7, lr}
+ 800338e:	b084      	sub	sp, #16
+ 8003390:	af00      	add	r7, sp, #0
+ 8003392:	6078      	str	r0, [r7, #4]
+ 8003394:	000a      	movs	r2, r1
+ 8003396:	1cfb      	adds	r3, r7, #3
+ 8003398:	701a      	strb	r2, [r3, #0]
 	if(devices == NULL)
- 8003312:	687b      	ldr	r3, [r7, #4]
- 8003314:	2b00      	cmp	r3, #0
- 8003316:	d102      	bne.n	800331e <get_first_non_idling_device_index+0x1a>
+ 800339a:	687b      	ldr	r3, [r7, #4]
+ 800339c:	2b00      	cmp	r3, #0
+ 800339e:	d102      	bne.n	80033a6 <get_first_non_idling_device_index+0x1a>
 		return -1;
- 8003318:	2301      	movs	r3, #1
- 800331a:	425b      	negs	r3, r3
- 800331c:	e019      	b.n	8003352 <get_first_non_idling_device_index+0x4e>
+ 80033a0:	2301      	movs	r3, #1
+ 80033a2:	425b      	negs	r3, r3
+ 80033a4:	e016      	b.n	80033d4 <get_first_non_idling_device_index+0x48>
 
 	for(int i=0; i<num_of_devices; i++){
- 800331e:	2300      	movs	r3, #0
- 8003320:	60fb      	str	r3, [r7, #12]
- 8003322:	e00f      	b.n	8003344 <get_first_non_idling_device_index+0x40>
+ 80033a6:	2300      	movs	r3, #0
+ 80033a8:	60fb      	str	r3, [r7, #12]
+ 80033aa:	e00c      	b.n	80033c6 <get_first_non_idling_device_index+0x3a>
 		if(devices[i].state != LIS3MDL_IDLE)
- 8003324:	68fa      	ldr	r2, [r7, #12]
- 8003326:	0013      	movs	r3, r2
- 8003328:	005b      	lsls	r3, r3, #1
- 800332a:	189b      	adds	r3, r3, r2
- 800332c:	011b      	lsls	r3, r3, #4
- 800332e:	001a      	movs	r2, r3
- 8003330:	687b      	ldr	r3, [r7, #4]
- 8003332:	189b      	adds	r3, r3, r2
- 8003334:	7c9b      	ldrb	r3, [r3, #18]
- 8003336:	2b03      	cmp	r3, #3
- 8003338:	d001      	beq.n	800333e <get_first_non_idling_device_index+0x3a>
+ 80033ac:	68fb      	ldr	r3, [r7, #12]
+ 80033ae:	222c      	movs	r2, #44	@ 0x2c
+ 80033b0:	4353      	muls	r3, r2
+ 80033b2:	687a      	ldr	r2, [r7, #4]
+ 80033b4:	18d3      	adds	r3, r2, r3
+ 80033b6:	7bdb      	ldrb	r3, [r3, #15]
+ 80033b8:	2b03      	cmp	r3, #3
+ 80033ba:	d001      	beq.n	80033c0 <get_first_non_idling_device_index+0x34>
 			return i;
- 800333a:	68fb      	ldr	r3, [r7, #12]
- 800333c:	e009      	b.n	8003352 <get_first_non_idling_device_index+0x4e>
+ 80033bc:	68fb      	ldr	r3, [r7, #12]
+ 80033be:	e009      	b.n	80033d4 <get_first_non_idling_device_index+0x48>
 	for(int i=0; i<num_of_devices; i++){
- 800333e:	68fb      	ldr	r3, [r7, #12]
- 8003340:	3301      	adds	r3, #1
- 8003342:	60fb      	str	r3, [r7, #12]
- 8003344:	1cfb      	adds	r3, r7, #3
- 8003346:	781b      	ldrb	r3, [r3, #0]
- 8003348:	68fa      	ldr	r2, [r7, #12]
- 800334a:	429a      	cmp	r2, r3
- 800334c:	dbea      	blt.n	8003324 <get_first_non_idling_device_index+0x20>
+ 80033c0:	68fb      	ldr	r3, [r7, #12]
+ 80033c2:	3301      	adds	r3, #1
+ 80033c4:	60fb      	str	r3, [r7, #12]
+ 80033c6:	1cfb      	adds	r3, r7, #3
+ 80033c8:	781b      	ldrb	r3, [r3, #0]
+ 80033ca:	68fa      	ldr	r2, [r7, #12]
+ 80033cc:	429a      	cmp	r2, r3
+ 80033ce:	dbed      	blt.n	80033ac <get_first_non_idling_device_index+0x20>
 	}
 
 	return -1;
- 800334e:	2301      	movs	r3, #1
- 8003350:	425b      	negs	r3, r3
+ 80033d0:	2301      	movs	r3, #1
+ 80033d2:	425b      	negs	r3, r3
 }
- 8003352:	0018      	movs	r0, r3
- 8003354:	46bd      	mov	sp, r7
- 8003356:	b004      	add	sp, #16
- 8003358:	bd80      	pop	{r7, pc}
+ 80033d4:	0018      	movs	r0, r3
+ 80033d6:	46bd      	mov	sp, r7
+ 80033d8:	b004      	add	sp, #16
+ 80033da:	bd80      	pop	{r7, pc}
+
+080033dc <lis3mdl_initialize_device_struct>:
+ *      Author: arvyd
+ */
+
+#include "lis3mdl_device.h"
+
+uint8_t lis3mdl_initialize_device_struct(LIS3MDL_Device *device, SPI_HandleTypeDef *hspi, GPIO_TypeDef *cs_gpio_port_handle, uint16_t cs_pin){
+ 80033dc:	b580      	push	{r7, lr}
+ 80033de:	b084      	sub	sp, #16
+ 80033e0:	af00      	add	r7, sp, #0
+ 80033e2:	60f8      	str	r0, [r7, #12]
+ 80033e4:	60b9      	str	r1, [r7, #8]
+ 80033e6:	607a      	str	r2, [r7, #4]
+ 80033e8:	001a      	movs	r2, r3
+ 80033ea:	1cbb      	adds	r3, r7, #2
+ 80033ec:	801a      	strh	r2, [r3, #0]
+	if (device == NULL || hspi == NULL || cs_gpio_port_handle == NULL)
+ 80033ee:	68fb      	ldr	r3, [r7, #12]
+ 80033f0:	2b00      	cmp	r3, #0
+ 80033f2:	d005      	beq.n	8003400 <lis3mdl_initialize_device_struct+0x24>
+ 80033f4:	68bb      	ldr	r3, [r7, #8]
+ 80033f6:	2b00      	cmp	r3, #0
+ 80033f8:	d002      	beq.n	8003400 <lis3mdl_initialize_device_struct+0x24>
+ 80033fa:	687b      	ldr	r3, [r7, #4]
+ 80033fc:	2b00      	cmp	r3, #0
+ 80033fe:	d101      	bne.n	8003404 <lis3mdl_initialize_device_struct+0x28>
+		return 1;
+ 8003400:	2301      	movs	r3, #1
+ 8003402:	e016      	b.n	8003432 <lis3mdl_initialize_device_struct+0x56>
+
+	device->state = LIS3MDL_INITIALIZING_OFFSET_REGS;
+ 8003404:	68fb      	ldr	r3, [r7, #12]
+ 8003406:	2200      	movs	r2, #0
+ 8003408:	73da      	strb	r2, [r3, #15]
+
+	device->reg_addr = 0;
+ 800340a:	68fb      	ldr	r3, [r7, #12]
+ 800340c:	2200      	movs	r2, #0
+ 800340e:	741a      	strb	r2, [r3, #16]
+	device->data_size = 0;
+ 8003410:	68fb      	ldr	r3, [r7, #12]
+ 8003412:	2200      	movs	r2, #0
+ 8003414:	775a      	strb	r2, [r3, #29]
+	device->read_data_available = 0;
+ 8003416:	68fb      	ldr	r3, [r7, #12]
+ 8003418:	2200      	movs	r2, #0
+ 800341a:	779a      	strb	r2, [r3, #30]
+
+	device->hspi = hspi;
+ 800341c:	68fb      	ldr	r3, [r7, #12]
+ 800341e:	68ba      	ldr	r2, [r7, #8]
+ 8003420:	629a      	str	r2, [r3, #40]	@ 0x28
+	device->cs_gpio_port_handle = cs_gpio_port_handle;
+ 8003422:	68fb      	ldr	r3, [r7, #12]
+ 8003424:	687a      	ldr	r2, [r7, #4]
+ 8003426:	621a      	str	r2, [r3, #32]
+	device->cs_pin = cs_pin;
+ 8003428:	68fb      	ldr	r3, [r7, #12]
+ 800342a:	1cba      	adds	r2, r7, #2
+ 800342c:	8812      	ldrh	r2, [r2, #0]
+ 800342e:	849a      	strh	r2, [r3, #36]	@ 0x24
+
+	return 0;
+ 8003430:	2300      	movs	r3, #0
+}
+ 8003432:	0018      	movs	r0, r3
+ 8003434:	46bd      	mov	sp, r7
+ 8003436:	b004      	add	sp, #16
+ 8003438:	bd80      	pop	{r7, pc}
+
+0800343a <lis3mdl_setup_config_registers>:
+
+uint8_t lis3mdl_setup_config_registers(LIS3MDL_Device *device, LIS3MDL_Init_Params input_params){
+ 800343a:	b084      	sub	sp, #16
+ 800343c:	b5b0      	push	{r4, r5, r7, lr}
+ 800343e:	b08a      	sub	sp, #40	@ 0x28
+ 8003440:	af08      	add	r7, sp, #32
+ 8003442:	6078      	str	r0, [r7, #4]
+ 8003444:	2004      	movs	r0, #4
+ 8003446:	2418      	movs	r4, #24
+ 8003448:	1900      	adds	r0, r0, r4
+ 800344a:	19c0      	adds	r0, r0, r7
+ 800344c:	6001      	str	r1, [r0, #0]
+ 800344e:	6042      	str	r2, [r0, #4]
+ 8003450:	6083      	str	r3, [r0, #8]
+	return lis3mdl_put_params_into_registers(input_params, device->config_regs.offsets, device->config_regs.ctrls, device->config_regs.ints);
+ 8003452:	687a      	ldr	r2, [r7, #4]
+ 8003454:	687b      	ldr	r3, [r7, #4]
+ 8003456:	1d99      	adds	r1, r3, #6
+ 8003458:	687b      	ldr	r3, [r7, #4]
+ 800345a:	330b      	adds	r3, #11
+ 800345c:	0018      	movs	r0, r3
+ 800345e:	2304      	movs	r3, #4
+ 8003460:	191b      	adds	r3, r3, r4
+ 8003462:	19db      	adds	r3, r3, r7
+ 8003464:	9006      	str	r0, [sp, #24]
+ 8003466:	9105      	str	r1, [sp, #20]
+ 8003468:	9204      	str	r2, [sp, #16]
+ 800346a:	466a      	mov	r2, sp
+ 800346c:	0011      	movs	r1, r2
+ 800346e:	001a      	movs	r2, r3
+ 8003470:	3210      	adds	r2, #16
+ 8003472:	ca31      	ldmia	r2!, {r0, r4, r5}
+ 8003474:	c131      	stmia	r1!, {r0, r4, r5}
+ 8003476:	6812      	ldr	r2, [r2, #0]
+ 8003478:	600a      	str	r2, [r1, #0]
+ 800347a:	6818      	ldr	r0, [r3, #0]
+ 800347c:	6859      	ldr	r1, [r3, #4]
+ 800347e:	689a      	ldr	r2, [r3, #8]
+ 8003480:	68db      	ldr	r3, [r3, #12]
+ 8003482:	f000 f86a 	bl	800355a <lis3mdl_put_params_into_registers>
+ 8003486:	0003      	movs	r3, r0
+}
+ 8003488:	0018      	movs	r0, r3
+ 800348a:	46bd      	mov	sp, r7
+ 800348c:	b002      	add	sp, #8
+ 800348e:	bcb0      	pop	{r4, r5, r7}
+ 8003490:	bc08      	pop	{r3}
+ 8003492:	b004      	add	sp, #16
+ 8003494:	4718      	bx	r3
+
+08003496 <lis3mdl_set_default_params>:
+
+#include <stdio.h>
+#include "lis3mdl_init_params.h"
+#include "lis3mdl_registers.h"
+
+uint8_t lis3mdl_set_default_params(LIS3MDL_Init_Params *init_params){
+ 8003496:	b580      	push	{r7, lr}
+ 8003498:	b082      	sub	sp, #8
+ 800349a:	af00      	add	r7, sp, #0
+ 800349c:	6078      	str	r0, [r7, #4]
+	if(init_params == NULL)
+ 800349e:	687b      	ldr	r3, [r7, #4]
+ 80034a0:	2b00      	cmp	r3, #0
+ 80034a2:	d101      	bne.n	80034a8 <lis3mdl_set_default_params+0x12>
+		return 1;
+ 80034a4:	2301      	movs	r3, #1
+ 80034a6:	e054      	b.n	8003552 <lis3mdl_set_default_params+0xbc>
+
+	init_params->offset_x = 0;
+ 80034a8:	687b      	ldr	r3, [r7, #4]
+ 80034aa:	2200      	movs	r2, #0
+ 80034ac:	801a      	strh	r2, [r3, #0]
+	init_params->offset_y = 0;
+ 80034ae:	687b      	ldr	r3, [r7, #4]
+ 80034b0:	2200      	movs	r2, #0
+ 80034b2:	805a      	strh	r2, [r3, #2]
+	init_params->offset_z = 0;
+ 80034b4:	687b      	ldr	r3, [r7, #4]
+ 80034b6:	2200      	movs	r2, #0
+ 80034b8:	809a      	strh	r2, [r3, #4]
+
+	init_params->temp_en = 0;
+ 80034ba:	687b      	ldr	r3, [r7, #4]
+ 80034bc:	2200      	movs	r2, #0
+ 80034be:	719a      	strb	r2, [r3, #6]
+	init_params->xy_operation_mode = LIS3MDL_MEDIUM_PERFORMANCE;
+ 80034c0:	687b      	ldr	r3, [r7, #4]
+ 80034c2:	2201      	movs	r2, #1
+ 80034c4:	71da      	strb	r2, [r3, #7]
+	init_params->output_data_rate = LIS3MDL_ODR_10;
+ 80034c6:	687b      	ldr	r3, [r7, #4]
+ 80034c8:	2204      	movs	r2, #4
+ 80034ca:	721a      	strb	r2, [r3, #8]
+	init_params->fast_odr = 0;
+ 80034cc:	687b      	ldr	r3, [r7, #4]
+ 80034ce:	2200      	movs	r2, #0
+ 80034d0:	725a      	strb	r2, [r3, #9]
+	init_params->self_test = 0;
+ 80034d2:	687b      	ldr	r3, [r7, #4]
+ 80034d4:	2200      	movs	r2, #0
+ 80034d6:	729a      	strb	r2, [r3, #10]
+
+	init_params->full_scale = LIS3MDL_FULL_SCALE_16_GAUSS;
+ 80034d8:	687b      	ldr	r3, [r7, #4]
+ 80034da:	2203      	movs	r2, #3
+ 80034dc:	72da      	strb	r2, [r3, #11]
+
+	init_params->low_power_mode = 0;
+ 80034de:	687b      	ldr	r3, [r7, #4]
+ 80034e0:	2200      	movs	r2, #0
+ 80034e2:	731a      	strb	r2, [r3, #12]
+	init_params->spi_interface_mode = 0;
+ 80034e4:	687b      	ldr	r3, [r7, #4]
+ 80034e6:	2200      	movs	r2, #0
+ 80034e8:	735a      	strb	r2, [r3, #13]
+	init_params->conversion_mode = LIS3MDL_CONTINIOUS_CONVERSION;
+ 80034ea:	687b      	ldr	r3, [r7, #4]
+ 80034ec:	2200      	movs	r2, #0
+ 80034ee:	739a      	strb	r2, [r3, #14]
+
+	init_params->z_operation_mode = LIS3MDL_MEDIUM_PERFORMANCE;
+ 80034f0:	687b      	ldr	r3, [r7, #4]
+ 80034f2:	2201      	movs	r2, #1
+ 80034f4:	73da      	strb	r2, [r3, #15]
+
+	init_params->fast_read = 0;
+ 80034f6:	687b      	ldr	r3, [r7, #4]
+ 80034f8:	2200      	movs	r2, #0
+ 80034fa:	741a      	strb	r2, [r3, #16]
+	init_params->block_data_update = 1;
+ 80034fc:	687b      	ldr	r3, [r7, #4]
+ 80034fe:	2201      	movs	r2, #1
+ 8003500:	745a      	strb	r2, [r3, #17]
+
+	init_params->x_interrupt_generation = 0;
+ 8003502:	687b      	ldr	r3, [r7, #4]
+ 8003504:	2200      	movs	r2, #0
+ 8003506:	749a      	strb	r2, [r3, #18]
+	init_params->y_interrupt_generation = 0;
+ 8003508:	687b      	ldr	r3, [r7, #4]
+ 800350a:	2200      	movs	r2, #0
+ 800350c:	74da      	strb	r2, [r3, #19]
+	init_params->z_interrupt_generation = 0;
+ 800350e:	687b      	ldr	r3, [r7, #4]
+ 8003510:	2200      	movs	r2, #0
+ 8003512:	751a      	strb	r2, [r3, #20]
+	init_params->interrupt_active_configuration = 0;
+ 8003514:	687b      	ldr	r3, [r7, #4]
+ 8003516:	2200      	movs	r2, #0
+ 8003518:	755a      	strb	r2, [r3, #21]
+	init_params->latch_interrupt = 0;
+ 800351a:	687b      	ldr	r3, [r7, #4]
+ 800351c:	2200      	movs	r2, #0
+ 800351e:	759a      	strb	r2, [r3, #22]
+	init_params->int_pin = 0;
+ 8003520:	687b      	ldr	r3, [r7, #4]
+ 8003522:	2200      	movs	r2, #0
+ 8003524:	75da      	strb	r2, [r3, #23]
+
+	init_params->positive_thresh_x_enable = 0;
+ 8003526:	687b      	ldr	r3, [r7, #4]
+ 8003528:	2200      	movs	r2, #0
+ 800352a:	761a      	strb	r2, [r3, #24]
+	init_params->positive_thresh_y_enable = 0;
+ 800352c:	687b      	ldr	r3, [r7, #4]
+ 800352e:	2200      	movs	r2, #0
+ 8003530:	765a      	strb	r2, [r3, #25]
+	init_params->positive_thresh_z_enable = 0;
+ 8003532:	687b      	ldr	r3, [r7, #4]
+ 8003534:	2200      	movs	r2, #0
+ 8003536:	769a      	strb	r2, [r3, #26]
+	init_params->negative_thresh_x_enable = 0;
+ 8003538:	687b      	ldr	r3, [r7, #4]
+ 800353a:	2200      	movs	r2, #0
+ 800353c:	76da      	strb	r2, [r3, #27]
+	init_params->negative_thresh_y_enable = 0;
+ 800353e:	687b      	ldr	r3, [r7, #4]
+ 8003540:	2200      	movs	r2, #0
+ 8003542:	771a      	strb	r2, [r3, #28]
+	init_params->negative_thresh_z_enable = 0;
+ 8003544:	687b      	ldr	r3, [r7, #4]
+ 8003546:	2200      	movs	r2, #0
+ 8003548:	775a      	strb	r2, [r3, #29]
+
+	init_params->interrupt_threshold = 0;
+ 800354a:	687b      	ldr	r3, [r7, #4]
+ 800354c:	2200      	movs	r2, #0
+ 800354e:	83da      	strh	r2, [r3, #30]
+	return 0;
+ 8003550:	2300      	movs	r3, #0
+}
+ 8003552:	0018      	movs	r0, r3
+ 8003554:	46bd      	mov	sp, r7
+ 8003556:	b002      	add	sp, #8
+ 8003558:	bd80      	pop	{r7, pc}
+
+0800355a <lis3mdl_put_params_into_registers>:
+
+uint8_t lis3mdl_put_params_into_registers(LIS3MDL_Init_Params init_params, uint8_t *offset_regs, uint8_t *ctrl_regs, uint8_t *int_regs){
+ 800355a:	b084      	sub	sp, #16
+ 800355c:	b590      	push	{r4, r7, lr}
+ 800355e:	af00      	add	r7, sp, #0
+ 8003560:	240c      	movs	r4, #12
+ 8003562:	193c      	adds	r4, r7, r4
+ 8003564:	6020      	str	r0, [r4, #0]
+ 8003566:	6061      	str	r1, [r4, #4]
+ 8003568:	60a2      	str	r2, [r4, #8]
+ 800356a:	60e3      	str	r3, [r4, #12]
+	if(offset_regs == NULL || ctrl_regs == NULL || int_regs == NULL)
+ 800356c:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
+ 800356e:	2b00      	cmp	r3, #0
+ 8003570:	d005      	beq.n	800357e <lis3mdl_put_params_into_registers+0x24>
+ 8003572:	6b3b      	ldr	r3, [r7, #48]	@ 0x30
+ 8003574:	2b00      	cmp	r3, #0
+ 8003576:	d002      	beq.n	800357e <lis3mdl_put_params_into_registers+0x24>
+ 8003578:	6b7b      	ldr	r3, [r7, #52]	@ 0x34
+ 800357a:	2b00      	cmp	r3, #0
+ 800357c:	d101      	bne.n	8003582 <lis3mdl_put_params_into_registers+0x28>
+		return 1;
+ 800357e:	2301      	movs	r3, #1
+ 8003580:	e1e1      	b.n	8003946 <lis3mdl_put_params_into_registers+0x3ec>
+
+	offset_regs[0] = (uint8_t)(init_params.offset_x & 0x00FF);
+ 8003582:	200c      	movs	r0, #12
+ 8003584:	183b      	adds	r3, r7, r0
+ 8003586:	881b      	ldrh	r3, [r3, #0]
+ 8003588:	b2da      	uxtb	r2, r3
+ 800358a:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
+ 800358c:	701a      	strb	r2, [r3, #0]
+	offset_regs[1] = (uint8_t)((init_params.offset_x & 0xFF00)>>8);
+ 800358e:	183b      	adds	r3, r7, r0
+ 8003590:	881b      	ldrh	r3, [r3, #0]
+ 8003592:	0a1b      	lsrs	r3, r3, #8
+ 8003594:	b29a      	uxth	r2, r3
+ 8003596:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
+ 8003598:	3301      	adds	r3, #1
+ 800359a:	b2d2      	uxtb	r2, r2
+ 800359c:	701a      	strb	r2, [r3, #0]
+	offset_regs[2] = (uint8_t)(init_params.offset_y & 0x00FF);
+ 800359e:	183b      	adds	r3, r7, r0
+ 80035a0:	885a      	ldrh	r2, [r3, #2]
+ 80035a2:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
+ 80035a4:	3302      	adds	r3, #2
+ 80035a6:	b2d2      	uxtb	r2, r2
+ 80035a8:	701a      	strb	r2, [r3, #0]
+	offset_regs[3] = (uint8_t)((init_params.offset_y & 0xFF00)>>8);
+ 80035aa:	183b      	adds	r3, r7, r0
+ 80035ac:	885b      	ldrh	r3, [r3, #2]
+ 80035ae:	0a1b      	lsrs	r3, r3, #8
+ 80035b0:	b29a      	uxth	r2, r3
+ 80035b2:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
+ 80035b4:	3303      	adds	r3, #3
+ 80035b6:	b2d2      	uxtb	r2, r2
+ 80035b8:	701a      	strb	r2, [r3, #0]
+	offset_regs[4] = (uint8_t)(init_params.offset_z & 0x00FF);
+ 80035ba:	183b      	adds	r3, r7, r0
+ 80035bc:	889a      	ldrh	r2, [r3, #4]
+ 80035be:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
+ 80035c0:	3304      	adds	r3, #4
+ 80035c2:	b2d2      	uxtb	r2, r2
+ 80035c4:	701a      	strb	r2, [r3, #0]
+	offset_regs[5] = (uint8_t)((init_params.offset_z & 0xFF00)>>8);
+ 80035c6:	183b      	adds	r3, r7, r0
+ 80035c8:	889b      	ldrh	r3, [r3, #4]
+ 80035ca:	0a1b      	lsrs	r3, r3, #8
+ 80035cc:	b29a      	uxth	r2, r3
+ 80035ce:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
+ 80035d0:	3305      	adds	r3, #5
+ 80035d2:	b2d2      	uxtb	r2, r2
+ 80035d4:	701a      	strb	r2, [r3, #0]
+
+	ctrl_regs[0] = 0;
+ 80035d6:	6b3b      	ldr	r3, [r7, #48]	@ 0x30
+ 80035d8:	2200      	movs	r2, #0
+ 80035da:	701a      	strb	r2, [r3, #0]
+	ctrl_regs[0] |= (init_params.temp_en << 7) & LIS3MDL_TEMP_EN;
+ 80035dc:	6b3b      	ldr	r3, [r7, #48]	@ 0x30
+ 80035de:	781b      	ldrb	r3, [r3, #0]
+ 80035e0:	b25a      	sxtb	r2, r3
+ 80035e2:	183b      	adds	r3, r7, r0
+ 80035e4:	799b      	ldrb	r3, [r3, #6]
+ 80035e6:	b25b      	sxtb	r3, r3
+ 80035e8:	01db      	lsls	r3, r3, #7
+ 80035ea:	b25b      	sxtb	r3, r3
+ 80035ec:	4313      	orrs	r3, r2
+ 80035ee:	b25b      	sxtb	r3, r3
+ 80035f0:	b2da      	uxtb	r2, r3
+ 80035f2:	6b3b      	ldr	r3, [r7, #48]	@ 0x30
+ 80035f4:	701a      	strb	r2, [r3, #0]
+	ctrl_regs[0] |= (init_params.xy_operation_mode << 5) & LIS3MDL_XY_OPERATING_MODE;
+ 80035f6:	6b3b      	ldr	r3, [r7, #48]	@ 0x30
+ 80035f8:	781b      	ldrb	r3, [r3, #0]
+ 80035fa:	b25a      	sxtb	r2, r3
+ 80035fc:	183b      	adds	r3, r7, r0
+ 80035fe:	79db      	ldrb	r3, [r3, #7]
+ 8003600:	b25b      	sxtb	r3, r3
+ 8003602:	015b      	lsls	r3, r3, #5
+ 8003604:	b25b      	sxtb	r3, r3
+ 8003606:	2160      	movs	r1, #96	@ 0x60
+ 8003608:	400b      	ands	r3, r1
+ 800360a:	b25b      	sxtb	r3, r3
+ 800360c:	4313      	orrs	r3, r2
+ 800360e:	b25b      	sxtb	r3, r3
+ 8003610:	b2da      	uxtb	r2, r3
+ 8003612:	6b3b      	ldr	r3, [r7, #48]	@ 0x30
+ 8003614:	701a      	strb	r2, [r3, #0]
+	ctrl_regs[0] |= (init_params.output_data_rate << 2) & LIS3MDL_ODR;
+ 8003616:	6b3b      	ldr	r3, [r7, #48]	@ 0x30
+ 8003618:	781b      	ldrb	r3, [r3, #0]
+ 800361a:	b25a      	sxtb	r2, r3
+ 800361c:	183b      	adds	r3, r7, r0
+ 800361e:	7a1b      	ldrb	r3, [r3, #8]
+ 8003620:	b25b      	sxtb	r3, r3
+ 8003622:	009b      	lsls	r3, r3, #2
+ 8003624:	b25b      	sxtb	r3, r3
+ 8003626:	211c      	movs	r1, #28
+ 8003628:	400b      	ands	r3, r1
+ 800362a:	b25b      	sxtb	r3, r3
+ 800362c:	4313      	orrs	r3, r2
+ 800362e:	b25b      	sxtb	r3, r3
+ 8003630:	b2da      	uxtb	r2, r3
+ 8003632:	6b3b      	ldr	r3, [r7, #48]	@ 0x30
+ 8003634:	701a      	strb	r2, [r3, #0]
+	ctrl_regs[0] |= (init_params.fast_odr << 1) & LIS3MDL_FAST_ODR;
+ 8003636:	6b3b      	ldr	r3, [r7, #48]	@ 0x30
+ 8003638:	781b      	ldrb	r3, [r3, #0]
+ 800363a:	b25a      	sxtb	r2, r3
+ 800363c:	183b      	adds	r3, r7, r0
+ 800363e:	7a5b      	ldrb	r3, [r3, #9]
+ 8003640:	b25b      	sxtb	r3, r3
+ 8003642:	18db      	adds	r3, r3, r3
+ 8003644:	b25b      	sxtb	r3, r3
+ 8003646:	2102      	movs	r1, #2
+ 8003648:	400b      	ands	r3, r1
+ 800364a:	b25b      	sxtb	r3, r3
+ 800364c:	4313      	orrs	r3, r2
+ 800364e:	b25b      	sxtb	r3, r3
+ 8003650:	b2da      	uxtb	r2, r3
+ 8003652:	6b3b      	ldr	r3, [r7, #48]	@ 0x30
+ 8003654:	701a      	strb	r2, [r3, #0]
+	ctrl_regs[0] |= (init_params.self_test << 0) & LIS3MDL_SELF_TEST;
+ 8003656:	6b3b      	ldr	r3, [r7, #48]	@ 0x30
+ 8003658:	781b      	ldrb	r3, [r3, #0]
+ 800365a:	b25a      	sxtb	r2, r3
+ 800365c:	183b      	adds	r3, r7, r0
+ 800365e:	7a9b      	ldrb	r3, [r3, #10]
+ 8003660:	b25b      	sxtb	r3, r3
+ 8003662:	2101      	movs	r1, #1
+ 8003664:	400b      	ands	r3, r1
+ 8003666:	b25b      	sxtb	r3, r3
+ 8003668:	4313      	orrs	r3, r2
+ 800366a:	b25b      	sxtb	r3, r3
+ 800366c:	b2da      	uxtb	r2, r3
+ 800366e:	6b3b      	ldr	r3, [r7, #48]	@ 0x30
+ 8003670:	701a      	strb	r2, [r3, #0]
+
+	ctrl_regs[1] = 0;
+ 8003672:	6b3b      	ldr	r3, [r7, #48]	@ 0x30
+ 8003674:	3301      	adds	r3, #1
+ 8003676:	2200      	movs	r2, #0
+ 8003678:	701a      	strb	r2, [r3, #0]
+	ctrl_regs[1] |= (init_params.full_scale << 5) & LIS3MDL_FULL_SCALE;
+ 800367a:	6b3b      	ldr	r3, [r7, #48]	@ 0x30
+ 800367c:	3301      	adds	r3, #1
+ 800367e:	781b      	ldrb	r3, [r3, #0]
+ 8003680:	b25a      	sxtb	r2, r3
+ 8003682:	183b      	adds	r3, r7, r0
+ 8003684:	7adb      	ldrb	r3, [r3, #11]
+ 8003686:	b25b      	sxtb	r3, r3
+ 8003688:	015b      	lsls	r3, r3, #5
+ 800368a:	b25b      	sxtb	r3, r3
+ 800368c:	2160      	movs	r1, #96	@ 0x60
+ 800368e:	400b      	ands	r3, r1
+ 8003690:	b25b      	sxtb	r3, r3
+ 8003692:	4313      	orrs	r3, r2
+ 8003694:	b25a      	sxtb	r2, r3
+ 8003696:	6b3b      	ldr	r3, [r7, #48]	@ 0x30
+ 8003698:	3301      	adds	r3, #1
+ 800369a:	b2d2      	uxtb	r2, r2
+ 800369c:	701a      	strb	r2, [r3, #0]
+
+	ctrl_regs[2] = 0;
+ 800369e:	6b3b      	ldr	r3, [r7, #48]	@ 0x30
+ 80036a0:	3302      	adds	r3, #2
+ 80036a2:	2200      	movs	r2, #0
+ 80036a4:	701a      	strb	r2, [r3, #0]
+	ctrl_regs[2] |= (init_params.low_power_mode << 5) & LIS3MDL_LP;
+ 80036a6:	6b3b      	ldr	r3, [r7, #48]	@ 0x30
+ 80036a8:	3302      	adds	r3, #2
+ 80036aa:	781b      	ldrb	r3, [r3, #0]
+ 80036ac:	b25a      	sxtb	r2, r3
+ 80036ae:	183b      	adds	r3, r7, r0
+ 80036b0:	7b1b      	ldrb	r3, [r3, #12]
+ 80036b2:	b25b      	sxtb	r3, r3
+ 80036b4:	015b      	lsls	r3, r3, #5
+ 80036b6:	b25b      	sxtb	r3, r3
+ 80036b8:	2120      	movs	r1, #32
+ 80036ba:	400b      	ands	r3, r1
+ 80036bc:	b25b      	sxtb	r3, r3
+ 80036be:	4313      	orrs	r3, r2
+ 80036c0:	b25a      	sxtb	r2, r3
+ 80036c2:	6b3b      	ldr	r3, [r7, #48]	@ 0x30
+ 80036c4:	3302      	adds	r3, #2
+ 80036c6:	b2d2      	uxtb	r2, r2
+ 80036c8:	701a      	strb	r2, [r3, #0]
+	ctrl_regs[2] |= (init_params.spi_interface_mode << 2) & LIS3MDL_SIM;
+ 80036ca:	6b3b      	ldr	r3, [r7, #48]	@ 0x30
+ 80036cc:	3302      	adds	r3, #2
+ 80036ce:	781b      	ldrb	r3, [r3, #0]
+ 80036d0:	b25a      	sxtb	r2, r3
+ 80036d2:	183b      	adds	r3, r7, r0
+ 80036d4:	7b5b      	ldrb	r3, [r3, #13]
+ 80036d6:	b25b      	sxtb	r3, r3
+ 80036d8:	009b      	lsls	r3, r3, #2
+ 80036da:	b25b      	sxtb	r3, r3
+ 80036dc:	2104      	movs	r1, #4
+ 80036de:	400b      	ands	r3, r1
+ 80036e0:	b25b      	sxtb	r3, r3
+ 80036e2:	4313      	orrs	r3, r2
+ 80036e4:	b25a      	sxtb	r2, r3
+ 80036e6:	6b3b      	ldr	r3, [r7, #48]	@ 0x30
+ 80036e8:	3302      	adds	r3, #2
+ 80036ea:	b2d2      	uxtb	r2, r2
+ 80036ec:	701a      	strb	r2, [r3, #0]
+	ctrl_regs[2] |= (init_params.conversion_mode << 0) & LIS3MDL_MD;
+ 80036ee:	6b3b      	ldr	r3, [r7, #48]	@ 0x30
+ 80036f0:	3302      	adds	r3, #2
+ 80036f2:	781b      	ldrb	r3, [r3, #0]
+ 80036f4:	b25a      	sxtb	r2, r3
+ 80036f6:	183b      	adds	r3, r7, r0
+ 80036f8:	7b9b      	ldrb	r3, [r3, #14]
+ 80036fa:	b25b      	sxtb	r3, r3
+ 80036fc:	2103      	movs	r1, #3
+ 80036fe:	400b      	ands	r3, r1
+ 8003700:	b25b      	sxtb	r3, r3
+ 8003702:	4313      	orrs	r3, r2
+ 8003704:	b25a      	sxtb	r2, r3
+ 8003706:	6b3b      	ldr	r3, [r7, #48]	@ 0x30
+ 8003708:	3302      	adds	r3, #2
+ 800370a:	b2d2      	uxtb	r2, r2
+ 800370c:	701a      	strb	r2, [r3, #0]
+
+	ctrl_regs[3] = 0;
+ 800370e:	6b3b      	ldr	r3, [r7, #48]	@ 0x30
+ 8003710:	3303      	adds	r3, #3
+ 8003712:	2200      	movs	r2, #0
+ 8003714:	701a      	strb	r2, [r3, #0]
+	ctrl_regs[3] |= (init_params.z_operation_mode << 2) & LIS3MDL_Z_OPERATING_MODE;
+ 8003716:	6b3b      	ldr	r3, [r7, #48]	@ 0x30
+ 8003718:	3303      	adds	r3, #3
+ 800371a:	781b      	ldrb	r3, [r3, #0]
+ 800371c:	b25a      	sxtb	r2, r3
+ 800371e:	183b      	adds	r3, r7, r0
+ 8003720:	7bdb      	ldrb	r3, [r3, #15]
+ 8003722:	b25b      	sxtb	r3, r3
+ 8003724:	009b      	lsls	r3, r3, #2
+ 8003726:	b25b      	sxtb	r3, r3
+ 8003728:	210c      	movs	r1, #12
+ 800372a:	400b      	ands	r3, r1
+ 800372c:	b25b      	sxtb	r3, r3
+ 800372e:	4313      	orrs	r3, r2
+ 8003730:	b25a      	sxtb	r2, r3
+ 8003732:	6b3b      	ldr	r3, [r7, #48]	@ 0x30
+ 8003734:	3303      	adds	r3, #3
+ 8003736:	b2d2      	uxtb	r2, r2
+ 8003738:	701a      	strb	r2, [r3, #0]
+
+	ctrl_regs[4] = 0;
+ 800373a:	6b3b      	ldr	r3, [r7, #48]	@ 0x30
+ 800373c:	3304      	adds	r3, #4
+ 800373e:	2200      	movs	r2, #0
+ 8003740:	701a      	strb	r2, [r3, #0]
+	ctrl_regs[4] |= (init_params.fast_read << 7) & LIS3MDL_FAST_READ;
+ 8003742:	6b3b      	ldr	r3, [r7, #48]	@ 0x30
+ 8003744:	3304      	adds	r3, #4
+ 8003746:	781b      	ldrb	r3, [r3, #0]
+ 8003748:	b25a      	sxtb	r2, r3
+ 800374a:	183b      	adds	r3, r7, r0
+ 800374c:	7c1b      	ldrb	r3, [r3, #16]
+ 800374e:	b25b      	sxtb	r3, r3
+ 8003750:	01db      	lsls	r3, r3, #7
+ 8003752:	b25b      	sxtb	r3, r3
+ 8003754:	4313      	orrs	r3, r2
+ 8003756:	b25a      	sxtb	r2, r3
+ 8003758:	6b3b      	ldr	r3, [r7, #48]	@ 0x30
+ 800375a:	3304      	adds	r3, #4
+ 800375c:	b2d2      	uxtb	r2, r2
+ 800375e:	701a      	strb	r2, [r3, #0]
+	ctrl_regs[4] |= (init_params.fast_read << 6) & LIS3MDL_BDU;
+ 8003760:	6b3b      	ldr	r3, [r7, #48]	@ 0x30
+ 8003762:	3304      	adds	r3, #4
+ 8003764:	781b      	ldrb	r3, [r3, #0]
+ 8003766:	b25a      	sxtb	r2, r3
+ 8003768:	183b      	adds	r3, r7, r0
+ 800376a:	7c1b      	ldrb	r3, [r3, #16]
+ 800376c:	b25b      	sxtb	r3, r3
+ 800376e:	019b      	lsls	r3, r3, #6
+ 8003770:	b25b      	sxtb	r3, r3
+ 8003772:	2140      	movs	r1, #64	@ 0x40
+ 8003774:	400b      	ands	r3, r1
+ 8003776:	b25b      	sxtb	r3, r3
+ 8003778:	4313      	orrs	r3, r2
+ 800377a:	b25a      	sxtb	r2, r3
+ 800377c:	6b3b      	ldr	r3, [r7, #48]	@ 0x30
+ 800377e:	3304      	adds	r3, #4
+ 8003780:	b2d2      	uxtb	r2, r2
+ 8003782:	701a      	strb	r2, [r3, #0]
+
+	int_regs[0] = 0;
+ 8003784:	6b7b      	ldr	r3, [r7, #52]	@ 0x34
+ 8003786:	2200      	movs	r2, #0
+ 8003788:	701a      	strb	r2, [r3, #0]
+	int_regs[0] |= (init_params.x_interrupt_generation << 7) & LIS3MDL_XIEN;
+ 800378a:	6b7b      	ldr	r3, [r7, #52]	@ 0x34
+ 800378c:	781b      	ldrb	r3, [r3, #0]
+ 800378e:	b25a      	sxtb	r2, r3
+ 8003790:	183b      	adds	r3, r7, r0
+ 8003792:	7c9b      	ldrb	r3, [r3, #18]
+ 8003794:	b25b      	sxtb	r3, r3
+ 8003796:	01db      	lsls	r3, r3, #7
+ 8003798:	b25b      	sxtb	r3, r3
+ 800379a:	4313      	orrs	r3, r2
+ 800379c:	b25b      	sxtb	r3, r3
+ 800379e:	b2da      	uxtb	r2, r3
+ 80037a0:	6b7b      	ldr	r3, [r7, #52]	@ 0x34
+ 80037a2:	701a      	strb	r2, [r3, #0]
+	int_regs[0] |= (init_params.y_interrupt_generation << 6) & LIS3MDL_YIEN;
+ 80037a4:	6b7b      	ldr	r3, [r7, #52]	@ 0x34
+ 80037a6:	781b      	ldrb	r3, [r3, #0]
+ 80037a8:	b25a      	sxtb	r2, r3
+ 80037aa:	183b      	adds	r3, r7, r0
+ 80037ac:	7cdb      	ldrb	r3, [r3, #19]
+ 80037ae:	b25b      	sxtb	r3, r3
+ 80037b0:	019b      	lsls	r3, r3, #6
+ 80037b2:	b25b      	sxtb	r3, r3
+ 80037b4:	2140      	movs	r1, #64	@ 0x40
+ 80037b6:	400b      	ands	r3, r1
+ 80037b8:	b25b      	sxtb	r3, r3
+ 80037ba:	4313      	orrs	r3, r2
+ 80037bc:	b25b      	sxtb	r3, r3
+ 80037be:	b2da      	uxtb	r2, r3
+ 80037c0:	6b7b      	ldr	r3, [r7, #52]	@ 0x34
+ 80037c2:	701a      	strb	r2, [r3, #0]
+	int_regs[0] |= (init_params.z_interrupt_generation << 5) & LIS3MDL_YIEN;
+ 80037c4:	6b7b      	ldr	r3, [r7, #52]	@ 0x34
+ 80037c6:	781b      	ldrb	r3, [r3, #0]
+ 80037c8:	b25a      	sxtb	r2, r3
+ 80037ca:	183b      	adds	r3, r7, r0
+ 80037cc:	7d1b      	ldrb	r3, [r3, #20]
+ 80037ce:	b25b      	sxtb	r3, r3
+ 80037d0:	015b      	lsls	r3, r3, #5
+ 80037d2:	b25b      	sxtb	r3, r3
+ 80037d4:	2140      	movs	r1, #64	@ 0x40
+ 80037d6:	400b      	ands	r3, r1
+ 80037d8:	b25b      	sxtb	r3, r3
+ 80037da:	4313      	orrs	r3, r2
+ 80037dc:	b25b      	sxtb	r3, r3
+ 80037de:	b2da      	uxtb	r2, r3
+ 80037e0:	6b7b      	ldr	r3, [r7, #52]	@ 0x34
+ 80037e2:	701a      	strb	r2, [r3, #0]
+	int_regs[0] |= 0x08; // Reserved
+ 80037e4:	6b7b      	ldr	r3, [r7, #52]	@ 0x34
+ 80037e6:	781b      	ldrb	r3, [r3, #0]
+ 80037e8:	2208      	movs	r2, #8
+ 80037ea:	4313      	orrs	r3, r2
+ 80037ec:	b2da      	uxtb	r2, r3
+ 80037ee:	6b7b      	ldr	r3, [r7, #52]	@ 0x34
+ 80037f0:	701a      	strb	r2, [r3, #0]
+	int_regs[0] |= (init_params.interrupt_active_configuration << 2) & LIS3MDL_IEA;
+ 80037f2:	6b7b      	ldr	r3, [r7, #52]	@ 0x34
+ 80037f4:	781b      	ldrb	r3, [r3, #0]
+ 80037f6:	b25a      	sxtb	r2, r3
+ 80037f8:	183b      	adds	r3, r7, r0
+ 80037fa:	7d5b      	ldrb	r3, [r3, #21]
+ 80037fc:	b25b      	sxtb	r3, r3
+ 80037fe:	009b      	lsls	r3, r3, #2
+ 8003800:	b25b      	sxtb	r3, r3
+ 8003802:	2104      	movs	r1, #4
+ 8003804:	400b      	ands	r3, r1
+ 8003806:	b25b      	sxtb	r3, r3
+ 8003808:	4313      	orrs	r3, r2
+ 800380a:	b25b      	sxtb	r3, r3
+ 800380c:	b2da      	uxtb	r2, r3
+ 800380e:	6b7b      	ldr	r3, [r7, #52]	@ 0x34
+ 8003810:	701a      	strb	r2, [r3, #0]
+	int_regs[0] |= (init_params.latch_interrupt << 1) & LIS3MDL_LIR;
+ 8003812:	6b7b      	ldr	r3, [r7, #52]	@ 0x34
+ 8003814:	781b      	ldrb	r3, [r3, #0]
+ 8003816:	b25a      	sxtb	r2, r3
+ 8003818:	183b      	adds	r3, r7, r0
+ 800381a:	7d9b      	ldrb	r3, [r3, #22]
+ 800381c:	b25b      	sxtb	r3, r3
+ 800381e:	18db      	adds	r3, r3, r3
+ 8003820:	b25b      	sxtb	r3, r3
+ 8003822:	2102      	movs	r1, #2
+ 8003824:	400b      	ands	r3, r1
+ 8003826:	b25b      	sxtb	r3, r3
+ 8003828:	4313      	orrs	r3, r2
+ 800382a:	b25b      	sxtb	r3, r3
+ 800382c:	b2da      	uxtb	r2, r3
+ 800382e:	6b7b      	ldr	r3, [r7, #52]	@ 0x34
+ 8003830:	701a      	strb	r2, [r3, #0]
+	int_regs[0] |= (init_params.int_pin << 0) & LIS3MDL_IEN;
+ 8003832:	6b7b      	ldr	r3, [r7, #52]	@ 0x34
+ 8003834:	781b      	ldrb	r3, [r3, #0]
+ 8003836:	b25a      	sxtb	r2, r3
+ 8003838:	183b      	adds	r3, r7, r0
+ 800383a:	7ddb      	ldrb	r3, [r3, #23]
+ 800383c:	b25b      	sxtb	r3, r3
+ 800383e:	2101      	movs	r1, #1
+ 8003840:	400b      	ands	r3, r1
+ 8003842:	b25b      	sxtb	r3, r3
+ 8003844:	4313      	orrs	r3, r2
+ 8003846:	b25b      	sxtb	r3, r3
+ 8003848:	b2da      	uxtb	r2, r3
+ 800384a:	6b7b      	ldr	r3, [r7, #52]	@ 0x34
+ 800384c:	701a      	strb	r2, [r3, #0]
+
+	int_regs[1] = 0;
+ 800384e:	6b7b      	ldr	r3, [r7, #52]	@ 0x34
+ 8003850:	3301      	adds	r3, #1
+ 8003852:	2200      	movs	r2, #0
+ 8003854:	701a      	strb	r2, [r3, #0]
+	int_regs[1] |= (init_params.positive_thresh_x_enable << 7) & LIS3MDL_PTH_X;
+ 8003856:	6b7b      	ldr	r3, [r7, #52]	@ 0x34
+ 8003858:	3301      	adds	r3, #1
+ 800385a:	781b      	ldrb	r3, [r3, #0]
+ 800385c:	b25a      	sxtb	r2, r3
+ 800385e:	183b      	adds	r3, r7, r0
+ 8003860:	7e1b      	ldrb	r3, [r3, #24]
+ 8003862:	b25b      	sxtb	r3, r3
+ 8003864:	01db      	lsls	r3, r3, #7
+ 8003866:	b25b      	sxtb	r3, r3
+ 8003868:	4313      	orrs	r3, r2
+ 800386a:	b25a      	sxtb	r2, r3
+ 800386c:	6b7b      	ldr	r3, [r7, #52]	@ 0x34
+ 800386e:	3301      	adds	r3, #1
+ 8003870:	b2d2      	uxtb	r2, r2
+ 8003872:	701a      	strb	r2, [r3, #0]
+	int_regs[1] |= (init_params.positive_thresh_y_enable << 6) & LIS3MDL_PTH_Y;
+ 8003874:	6b7b      	ldr	r3, [r7, #52]	@ 0x34
+ 8003876:	3301      	adds	r3, #1
+ 8003878:	781b      	ldrb	r3, [r3, #0]
+ 800387a:	b25a      	sxtb	r2, r3
+ 800387c:	183b      	adds	r3, r7, r0
+ 800387e:	7e5b      	ldrb	r3, [r3, #25]
+ 8003880:	b25b      	sxtb	r3, r3
+ 8003882:	019b      	lsls	r3, r3, #6
+ 8003884:	b25b      	sxtb	r3, r3
+ 8003886:	2140      	movs	r1, #64	@ 0x40
+ 8003888:	400b      	ands	r3, r1
+ 800388a:	b25b      	sxtb	r3, r3
+ 800388c:	4313      	orrs	r3, r2
+ 800388e:	b25a      	sxtb	r2, r3
+ 8003890:	6b7b      	ldr	r3, [r7, #52]	@ 0x34
+ 8003892:	3301      	adds	r3, #1
+ 8003894:	b2d2      	uxtb	r2, r2
+ 8003896:	701a      	strb	r2, [r3, #0]
+	int_regs[1] |= (init_params.positive_thresh_z_enable << 5) & LIS3MDL_PTH_Z;
+ 8003898:	6b7b      	ldr	r3, [r7, #52]	@ 0x34
+ 800389a:	3301      	adds	r3, #1
+ 800389c:	781b      	ldrb	r3, [r3, #0]
+ 800389e:	b25a      	sxtb	r2, r3
+ 80038a0:	183b      	adds	r3, r7, r0
+ 80038a2:	7e9b      	ldrb	r3, [r3, #26]
+ 80038a4:	b25b      	sxtb	r3, r3
+ 80038a6:	015b      	lsls	r3, r3, #5
+ 80038a8:	b25b      	sxtb	r3, r3
+ 80038aa:	2120      	movs	r1, #32
+ 80038ac:	400b      	ands	r3, r1
+ 80038ae:	b25b      	sxtb	r3, r3
+ 80038b0:	4313      	orrs	r3, r2
+ 80038b2:	b25a      	sxtb	r2, r3
+ 80038b4:	6b7b      	ldr	r3, [r7, #52]	@ 0x34
+ 80038b6:	3301      	adds	r3, #1
+ 80038b8:	b2d2      	uxtb	r2, r2
+ 80038ba:	701a      	strb	r2, [r3, #0]
+	int_regs[1] |= (init_params.negative_thresh_x_enable << 4) & LIS3MDL_NTH_X;
+ 80038bc:	6b7b      	ldr	r3, [r7, #52]	@ 0x34
+ 80038be:	3301      	adds	r3, #1
+ 80038c0:	781b      	ldrb	r3, [r3, #0]
+ 80038c2:	b25a      	sxtb	r2, r3
+ 80038c4:	183b      	adds	r3, r7, r0
+ 80038c6:	7edb      	ldrb	r3, [r3, #27]
+ 80038c8:	b25b      	sxtb	r3, r3
+ 80038ca:	011b      	lsls	r3, r3, #4
+ 80038cc:	b25b      	sxtb	r3, r3
+ 80038ce:	2110      	movs	r1, #16
+ 80038d0:	400b      	ands	r3, r1
+ 80038d2:	b25b      	sxtb	r3, r3
+ 80038d4:	4313      	orrs	r3, r2
+ 80038d6:	b25a      	sxtb	r2, r3
+ 80038d8:	6b7b      	ldr	r3, [r7, #52]	@ 0x34
+ 80038da:	3301      	adds	r3, #1
+ 80038dc:	b2d2      	uxtb	r2, r2
+ 80038de:	701a      	strb	r2, [r3, #0]
+	int_regs[1] |= (init_params.negative_thresh_y_enable << 3) & LIS3MDL_NTH_Y;
+ 80038e0:	6b7b      	ldr	r3, [r7, #52]	@ 0x34
+ 80038e2:	3301      	adds	r3, #1
+ 80038e4:	781b      	ldrb	r3, [r3, #0]
+ 80038e6:	b25a      	sxtb	r2, r3
+ 80038e8:	183b      	adds	r3, r7, r0
+ 80038ea:	7f1b      	ldrb	r3, [r3, #28]
+ 80038ec:	b25b      	sxtb	r3, r3
+ 80038ee:	00db      	lsls	r3, r3, #3
+ 80038f0:	b25b      	sxtb	r3, r3
+ 80038f2:	2108      	movs	r1, #8
+ 80038f4:	400b      	ands	r3, r1
+ 80038f6:	b25b      	sxtb	r3, r3
+ 80038f8:	4313      	orrs	r3, r2
+ 80038fa:	b25a      	sxtb	r2, r3
+ 80038fc:	6b7b      	ldr	r3, [r7, #52]	@ 0x34
+ 80038fe:	3301      	adds	r3, #1
+ 8003900:	b2d2      	uxtb	r2, r2
+ 8003902:	701a      	strb	r2, [r3, #0]
+	int_regs[1] |= (init_params.negative_thresh_z_enable << 2) & LIS3MDL_NTH_Z;
+ 8003904:	6b7b      	ldr	r3, [r7, #52]	@ 0x34
+ 8003906:	3301      	adds	r3, #1
+ 8003908:	781b      	ldrb	r3, [r3, #0]
+ 800390a:	b25a      	sxtb	r2, r3
+ 800390c:	183b      	adds	r3, r7, r0
+ 800390e:	7f5b      	ldrb	r3, [r3, #29]
+ 8003910:	b25b      	sxtb	r3, r3
+ 8003912:	009b      	lsls	r3, r3, #2
+ 8003914:	b25b      	sxtb	r3, r3
+ 8003916:	2104      	movs	r1, #4
+ 8003918:	400b      	ands	r3, r1
+ 800391a:	b25b      	sxtb	r3, r3
+ 800391c:	4313      	orrs	r3, r2
+ 800391e:	b25a      	sxtb	r2, r3
+ 8003920:	6b7b      	ldr	r3, [r7, #52]	@ 0x34
+ 8003922:	3301      	adds	r3, #1
+ 8003924:	b2d2      	uxtb	r2, r2
+ 8003926:	701a      	strb	r2, [r3, #0]
+
+	int_regs[2] = (uint8_t)(init_params.interrupt_threshold & 0x00FF);
+ 8003928:	183b      	adds	r3, r7, r0
+ 800392a:	8bda      	ldrh	r2, [r3, #30]
+ 800392c:	6b7b      	ldr	r3, [r7, #52]	@ 0x34
+ 800392e:	3302      	adds	r3, #2
+ 8003930:	b2d2      	uxtb	r2, r2
+ 8003932:	701a      	strb	r2, [r3, #0]
+	int_regs[3] = (uint8_t)((init_params.interrupt_threshold & 0xFF00)>>8);
+ 8003934:	183b      	adds	r3, r7, r0
+ 8003936:	8bdb      	ldrh	r3, [r3, #30]
+ 8003938:	0a1b      	lsrs	r3, r3, #8
+ 800393a:	b29a      	uxth	r2, r3
+ 800393c:	6b7b      	ldr	r3, [r7, #52]	@ 0x34
+ 800393e:	3303      	adds	r3, #3
+ 8003940:	b2d2      	uxtb	r2, r2
+ 8003942:	701a      	strb	r2, [r3, #0]
+
+	return 0;
+ 8003944:	2300      	movs	r3, #0
+}
+ 8003946:	0018      	movs	r0, r3
+ 8003948:	46bd      	mov	sp, r7
+ 800394a:	bc90      	pop	{r4, r7}
+ 800394c:	bc08      	pop	{r3}
+ 800394e:	b004      	add	sp, #16
+ 8003950:	4718      	bx	r3
 	...
 
-0800335c <lis3mdl_change_state_due_to_spi_cplt>:
+08003954 <lis3mdl_change_state_due_to_spi_cplt>:
  *      Author: arvyd
  */
 
 #include "lis3mdl_state_machine.h"
 
 LIS3MDL_State_Change_Error_t lis3mdl_change_state_due_to_spi_cplt(LIS3MDL_State_t *state){
- 800335c:	b580      	push	{r7, lr}
- 800335e:	b082      	sub	sp, #8
- 8003360:	af00      	add	r7, sp, #0
- 8003362:	6078      	str	r0, [r7, #4]
+ 8003954:	b580      	push	{r7, lr}
+ 8003956:	b082      	sub	sp, #8
+ 8003958:	af00      	add	r7, sp, #0
+ 800395a:	6078      	str	r0, [r7, #4]
 	switch(*state){
- 8003364:	687b      	ldr	r3, [r7, #4]
- 8003366:	781b      	ldrb	r3, [r3, #0]
- 8003368:	2b07      	cmp	r3, #7
- 800336a:	d820      	bhi.n	80033ae <lis3mdl_change_state_due_to_spi_cplt+0x52>
- 800336c:	009a      	lsls	r2, r3, #2
- 800336e:	4b13      	ldr	r3, [pc, #76]	@ (80033bc <lis3mdl_change_state_due_to_spi_cplt+0x60>)
- 8003370:	18d3      	adds	r3, r2, r3
- 8003372:	681b      	ldr	r3, [r3, #0]
- 8003374:	469f      	mov	pc, r3
+ 800395c:	687b      	ldr	r3, [r7, #4]
+ 800395e:	781b      	ldrb	r3, [r3, #0]
+ 8003960:	2b07      	cmp	r3, #7
+ 8003962:	d820      	bhi.n	80039a6 <lis3mdl_change_state_due_to_spi_cplt+0x52>
+ 8003964:	009a      	lsls	r2, r3, #2
+ 8003966:	4b13      	ldr	r3, [pc, #76]	@ (80039b4 <lis3mdl_change_state_due_to_spi_cplt+0x60>)
+ 8003968:	18d3      	adds	r3, r2, r3
+ 800396a:	681b      	ldr	r3, [r3, #0]
+ 800396c:	469f      	mov	pc, r3
 	case LIS3MDL_INITIALIZING_OFFSET_REGS:
 		*state = LIS3MDL_INITIALIZING_CTRL_REGS;
- 8003376:	687b      	ldr	r3, [r7, #4]
- 8003378:	2201      	movs	r2, #1
- 800337a:	701a      	strb	r2, [r3, #0]
+ 800396e:	687b      	ldr	r3, [r7, #4]
+ 8003970:	2201      	movs	r2, #1
+ 8003972:	701a      	strb	r2, [r3, #0]
 		break;
- 800337c:	e019      	b.n	80033b2 <lis3mdl_change_state_due_to_spi_cplt+0x56>
+ 8003974:	e019      	b.n	80039aa <lis3mdl_change_state_due_to_spi_cplt+0x56>
 
 	case LIS3MDL_INITIALIZING_CTRL_REGS:
 		*state = LIS3MDL_INITIALIZING_INT_REGS;
- 800337e:	687b      	ldr	r3, [r7, #4]
- 8003380:	2202      	movs	r2, #2
- 8003382:	701a      	strb	r2, [r3, #0]
+ 8003976:	687b      	ldr	r3, [r7, #4]
+ 8003978:	2202      	movs	r2, #2
+ 800397a:	701a      	strb	r2, [r3, #0]
 		break;
- 8003384:	e015      	b.n	80033b2 <lis3mdl_change_state_due_to_spi_cplt+0x56>
+ 800397c:	e015      	b.n	80039aa <lis3mdl_change_state_due_to_spi_cplt+0x56>
 
 	case LIS3MDL_INITIALIZING_INT_REGS:
 		*state = LIS3MDL_IDLE;
- 8003386:	687b      	ldr	r3, [r7, #4]
- 8003388:	2203      	movs	r2, #3
- 800338a:	701a      	strb	r2, [r3, #0]
+ 800397e:	687b      	ldr	r3, [r7, #4]
+ 8003980:	2203      	movs	r2, #3
+ 8003982:	701a      	strb	r2, [r3, #0]
 		break;
- 800338c:	e011      	b.n	80033b2 <lis3mdl_change_state_due_to_spi_cplt+0x56>
+ 8003984:	e011      	b.n	80039aa <lis3mdl_change_state_due_to_spi_cplt+0x56>
 
 	case LIS3MDL_SENDING_ADDRESS_TO_READ_FROM:
 		*state = LIS3MDL_READING_DATA;
- 800338e:	687b      	ldr	r3, [r7, #4]
- 8003390:	2206      	movs	r2, #6
- 8003392:	701a      	strb	r2, [r3, #0]
+ 8003986:	687b      	ldr	r3, [r7, #4]
+ 8003988:	2206      	movs	r2, #6
+ 800398a:	701a      	strb	r2, [r3, #0]
 		break;
- 8003394:	e00d      	b.n	80033b2 <lis3mdl_change_state_due_to_spi_cplt+0x56>
+ 800398c:	e00d      	b.n	80039aa <lis3mdl_change_state_due_to_spi_cplt+0x56>
 
 	case LIS3MDL_SENDING_ADDRESS_TO_WRITE_TO:
 		*state = LIS3MDL_WRITING_DATA;
- 8003396:	687b      	ldr	r3, [r7, #4]
- 8003398:	2207      	movs	r2, #7
- 800339a:	701a      	strb	r2, [r3, #0]
+ 800398e:	687b      	ldr	r3, [r7, #4]
+ 8003990:	2207      	movs	r2, #7
+ 8003992:	701a      	strb	r2, [r3, #0]
 		break;
- 800339c:	e009      	b.n	80033b2 <lis3mdl_change_state_due_to_spi_cplt+0x56>
+ 8003994:	e009      	b.n	80039aa <lis3mdl_change_state_due_to_spi_cplt+0x56>
 
 	case LIS3MDL_WRITING_DATA:
 		*state = LIS3MDL_IDLE;
- 800339e:	687b      	ldr	r3, [r7, #4]
- 80033a0:	2203      	movs	r2, #3
- 80033a2:	701a      	strb	r2, [r3, #0]
+ 8003996:	687b      	ldr	r3, [r7, #4]
+ 8003998:	2203      	movs	r2, #3
+ 800399a:	701a      	strb	r2, [r3, #0]
 		break;
- 80033a4:	e005      	b.n	80033b2 <lis3mdl_change_state_due_to_spi_cplt+0x56>
+ 800399c:	e005      	b.n	80039aa <lis3mdl_change_state_due_to_spi_cplt+0x56>
 
 	case LIS3MDL_READING_DATA:
 		*state = LIS3MDL_IDLE;
- 80033a6:	687b      	ldr	r3, [r7, #4]
- 80033a8:	2203      	movs	r2, #3
- 80033aa:	701a      	strb	r2, [r3, #0]
+ 800399e:	687b      	ldr	r3, [r7, #4]
+ 80039a0:	2203      	movs	r2, #3
+ 80039a2:	701a      	strb	r2, [r3, #0]
 		break;
- 80033ac:	e001      	b.n	80033b2 <lis3mdl_change_state_due_to_spi_cplt+0x56>
+ 80039a4:	e001      	b.n	80039aa <lis3mdl_change_state_due_to_spi_cplt+0x56>
 
 	default:
 		return LIS3MDL_STATE_CHANGE_INVALID_CHANGE;
- 80033ae:	2301      	movs	r3, #1
- 80033b0:	e000      	b.n	80033b4 <lis3mdl_change_state_due_to_spi_cplt+0x58>
+ 80039a6:	2301      	movs	r3, #1
+ 80039a8:	e000      	b.n	80039ac <lis3mdl_change_state_due_to_spi_cplt+0x58>
 	}
 
 	return LIS3MDL_STATE_CHANGE_OK;
- 80033b2:	2300      	movs	r3, #0
+ 80039aa:	2300      	movs	r3, #0
 }
- 80033b4:	0018      	movs	r0, r3
- 80033b6:	46bd      	mov	sp, r7
- 80033b8:	b002      	add	sp, #8
- 80033ba:	bd80      	pop	{r7, pc}
- 80033bc:	0800346c 	.word	0x0800346c
+ 80039ac:	0018      	movs	r0, r3
+ 80039ae:	46bd      	mov	sp, r7
+ 80039b0:	b002      	add	sp, #8
+ 80039b2:	bd80      	pop	{r7, pc}
+ 80039b4:	08003a78 	.word	0x08003a78
 
-080033c0 <memset>:
- 80033c0:	0003      	movs	r3, r0
- 80033c2:	1882      	adds	r2, r0, r2
- 80033c4:	4293      	cmp	r3, r2
- 80033c6:	d100      	bne.n	80033ca <memset+0xa>
- 80033c8:	4770      	bx	lr
- 80033ca:	7019      	strb	r1, [r3, #0]
- 80033cc:	3301      	adds	r3, #1
- 80033ce:	e7f9      	b.n	80033c4 <memset+0x4>
+080039b8 <memset>:
+ 80039b8:	0003      	movs	r3, r0
+ 80039ba:	1882      	adds	r2, r0, r2
+ 80039bc:	4293      	cmp	r3, r2
+ 80039be:	d100      	bne.n	80039c2 <memset+0xa>
+ 80039c0:	4770      	bx	lr
+ 80039c2:	7019      	strb	r1, [r3, #0]
+ 80039c4:	3301      	adds	r3, #1
+ 80039c6:	e7f9      	b.n	80039bc <memset+0x4>
 
-080033d0 <__libc_init_array>:
- 80033d0:	b570      	push	{r4, r5, r6, lr}
- 80033d2:	2600      	movs	r6, #0
- 80033d4:	4c0c      	ldr	r4, [pc, #48]	@ (8003408 <__libc_init_array+0x38>)
- 80033d6:	4d0d      	ldr	r5, [pc, #52]	@ (800340c <__libc_init_array+0x3c>)
- 80033d8:	1b64      	subs	r4, r4, r5
- 80033da:	10a4      	asrs	r4, r4, #2
- 80033dc:	42a6      	cmp	r6, r4
- 80033de:	d109      	bne.n	80033f4 <__libc_init_array+0x24>
- 80033e0:	2600      	movs	r6, #0
- 80033e2:	f000 f819 	bl	8003418 <_init>
- 80033e6:	4c0a      	ldr	r4, [pc, #40]	@ (8003410 <__libc_init_array+0x40>)
- 80033e8:	4d0a      	ldr	r5, [pc, #40]	@ (8003414 <__libc_init_array+0x44>)
- 80033ea:	1b64      	subs	r4, r4, r5
- 80033ec:	10a4      	asrs	r4, r4, #2
- 80033ee:	42a6      	cmp	r6, r4
- 80033f0:	d105      	bne.n	80033fe <__libc_init_array+0x2e>
- 80033f2:	bd70      	pop	{r4, r5, r6, pc}
- 80033f4:	00b3      	lsls	r3, r6, #2
- 80033f6:	58eb      	ldr	r3, [r5, r3]
- 80033f8:	4798      	blx	r3
- 80033fa:	3601      	adds	r6, #1
- 80033fc:	e7ee      	b.n	80033dc <__libc_init_array+0xc>
- 80033fe:	00b3      	lsls	r3, r6, #2
- 8003400:	58eb      	ldr	r3, [r5, r3]
- 8003402:	4798      	blx	r3
- 8003404:	3601      	adds	r6, #1
- 8003406:	e7f2      	b.n	80033ee <__libc_init_array+0x1e>
- 8003408:	0800348c 	.word	0x0800348c
- 800340c:	0800348c 	.word	0x0800348c
- 8003410:	08003490 	.word	0x08003490
- 8003414:	0800348c 	.word	0x0800348c
+080039c8 <__libc_init_array>:
+ 80039c8:	b570      	push	{r4, r5, r6, lr}
+ 80039ca:	2600      	movs	r6, #0
+ 80039cc:	4c0c      	ldr	r4, [pc, #48]	@ (8003a00 <__libc_init_array+0x38>)
+ 80039ce:	4d0d      	ldr	r5, [pc, #52]	@ (8003a04 <__libc_init_array+0x3c>)
+ 80039d0:	1b64      	subs	r4, r4, r5
+ 80039d2:	10a4      	asrs	r4, r4, #2
+ 80039d4:	42a6      	cmp	r6, r4
+ 80039d6:	d109      	bne.n	80039ec <__libc_init_array+0x24>
+ 80039d8:	2600      	movs	r6, #0
+ 80039da:	f000 f823 	bl	8003a24 <_init>
+ 80039de:	4c0a      	ldr	r4, [pc, #40]	@ (8003a08 <__libc_init_array+0x40>)
+ 80039e0:	4d0a      	ldr	r5, [pc, #40]	@ (8003a0c <__libc_init_array+0x44>)
+ 80039e2:	1b64      	subs	r4, r4, r5
+ 80039e4:	10a4      	asrs	r4, r4, #2
+ 80039e6:	42a6      	cmp	r6, r4
+ 80039e8:	d105      	bne.n	80039f6 <__libc_init_array+0x2e>
+ 80039ea:	bd70      	pop	{r4, r5, r6, pc}
+ 80039ec:	00b3      	lsls	r3, r6, #2
+ 80039ee:	58eb      	ldr	r3, [r5, r3]
+ 80039f0:	4798      	blx	r3
+ 80039f2:	3601      	adds	r6, #1
+ 80039f4:	e7ee      	b.n	80039d4 <__libc_init_array+0xc>
+ 80039f6:	00b3      	lsls	r3, r6, #2
+ 80039f8:	58eb      	ldr	r3, [r5, r3]
+ 80039fa:	4798      	blx	r3
+ 80039fc:	3601      	adds	r6, #1
+ 80039fe:	e7f2      	b.n	80039e6 <__libc_init_array+0x1e>
+ 8003a00:	08003a98 	.word	0x08003a98
+ 8003a04:	08003a98 	.word	0x08003a98
+ 8003a08:	08003a9c 	.word	0x08003a9c
+ 8003a0c:	08003a98 	.word	0x08003a98
 
-08003418 <_init>:
- 8003418:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
- 800341a:	46c0      	nop			@ (mov r8, r8)
- 800341c:	bcf8      	pop	{r3, r4, r5, r6, r7}
- 800341e:	bc08      	pop	{r3}
- 8003420:	469e      	mov	lr, r3
- 8003422:	4770      	bx	lr
+08003a10 <memcpy>:
+ 8003a10:	2300      	movs	r3, #0
+ 8003a12:	b510      	push	{r4, lr}
+ 8003a14:	429a      	cmp	r2, r3
+ 8003a16:	d100      	bne.n	8003a1a <memcpy+0xa>
+ 8003a18:	bd10      	pop	{r4, pc}
+ 8003a1a:	5ccc      	ldrb	r4, [r1, r3]
+ 8003a1c:	54c4      	strb	r4, [r0, r3]
+ 8003a1e:	3301      	adds	r3, #1
+ 8003a20:	e7f8      	b.n	8003a14 <memcpy+0x4>
+	...
 
-08003424 <_fini>:
- 8003424:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
- 8003426:	46c0      	nop			@ (mov r8, r8)
- 8003428:	bcf8      	pop	{r3, r4, r5, r6, r7}
- 800342a:	bc08      	pop	{r3}
- 800342c:	469e      	mov	lr, r3
- 800342e:	4770      	bx	lr
+08003a24 <_init>:
+ 8003a24:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+ 8003a26:	46c0      	nop			@ (mov r8, r8)
+ 8003a28:	bcf8      	pop	{r3, r4, r5, r6, r7}
+ 8003a2a:	bc08      	pop	{r3}
+ 8003a2c:	469e      	mov	lr, r3
+ 8003a2e:	4770      	bx	lr
+
+08003a30 <_fini>:
+ 8003a30:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+ 8003a32:	46c0      	nop			@ (mov r8, r8)
+ 8003a34:	bcf8      	pop	{r3, r4, r5, r6, r7}
+ 8003a36:	bc08      	pop	{r3}
+ 8003a38:	469e      	mov	lr, r3
+ 8003a3a:	4770      	bx	lr

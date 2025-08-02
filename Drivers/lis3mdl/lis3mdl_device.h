@@ -4,10 +4,6 @@
  *  Created on: Jul 27, 2025
  *      Author: arvyd
  *
- *      Used to enable driver's portability across different STM families.
- *      When a user exploits the driver in his code he should declare and populate
- *      a LIS3MDL_Comm_Interface_t struct and then later on use to communicate with
- *      the driver.
  */
 
 #ifndef LIS3MDL_LIS3MDL_DEVICE_H_
@@ -26,7 +22,7 @@
  */
 
 typedef struct {
-	LIS3MDL_Init_Params init_params;
+	LIS3MDL_Config_regs config_regs;
 	LIS3MDL_State_t state;
 
 	uint8_t reg_addr;
@@ -40,5 +36,8 @@ typedef struct {
 	SPI_HandleTypeDef *hspi;
 
 } LIS3MDL_Device;
+
+uint8_t lis3mdl_initialize_device_struct(LIS3MDL_Device *device, SPI_HandleTypeDef *hspi, GPIO_TypeDef *cs_gpio_port_handle, uint16_t cs_pin);
+uint8_t lis3mdl_setup_config_registers(LIS3MDL_Device *device, LIS3MDL_Init_Params input_params);
 
 #endif /* LIS3MDL_LIS3MDL_DEVICE_H_ */

@@ -1,0 +1,2 @@
+../Drivers/lis3mdl/lis3mdl_device.c:10:9:lis3mdl_initialize_device_struct	24	static
+../Drivers/lis3mdl/lis3mdl_device.c:27:9:lis3mdl_setup_config_registers	56	static

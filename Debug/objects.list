@@ -24,4 +24,6 @@
 "./Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_tim.o"
 "./Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_tim_ex.o"
 "./Drivers/lis3mdl/lis3mdl.o"
+"./Drivers/lis3mdl/lis3mdl_device.o"
+"./Drivers/lis3mdl/lis3mdl_init_params.o"
 "./Drivers/lis3mdl/lis3mdl_state_machine.o"

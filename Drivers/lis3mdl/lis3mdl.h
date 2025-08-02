@@ -20,7 +20,7 @@ typedef enum {
 
 LIS3MDL_Process_Status_t lis3mdl_process(LIS3MDL_Device *devices, uint8_t num_of_devices, uint8_t *spi_cplt_flag);
 int get_first_non_idling_device_index(LIS3MDL_Device *devices, uint8_t num_of_devices);
-HAL_StatusTypeDef lis3mdl_read_reg(LIS3MDL_Device *device, uint8_t reg, uint8_t size);
+HAL_StatusTypeDef lis3mdl_read_reg(LIS3MDL_Device *devices, uint8_t num_of_devices, uint8_t device_index, uint8_t reg, uint8_t size);
 uint8_t lis3mdl_clear_data(LIS3MDL_Device *device);
 
 #endif /* DRIVERS_LIS3MDL_LIS3MDL_H_ */

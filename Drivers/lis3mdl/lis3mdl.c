@@ -45,28 +45,47 @@ LIS3MDL_Process_Status_t lis3mdl_process(LIS3MDL_Device *devices, uint8_t num_of
 	spi_transaction_started = 1;
 	switch(devices[dev_index].state){
 	case LIS3MDL_INITIALIZING_OFFSET_REGS:
-		// Start the SPI DMA for setting offsets
+		uint8_t tx_offsets[7];
+		tx_offsets[0] = LIS3MDL_OFFSET_X_REG_L_M_ADDR | LIS3MDL_MD_BIT;
+		memcpy(tx_offsets + 1, devices[dev_index].config_regs.offsets, 6);
+		if(HAL_SPI_Transmit_DMA(devices[dev_index].hspi,tx_offsets, 7) != HAL_OK)
+			return LIS3MDL_PROCESS_ERROR;
 		return LIS3MDL_PROCESS_OK;
+
 	case LIS3MDL_INITIALIZING_CTRL_REGS:
-		// Start the SPI DMA for setting CTRL regs
+		uint8_t tx_ctrls[6];
+		tx_ctrls[0] = LIS3MDL_CTRL_REG1_ADDR | LIS3MDL_MD_BIT;
+		memcpy(tx_ctrls + 1, devices[dev_index].config_regs.ctrls, 5);
+		if(HAL_SPI_Transmit_DMA(devices[dev_index].hspi,tx_ctrls, 6) != HAL_OK)
+			return LIS3MDL_PROCESS_ERROR;
 		return LIS3MDL_PROCESS_OK;
+
 	case LIS3MDL_INITIALIZING_INT_REGS:
-		// Start the SPI DMA for setting INT regs
+		uint8_t tx_ints[5];
+		tx_ints[0] = LIS3MDL_INT_CFG_REG_ADDR| LIS3MDL_MD_BIT;
+		memcpy(tx_ints + 1, devices[dev_index].config_regs.ints, 4);
+		if(HAL_SPI_Transmit_DMA(devices[dev_index].hspi,tx_ints, 5) != HAL_OK)
+			return LIS3MDL_PROCESS_ERROR;
 		return LIS3MDL_PROCESS_OK;
+
 	case LIS3MDL_SENDING_ADDRESS_TO_WRITE_TO:
 		// Start the SPI DMA
 		return LIS3MDL_PROCESS_OK;
+
 	case LIS3MDL_SENDING_ADDRESS_TO_READ_FROM:
 		if(HAL_SPI_Transmit_DMA(devices[dev_index].hspi,&devices[dev_index].reg_addr, 1) != HAL_OK)
 			return LIS3MDL_PROCESS_ERROR;
 		return LIS3MDL_PROCESS_OK;
+
 	case LIS3MDL_WRITING_DATA:
 		// Start the SPI DMA
 		return LIS3MDL_PROCESS_OK;
+
 	case LIS3MDL_READING_DATA:
 		if(HAL_SPI_Receive_DMA(devices[dev_index].hspi,devices[dev_index].rx, devices[dev_index].data_size) != HAL_OK)
 			return LIS3MDL_PROCESS_ERROR;
 		return LIS3MDL_PROCESS_OK;
+
 	default:
 		return LIS3MDL_PROCESS_ERROR;
 	}
@@ -86,9 +105,13 @@ int get_first_non_idling_device_index(LIS3MDL_Device *devices, uint8_t num_of_de
 	return -1;
 }
 
-HAL_StatusTypeDef lis3mdl_read_reg(LIS3MDL_Device *device, uint8_t reg, uint8_t size){
-	if(device == NULL)
+HAL_StatusTypeDef lis3mdl_read_reg(LIS3MDL_Device *devices, uint8_t num_of_devices, uint8_t device_index, uint8_t reg, uint8_t size){
+	if(devices == NULL)
 		return HAL_ERROR;
+
+	// Take new commands only if all of the devices are idling
+	if(get_first_non_idling_device_index(devices, num_of_devices) >= 0)
+		return HAL_BUSY;
 
 	if((reg & LIS3MDL_READ_BIT) == LIS3MDL_READ_BIT || (reg & LIS3MDL_MD_BIT) == LIS3MDL_MD_BIT)
 		return HAL_ERROR;
@@ -96,15 +119,15 @@ HAL_StatusTypeDef lis3mdl_read_reg(LIS3MDL_Device *device, uint8_t reg, uint8_t 
 	if(size < 1 || size > LIS3MDL_BUFFER_SIZE)
 		return HAL_ERROR;
 
-	if(lis3mdl_clear_data(device)!=0)
+	if(lis3mdl_clear_data(&devices[device_index])!=0)
 		return HAL_ERROR;
 
-	device->reg_addr = reg | LIS3MDL_READ_BIT;
+	devices[device_index].reg_addr = reg | LIS3MDL_READ_BIT;
 	if(size > 1)
 		reg |= LIS3MDL_MD_BIT;
-	device->data_size = size;
+	devices[device_index].data_size = size;
 
-	device->state = LIS3MDL_SENDING_ADDRESS_TO_READ_FROM;
+	devices[device_index].state = LIS3MDL_SENDING_ADDRESS_TO_READ_FROM;
 
 	return HAL_OK;
 
@@ -121,5 +144,3 @@ uint8_t lis3mdl_clear_data(LIS3MDL_Device *device){
 	device->read_data_available = 0;
 	return 0;
 }
-
-uint8_t

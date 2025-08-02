@@ -1,4 +1,4 @@
-../Core/Src/main.c:82:5:main	2
+../Core/Src/main.c:81:5:main	2
 ../Core/Src/main.c:147:6:SystemClock_Config	3
 ../Core/Src/main.c:192:13:MX_IWDG_Init	2
 ../Core/Src/main.c:221:13:MX_SPI2_Init	2

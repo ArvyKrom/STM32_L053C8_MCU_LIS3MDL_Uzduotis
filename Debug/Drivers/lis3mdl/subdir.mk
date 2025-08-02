@@ -6,14 +6,20 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../Drivers/lis3mdl/lis3mdl.c \
+../Drivers/lis3mdl/lis3mdl_device.c \
+../Drivers/lis3mdl/lis3mdl_init_params.c \
 ../Drivers/lis3mdl/lis3mdl_state_machine.c 
 
 OBJS += \
 ./Drivers/lis3mdl/lis3mdl.o \
+./Drivers/lis3mdl/lis3mdl_device.o \
+./Drivers/lis3mdl/lis3mdl_init_params.o \
 ./Drivers/lis3mdl/lis3mdl_state_machine.o 
 
 C_DEPS += \
 ./Drivers/lis3mdl/lis3mdl.d \
+./Drivers/lis3mdl/lis3mdl_device.d \
+./Drivers/lis3mdl/lis3mdl_init_params.d \
 ./Drivers/lis3mdl/lis3mdl_state_machine.d 
 
 
@@ -24,7 +30,7 @@ Drivers/lis3mdl/%.o Drivers/lis3mdl/%.su Drivers/lis3mdl/%.cyclo: ../Drivers/lis
 clean: clean-Drivers-2f-lis3mdl
 
 clean-Drivers-2f-lis3mdl:
-	-$(RM) ./Drivers/lis3mdl/lis3mdl.cyclo ./Drivers/lis3mdl/lis3mdl.d ./Drivers/lis3mdl/lis3mdl.o ./Drivers/lis3mdl/lis3mdl.su ./Drivers/lis3mdl/lis3mdl_state_machine.cyclo ./Drivers/lis3mdl/lis3mdl_state_machine.d ./Drivers/lis3mdl/lis3mdl_state_machine.o ./Drivers/lis3mdl/lis3mdl_state_machine.su
+	-$(RM) ./Drivers/lis3mdl/lis3mdl.cyclo ./Drivers/lis3mdl/lis3mdl.d ./Drivers/lis3mdl/lis3mdl.o ./Drivers/lis3mdl/lis3mdl.su ./Drivers/lis3mdl/lis3mdl_device.cyclo ./Drivers/lis3mdl/lis3mdl_device.d ./Drivers/lis3mdl/lis3mdl_device.o ./Drivers/lis3mdl/lis3mdl_device.su ./Drivers/lis3mdl/lis3mdl_init_params.cyclo ./Drivers/lis3mdl/lis3mdl_init_params.d ./Drivers/lis3mdl/lis3mdl_init_params.o ./Drivers/lis3mdl/lis3mdl_init_params.su ./Drivers/lis3mdl/lis3mdl_state_machine.cyclo ./Drivers/lis3mdl/lis3mdl_state_machine.d ./Drivers/lis3mdl/lis3mdl_state_machine.o ./Drivers/lis3mdl/lis3mdl_state_machine.su
 
 .PHONY: clean-Drivers-2f-lis3mdl
 
