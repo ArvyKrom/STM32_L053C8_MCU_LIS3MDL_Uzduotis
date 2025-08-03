@@ -9,8 +9,12 @@
 
 LIS3MDL_State_Change_Error_t lis3mdl_change_state_due_to_spi_cplt(LIS3MDL_State_t *state){
 	switch(*state){
+	case LIS3MDL_RESETTING_REGISTERS:
+		*state = LIS3MDL_INITIALIZING_OFFSET_REGS;
+		break;
 	case LIS3MDL_INITIALIZING_OFFSET_REGS:
-		*state = LIS3MDL_INITIALIZING_CTRL_REGS;
+//		*state = LIS3MDL_INITIALIZING_CTRL_REGS;
+		*state = LIS3MDL_IDLE;
 		break;
 
 	case LIS3MDL_INITIALIZING_CTRL_REGS:

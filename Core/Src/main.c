@@ -54,7 +54,7 @@ TIM_HandleTypeDef htim6;
 /* USER CODE BEGIN PV */
 
 uint8_t spi_cplt_flag = 0;
-uint8_t who_am_i_reg = LIS3MDL_WHO_AM_I_REG_ADDR;
+uint8_t reg_to_read = LIS3MDL_OFFSET_X_REG_L_M_ADDR;
 
 /* USER CODE END PV */
 
@@ -91,6 +91,7 @@ int main(void)
 	// Init parameters can be tweaked manually
 	// For example init_params.full_scale = LIS3MDL_FULL_SCALE_4_GAUSS
 	// All configurable options available under lis3mdl_init_params.h
+	init_params.offset_x = 0xFFFF;
 
 	lis3mdl_setup_config_registers(&lis3mdl_devices[0], init_params);
 
@@ -128,13 +129,32 @@ int main(void)
   {
 	HAL_IWDG_Refresh(&hiwdg);
 	lis3mdl_process(lis3mdl_devices, 1, &spi_cplt_flag);
-	lis3mdl_read_reg(lis3mdl_devices, 1, 0, who_am_i_reg, 1);
-    /* USER CODE END WHILE */
-
-    /* USER CODE BEGIN 3 */
 	if(lis3mdl_devices[0].rx[0] !='\0'){
 		int ret = 5;
 	}
+	lis3mdl_read_reg(lis3mdl_devices, 1, 0, reg_to_read, 1);
+//	  uint8_t rx_data = 0;
+//	  uint8_t tx_data[2] = {LIS3MDL_OFFSET_X_REG_L_M_ADDR, 0xFF};
+//	  HAL_GPIO_WritePin(SS2_GPIO_Port, SS2_Pin, 0);
+//	  HAL_StatusTypeDef ret = HAL_SPI_Transmit(&hspi2,&tx_data, 2, 100);
+//	  if(ret != HAL_OK){
+//		  rx_data++;
+//	  }
+//	  HAL_GPIO_WritePin(SS2_GPIO_Port, SS2_Pin, 1);
+//	  HAL_GPIO_WritePin(SS2_GPIO_Port, SS2_Pin, 0);
+//	  ret = HAL_SPI_Transmit(&hspi2,&reg_to_read, 1, 100);
+//	  if(ret != HAL_OK){
+//		  rx_data++;
+//	  }
+//	  ret = HAL_SPI_Receive(&hspi2,&rx_data, 1, 100);
+//	  if(ret != HAL_OK){
+//		  rx_data++;
+//	  }
+//	  HAL_GPIO_WritePin(SS2_GPIO_Port, SS2_Pin, 1);
+//	  rx_data++;
+    /* USER CODE END WHILE */
+
+    /* USER CODE BEGIN 3 */
 
   }
   /* USER CODE END 3 */
@@ -201,8 +221,8 @@ static void MX_IWDG_Init(void)
   /* USER CODE END IWDG_Init 1 */
   hiwdg.Instance = IWDG;
   hiwdg.Init.Prescaler = IWDG_PRESCALER_4;
-  hiwdg.Init.Window = 10;
-  hiwdg.Init.Reload = 10;
+  hiwdg.Init.Window = 100;
+  hiwdg.Init.Reload = 100;
   if (HAL_IWDG_Init(&hiwdg) != HAL_OK)
   {
     Error_Handler();
@@ -322,7 +342,7 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(SS2_GPIO_Port, SS2_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(SS2_GPIO_Port, SS2_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOA, LED1_Pin|LED2_Pin|LED3_Pin|LED4_Pin, GPIO_PIN_RESET);

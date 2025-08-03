@@ -19,8 +19,10 @@ LIS3MDL_Process_Status_t lis3mdl_process(LIS3MDL_Device *devices, uint8_t num_of
 		dev_index = get_first_non_idling_device_index(devices, num_of_devices);
 	}
 
-	if(dev_index < 0)
+	if(dev_index < 0){
+		dev_index = 0;
 		return LIS3MDL_PROCESS_ALL_DEVICES_IDLING;
+	}
 
 	static uint8_t spi_transaction_started = 0;
 
@@ -44,6 +46,11 @@ LIS3MDL_Process_Status_t lis3mdl_process(LIS3MDL_Device *devices, uint8_t num_of
 	devices[dev_index].cs_gpio_port_handle->BSRR = (devices[dev_index].cs_pin) << 16; // Pulling CS Low
 	spi_transaction_started = 1;
 	switch(devices[dev_index].state){
+	case LIS3MDL_RESETTING_REGISTERS:
+		uint8_t tx_reboot[2] = {LIS3MDL_CTRL_REG2_ADDR, LIS3MDL_REBOOT};
+		if(HAL_SPI_Transmit_DMA(devices[dev_index].hspi,tx_reboot, 2) != HAL_OK)
+			return LIS3MDL_PROCESS_ERROR;
+		return LIS3MDL_PROCESS_OK;
 	case LIS3MDL_INITIALIZING_OFFSET_REGS:
 		uint8_t tx_offsets[7];
 		tx_offsets[0] = LIS3MDL_OFFSET_X_REG_L_M_ADDR | LIS3MDL_MD_BIT;

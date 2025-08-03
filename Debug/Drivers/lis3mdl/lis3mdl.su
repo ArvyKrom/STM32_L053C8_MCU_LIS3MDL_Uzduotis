@@ -1,4 +1,4 @@
-../Drivers/lis3mdl/lis3mdl.c:13:26:lis3mdl_process	56	static
-../Drivers/lis3mdl/lis3mdl.c:96:5:get_first_non_idling_device_index	24	static
-../Drivers/lis3mdl/lis3mdl.c:108:19:lis3mdl_read_reg	24	static
-../Drivers/lis3mdl/lis3mdl.c:136:9:lis3mdl_clear_data	16	static
+../Drivers/lis3mdl/lis3mdl.c:13:26:lis3mdl_process	64	static
+../Drivers/lis3mdl/lis3mdl.c:103:5:get_first_non_idling_device_index	24	static
+../Drivers/lis3mdl/lis3mdl.c:115:19:lis3mdl_read_reg	24	static
+../Drivers/lis3mdl/lis3mdl.c:143:9:lis3mdl_clear_data	16	static

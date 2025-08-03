@@ -11,7 +11,7 @@ uint8_t lis3mdl_initialize_device_struct(LIS3MDL_Device *device, SPI_HandleTypeD
 	if (device == NULL || hspi == NULL || cs_gpio_port_handle == NULL)
 		return 1;
 
-	device->state = LIS3MDL_INITIALIZING_OFFSET_REGS;
+	device->state = LIS3MDL_RESETTING_REGISTERS;
 
 	device->reg_addr = 0;
 	device->data_size = 0;
