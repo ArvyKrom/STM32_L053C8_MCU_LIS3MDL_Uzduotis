@@ -6,6 +6,7 @@
  */
 
 #include "lis3mdl_device.h"
+#include "string.h"
 
 uint8_t lis3mdl_initialize_device_struct(LIS3MDL_Device *device, SPI_HandleTypeDef *hspi, GPIO_TypeDef *cs_gpio_port_handle, uint16_t cs_pin){
 	if (device == NULL || hspi == NULL || cs_gpio_port_handle == NULL)
@@ -16,7 +17,8 @@ uint8_t lis3mdl_initialize_device_struct(LIS3MDL_Device *device, SPI_HandleTypeD
 	device->reg_addr = 0;
 	device->data_size = 0;
 	device->read_data_available = 0;
-
+	memset(device->rx, 0, LIS3MDL_BUFFER_SIZE);
+	memset(device->tx, 0, LIS3MDL_BUFFER_SIZE);
 	device->hspi = hspi;
 	device->cs_gpio_port_handle = cs_gpio_port_handle;
 	device->cs_pin = cs_pin;

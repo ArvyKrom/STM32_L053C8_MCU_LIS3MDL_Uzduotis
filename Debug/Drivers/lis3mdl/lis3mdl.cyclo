@@ -1,4 +1,4 @@
 ../Drivers/lis3mdl/lis3mdl.c:13:26:lis3mdl_process	24
-../Drivers/lis3mdl/lis3mdl.c:103:5:get_first_non_idling_device_index	4
-../Drivers/lis3mdl/lis3mdl.c:115:19:lis3mdl_read_reg	9
-../Drivers/lis3mdl/lis3mdl.c:143:9:lis3mdl_clear_data	2
+../Drivers/lis3mdl/lis3mdl.c:104:5:get_first_non_idling_device_index	4
+../Drivers/lis3mdl/lis3mdl.c:116:19:lis3mdl_read_reg	9
+../Drivers/lis3mdl/lis3mdl.c:144:9:lis3mdl_clear_data	2

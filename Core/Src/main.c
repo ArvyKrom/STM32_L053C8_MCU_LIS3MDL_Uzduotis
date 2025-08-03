@@ -53,7 +53,7 @@ TIM_HandleTypeDef htim6;
 
 /* USER CODE BEGIN PV */
 
-uint8_t spi_cplt_flag = 0;
+volatile uint8_t spi_cplt_flag = 0;
 uint8_t reg_to_read = LIS3MDL_OFFSET_X_REG_L_M_ADDR;
 
 /* USER CODE END PV */
@@ -120,6 +120,21 @@ int main(void)
   MX_TIM6_Init();
   MX_IWDG_Init();
   /* USER CODE BEGIN 2 */
+//  uint8_t txd_data[2] = {LIS3MDL_CTRL_REG2_ADDR, LIS3MDL_REBOOT};
+//  HAL_GPIO_WritePin(SS2_GPIO_Port, SS2_Pin, 0);
+//  HAL_StatusTypeDef ret = HAL_SPI_Transmit(&hspi2,&txd_data, 2, 100);
+//  if(ret != HAL_OK){
+//	  int b = 5;
+//  }
+//  HAL_GPIO_WritePin(SS2_GPIO_Port, SS2_Pin, 1);
+//
+//  uint8_t tx_data[3] = {LIS3MDL_OFFSET_X_REG_L_M_ADDR | LIS3MDL_MD_BIT, 0xFF, 0xFF};
+//  HAL_GPIO_WritePin(SS2_GPIO_Port, SS2_Pin, 0);
+//  ret = HAL_SPI_Transmit(&hspi2,&tx_data, 3, 100);
+//  if(ret != HAL_OK){
+//	  int b = 5;
+//  }
+//  HAL_GPIO_WritePin(SS2_GPIO_Port, SS2_Pin, 1);
 
   /* USER CODE END 2 */
 
@@ -128,11 +143,13 @@ int main(void)
   while (1)
   {
 	HAL_IWDG_Refresh(&hiwdg);
-	lis3mdl_process(lis3mdl_devices, 1, &spi_cplt_flag);
-	if(lis3mdl_devices[0].rx[0] !='\0'){
+	if(lis3mdl_process(lis3mdl_devices, 1, &spi_cplt_flag) == LIS3MDL_PROCESS_ERROR){
+		int a = 6;
+	}
+	if(lis3mdl_devices[0].state == LIS3MDL_IDLE){
 		int ret = 5;
 	}
-	lis3mdl_read_reg(lis3mdl_devices, 1, 0, reg_to_read, 1);
+	lis3mdl_read_reg(lis3mdl_devices, 1, 0, reg_to_read, 2);
 //	  uint8_t rx_data = 0;
 //	  uint8_t tx_data[2] = {LIS3MDL_OFFSET_X_REG_L_M_ADDR, 0xFF};
 //	  HAL_GPIO_WritePin(SS2_GPIO_Port, SS2_Pin, 0);

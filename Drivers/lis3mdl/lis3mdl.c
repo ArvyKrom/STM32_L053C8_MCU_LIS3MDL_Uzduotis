@@ -10,7 +10,7 @@
 #include "lis3mdl.h"
 #include "lis3mdl_registers.h"
 
-LIS3MDL_Process_Status_t lis3mdl_process(LIS3MDL_Device *devices, uint8_t num_of_devices, uint8_t *spi_cplt_flag){
+LIS3MDL_Process_Status_t lis3mdl_process(LIS3MDL_Device *devices, uint8_t num_of_devices, volatile uint8_t *spi_cplt_flag){
 	if(devices == NULL)
 		return LIS3MDL_PROCESS_ERROR;
 
@@ -34,8 +34,9 @@ LIS3MDL_Process_Status_t lis3mdl_process(LIS3MDL_Device *devices, uint8_t num_of
 		if(lis3mdl_change_state_due_to_spi_cplt(&devices[dev_index].state) == LIS3MDL_STATE_CHANGE_INVALID_CHANGE)
 			return LIS3MDL_PROCESS_ERROR;
 
-		if(devices[dev_index].state != LIS3MDL_WRITING_DATA && devices[dev_index].state != LIS3MDL_READING_DATA)
+		if(devices[dev_index].state != LIS3MDL_WRITING_DATA && devices[dev_index].state != LIS3MDL_READING_DATA){
 			devices[dev_index].cs_gpio_port_handle->BSRR = devices[dev_index].cs_pin; // Pulling CS High
+		}
 
 		spi_transaction_started = 0;
 		dev_index = 0;
@@ -52,10 +53,10 @@ LIS3MDL_Process_Status_t lis3mdl_process(LIS3MDL_Device *devices, uint8_t num_of
 			return LIS3MDL_PROCESS_ERROR;
 		return LIS3MDL_PROCESS_OK;
 	case LIS3MDL_INITIALIZING_OFFSET_REGS:
-		uint8_t tx_offsets[7];
-		tx_offsets[0] = LIS3MDL_OFFSET_X_REG_L_M_ADDR | LIS3MDL_MD_BIT;
-		memcpy(tx_offsets + 1, devices[dev_index].config_regs.offsets, 6);
-		if(HAL_SPI_Transmit_DMA(devices[dev_index].hspi,tx_offsets, 7) != HAL_OK)
+		uint8_t tx_offsets[2];
+		tx_offsets[0] = LIS3MDL_OFFSET_X_REG_L_M_ADDR;
+		memcpy(tx_offsets + 1, devices[dev_index].config_regs.offsets, 1);
+		if(HAL_SPI_Transmit_DMA(devices[dev_index].hspi,tx_offsets, 2) != HAL_OK)
 			return LIS3MDL_PROCESS_ERROR;
 		return LIS3MDL_PROCESS_OK;
 
