@@ -9,12 +9,22 @@
 #ifndef LIS3MDL_LIS3MDL_INIT_PARAMS_H_
 #define LIS3MDL_LIS3MDL_INIT_PARAMS_H_
 
+/**
+ * @brief Defines the operational modes for the LIS3MDL magnetometer,
+ * affecting power consumption and measurement accuracy.
+ */
+
 typedef enum {
 	LIS3MDL_LOW_POWER = 0x00,
 	LIS3MDL_MEDIUM_PERFORMANCE = 0x01,
 	LIS3MDL_HIGH_PERFORAMCE = 0x02,
 	LIS3MDL_ULTRA_PERFORMACE = 0x03
 } LIS3MDL_Operation_Mode;
+
+/**
+ * @brief Defines the output data rates (ODR) for magnetic field measurements.
+ * A higher ODR means more frequent measurements.
+ */
 
 typedef enum {
 	LIS3MDL_ODR_0_625 = 0x00,
@@ -27,6 +37,11 @@ typedef enum {
 	LIS3MDL_ODR_80 = 0x07
 } LIS3MDL_Output_Data_Rate;
 
+/**
+ * @brief Defines the full-scale magnetic field measurement range.
+ * This determines the maximum magnetic field the sensor can measure and its sensitivity.
+ */
+
 typedef enum {
 	LIS3MDL_FULL_SCALE_4_GAUSS = 0x00,
 	LIS3MDL_FULL_SCALE_8_GAUSS = 0x01,
@@ -34,11 +49,25 @@ typedef enum {
 	LIS3MDL_FULL_SCALE_16_GAUSS = 0x03,
 } LIS3MDL_Full_Scale;
 
+/**
+ * @brief Defines the conversion modes for the LIS3MDL magnetometer.
+ * This controls when and how measurements are performed.
+ */
+
 typedef enum {
 	LIS3MDL_CONTINIOUS_CONVERSION = 0x00,
 	LIS3MDL_SINGLE_CONVERSION = 0x01,
 	LIS3MDL_POWER_DOWN = 0x02
 } LIS3MDL_Conversion_mode;
+
+/**
+ * @brief Structure for initializing LIS3MDL device parameters.
+ *
+ * This struct provides a high-level, human-readable representation of
+ * all configurable parameters for the LIS3MDL magnetic sensor,
+ * corresponding to its various control and interrupt registers.
+ * These parameters are used to generate the actual register values.
+ */
 
 typedef struct {
 	//Offset registers
@@ -90,6 +119,13 @@ typedef struct {
 	uint16_t interrupt_threshold;
 
 }LIS3MDL_Init_Params;
+
+/**
+ * @brief Structure to store the raw byte values for LIS3MDL configuration registers.
+ *
+ * This struct is used internally to hold the processed byte arrays that are
+ * directly transmitted to the LIS3MDL sensor via SPI to configure its behavior.
+ */
 
 typedef struct {
 	uint8_t offsets[6];

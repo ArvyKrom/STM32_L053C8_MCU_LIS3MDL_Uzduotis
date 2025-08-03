@@ -26,4 +26,4 @@
 "./Drivers/lis3mdl/lis3mdl.o"
 "./Drivers/lis3mdl/lis3mdl_device.o"
 "./Drivers/lis3mdl/lis3mdl_init_params.o"
-"./Drivers/lis3mdl/lis3mdl_state_machine.o"
+"./Drivers/lis3mdl/lis3mdl_process_state_machine.o"

@@ -1,2 +1,2 @@
-../Drivers/lis3mdl/lis3mdl_init_params.c:12:9:lis3mdl_set_default_params	2
-../Drivers/lis3mdl/lis3mdl_init_params.c:55:9:lis3mdl_put_params_into_registers	4
+../Drivers/lis3mdl/lis3mdl_init_params.c:23:9:lis3mdl_set_default_params	2
+../Drivers/lis3mdl/lis3mdl_init_params.c:83:9:lis3mdl_put_params_into_registers	4

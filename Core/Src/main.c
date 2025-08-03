@@ -54,7 +54,7 @@ TIM_HandleTypeDef htim6;
 /* USER CODE BEGIN PV */
 
 volatile uint8_t spi_cplt_flag = 0;
-uint8_t reg_to_read = LIS3MDL_OFFSET_X_REG_L_M_ADDR;
+LIS3MDL_Magnetic_Data_t magnetic_data;
 
 /* USER CODE END PV */
 
@@ -91,7 +91,8 @@ int main(void)
 	// Init parameters can be tweaked manually
 	// For example init_params.full_scale = LIS3MDL_FULL_SCALE_4_GAUSS
 	// All configurable options available under lis3mdl_init_params.h
-	init_params.offset_x = 0xFFFF;
+	init_params.full_scale = LIS3MDL_FULL_SCALE_16_GAUSS;
+	init_params.xy_operation_mode = LIS3MDL_ULTRA_PERFORMACE;
 
 	lis3mdl_setup_config_registers(&lis3mdl_devices[0], init_params);
 
@@ -120,21 +121,6 @@ int main(void)
   MX_TIM6_Init();
   MX_IWDG_Init();
   /* USER CODE BEGIN 2 */
-//  uint8_t txd_data[2] = {LIS3MDL_CTRL_REG2_ADDR, LIS3MDL_REBOOT};
-//  HAL_GPIO_WritePin(SS2_GPIO_Port, SS2_Pin, 0);
-//  HAL_StatusTypeDef ret = HAL_SPI_Transmit(&hspi2,&txd_data, 2, 100);
-//  if(ret != HAL_OK){
-//	  int b = 5;
-//  }
-//  HAL_GPIO_WritePin(SS2_GPIO_Port, SS2_Pin, 1);
-//
-//  uint8_t tx_data[3] = {LIS3MDL_OFFSET_X_REG_L_M_ADDR | LIS3MDL_MD_BIT, 0xFF, 0xFF};
-//  HAL_GPIO_WritePin(SS2_GPIO_Port, SS2_Pin, 0);
-//  ret = HAL_SPI_Transmit(&hspi2,&tx_data, 3, 100);
-//  if(ret != HAL_OK){
-//	  int b = 5;
-//  }
-//  HAL_GPIO_WritePin(SS2_GPIO_Port, SS2_Pin, 1);
 
   /* USER CODE END 2 */
 
@@ -143,32 +129,11 @@ int main(void)
   while (1)
   {
 	HAL_IWDG_Refresh(&hiwdg);
-	if(lis3mdl_process(lis3mdl_devices, 1, &spi_cplt_flag) == LIS3MDL_PROCESS_ERROR){
-		int a = 6;
+	lis3mdl_process(lis3mdl_devices, 1, &spi_cplt_flag);
+	if(lis3mdl_get_magnetic_data(lis3mdl_devices, 1, 0, &magnetic_data) == LIS3MDL_DATA_AVAILABLE){
+		int ret = 0; // Do something with the data
 	}
-	if(lis3mdl_devices[0].state == LIS3MDL_IDLE){
-		int ret = 5;
-	}
-	lis3mdl_read_reg(lis3mdl_devices, 1, 0, reg_to_read, 2);
-//	  uint8_t rx_data = 0;
-//	  uint8_t tx_data[2] = {LIS3MDL_OFFSET_X_REG_L_M_ADDR, 0xFF};
-//	  HAL_GPIO_WritePin(SS2_GPIO_Port, SS2_Pin, 0);
-//	  HAL_StatusTypeDef ret = HAL_SPI_Transmit(&hspi2,&tx_data, 2, 100);
-//	  if(ret != HAL_OK){
-//		  rx_data++;
-//	  }
-//	  HAL_GPIO_WritePin(SS2_GPIO_Port, SS2_Pin, 1);
-//	  HAL_GPIO_WritePin(SS2_GPIO_Port, SS2_Pin, 0);
-//	  ret = HAL_SPI_Transmit(&hspi2,&reg_to_read, 1, 100);
-//	  if(ret != HAL_OK){
-//		  rx_data++;
-//	  }
-//	  ret = HAL_SPI_Receive(&hspi2,&rx_data, 1, 100);
-//	  if(ret != HAL_OK){
-//		  rx_data++;
-//	  }
-//	  HAL_GPIO_WritePin(SS2_GPIO_Port, SS2_Pin, 1);
-//	  rx_data++;
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

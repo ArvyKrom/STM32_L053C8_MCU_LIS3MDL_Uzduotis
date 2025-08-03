@@ -9,6 +9,17 @@
 #include "lis3mdl_init_params.h"
 #include "lis3mdl_registers.h"
 
+/**
+  * @brief Sets default initialization parameters for the LIS3MDL sensor.
+  * This function populates a `LIS3MDL_Init_Params` structure with a predefined
+  * set of default values. These defaults aim to provide a common starting
+  * configuration, often including disabled features or common operating modes.
+  *
+  * @param init_params Pointer to the `LIS3MDL_Init_Params` structure to be initialized.
+  *
+  * @retval 0 if successful, 1 if `init_params` is NULL.
+  */
+
 uint8_t lis3mdl_set_default_params(LIS3MDL_Init_Params *init_params){
 	if(init_params == NULL)
 		return 1;
@@ -51,6 +62,23 @@ uint8_t lis3mdl_set_default_params(LIS3MDL_Init_Params *init_params){
 	init_params->interrupt_threshold = 0;
 	return 0;
 }
+
+/**
+  * @brief Translates LIS3MDL initialization parameters into raw register byte values.
+  *
+  * This function takes a `LIS3MDL_Init_Params` structure and converts its
+  * human-readable configuration values into the specific bit-field layouts
+  * required for the LIS3MDL's offset, control, and interrupt registers.
+  * The resulting byte arrays can then be used for SPI communication to configure
+  * the sensor.
+  *
+  * @param init_params The `LIS3MDL_Init_Params` structure containing the desired configuration.
+  * @param offset_regs Pointer to a `uint8_t` array of size 6 to store offset register bytes (OUT_X_L_M to OUT_Z_H_M).
+  * @param ctrl_regs Pointer to a `uint8_t` array of size 5 to store control register bytes (CTRL_REG1 to CTRL_REG5).
+  * @param int_regs Pointer to a `uint8_t` array of size 4 to store interrupt register bytes (INT_CFG_REG to INT_THS_H_REG).
+  *
+  * @retval 0 if successful, 1 if any of the output register pointers are NULL.
+  */
 
 uint8_t lis3mdl_put_params_into_registers(LIS3MDL_Init_Params init_params, uint8_t *offset_regs, uint8_t *ctrl_regs, uint8_t *int_regs){
 	if(offset_regs == NULL || ctrl_regs == NULL || int_regs == NULL)

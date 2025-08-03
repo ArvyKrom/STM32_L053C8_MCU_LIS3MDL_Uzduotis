@@ -1,6 +1,6 @@
 Drivers/lis3mdl/lis3mdl_device.o: ../Drivers/lis3mdl/lis3mdl_device.c \
  ../Drivers/lis3mdl/lis3mdl_device.h \
- ../Drivers/lis3mdl/lis3mdl_state_machine.h \
+ C:/Users/arvyd/STM32CubeIDE/workspace_1.17.0/STM32_L053C8_MCU_LIS3MDL_Uzduotis/Drivers/lis3mdl/lis3mdl_process_state_machine.h \
  ../Drivers/lis3mdl/lis3mdl_init_params.h ../Core/Inc/main.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal.h \
  ../Core/Inc/stm32l0xx_hal_conf.h \
@@ -31,7 +31,7 @@ Drivers/lis3mdl/lis3mdl_device.o: ../Drivers/lis3mdl/lis3mdl_device.c \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_tim.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_tim_ex.h
 ../Drivers/lis3mdl/lis3mdl_device.h:
-../Drivers/lis3mdl/lis3mdl_state_machine.h:
+C:/Users/arvyd/STM32CubeIDE/workspace_1.17.0/STM32_L053C8_MCU_LIS3MDL_Uzduotis/Drivers/lis3mdl/lis3mdl_process_state_machine.h:
 ../Drivers/lis3mdl/lis3mdl_init_params.h:
 ../Core/Inc/main.h:
 ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal.h:

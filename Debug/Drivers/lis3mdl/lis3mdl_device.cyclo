@@ -1,2 +1,2 @@
-../Drivers/lis3mdl/lis3mdl_device.c:11:9:lis3mdl_initialize_device_struct	4
-../Drivers/lis3mdl/lis3mdl_device.c:29:9:lis3mdl_setup_config_registers	1
+../Drivers/lis3mdl/lis3mdl_device.c:22:9:lis3mdl_initialize_device_struct	4
+../Drivers/lis3mdl/lis3mdl_device.c:51:9:lis3mdl_setup_config_registers	1
