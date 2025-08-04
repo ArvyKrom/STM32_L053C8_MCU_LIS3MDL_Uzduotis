@@ -1,5 +1,6 @@
 ../Drivers/lis3mdl/lis3mdl.c:40:26:lis3mdl_process	26
-../Drivers/lis3mdl/lis3mdl.c:167:32:lis3mdl_get_magnetic_data	14
-../Drivers/lis3mdl/lis3mdl.c:230:5:get_first_non_idling_device_index	4
-../Drivers/lis3mdl/lis3mdl.c:266:19:lis3mdl_read_reg	9
-../Drivers/lis3mdl/lis3mdl.c:307:9:lis3mdl_clear_data	2
+../Drivers/lis3mdl/lis3mdl.c:162:32:lis3mdl_get_magnetic_data	14
+../Drivers/lis3mdl/lis3mdl.c:225:5:get_first_non_idling_device_index	4
+../Drivers/lis3mdl/lis3mdl.c:261:19:lis3mdl_read_reg	9
+../Drivers/lis3mdl/lis3mdl.c:288:19:lis3mdl_write_reg	11
+../Drivers/lis3mdl/lis3mdl.c:333:9:lis3mdl_clear_data	2

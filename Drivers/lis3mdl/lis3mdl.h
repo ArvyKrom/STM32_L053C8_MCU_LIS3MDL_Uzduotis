@@ -27,6 +27,7 @@ LIS3MDL_Process_Status_t lis3mdl_process(LIS3MDL_Device *devices, uint8_t num_of
 int get_first_non_idling_device_index(LIS3MDL_Device *devices, uint8_t num_of_devices);
 LIS3MDL_Data_Retrieval_State_t lis3mdl_get_magnetic_data(LIS3MDL_Device *devices, uint8_t num_of_devices, uint8_t dev_index, LIS3MDL_Magnetic_Data_t *results);
 HAL_StatusTypeDef lis3mdl_read_reg(LIS3MDL_Device *devices, uint8_t num_of_devices, uint8_t device_index, uint8_t reg, uint8_t size);
+HAL_StatusTypeDef lis3mdl_write_reg(LIS3MDL_Device *devices, uint8_t num_of_devices, uint8_t device_index, uint8_t reg, uint8_t *data, uint8_t size);
 uint8_t lis3mdl_clear_data(LIS3MDL_Device *device);
 
 #endif /* DRIVERS_LIS3MDL_LIS3MDL_H_ */

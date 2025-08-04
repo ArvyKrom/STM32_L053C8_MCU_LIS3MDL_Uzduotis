@@ -73,36 +73,32 @@ LIS3MDL_Process_Status_t lis3mdl_process(LIS3MDL_Device *devices, uint8_t num_of
 	// If spi_transaction was not started
 	devices[dev_index].cs_gpio_port_handle->BSRR = (devices[dev_index].cs_pin) << 16; // Pulling CS Low
 	spi_transaction_started = 1;
-	uint8_t tx[7] = {0};
 	switch(devices[dev_index].process_state){
 	case LIS3MDL_RESETTING_REGISTERS:
-		tx[0] = LIS3MDL_CTRL_REG2_ADDR;
-		tx[1] = LIS3MDL_REBOOT;
-		if(HAL_SPI_Transmit_DMA(devices[dev_index].hspi,tx, 2) != HAL_OK)
+		devices[dev_index].tx[0] = LIS3MDL_CTRL_REG2_ADDR;
+		devices[dev_index].tx[1] = LIS3MDL_REBOOT;
+		if(HAL_SPI_Transmit_DMA(devices[dev_index].hspi, devices[dev_index].tx, 2) != HAL_OK)
 			return LIS3MDL_PROCESS_ERROR;
 		return LIS3MDL_PROCESS_OK;
 	case LIS3MDL_INITIALIZING_OFFSET_REGS:
-		tx[0] = LIS3MDL_OFFSET_X_REG_L_M_ADDR | LIS3MDL_MD_BIT;
-		memcpy(tx + 1, devices[dev_index].config_regs.offsets, 6);
-		if(HAL_SPI_Transmit_DMA(devices[dev_index].hspi,tx, 7) != HAL_OK)
+		devices[dev_index].tx[0] = LIS3MDL_OFFSET_X_REG_L_M_ADDR | LIS3MDL_MD_BIT;
+		memcpy(devices[dev_index].tx + 1, devices[dev_index].config_regs.offsets, 6);
+		if(HAL_SPI_Transmit_DMA(devices[dev_index].hspi, devices[dev_index].tx, 7) != HAL_OK)
 			return LIS3MDL_PROCESS_ERROR;
-		HAL_Delay(8); // Magic wait time, don't delete and don't ask
 		return LIS3MDL_PROCESS_OK;
 
 	case LIS3MDL_INITIALIZING_CTRL_REGS:
-		tx[0] = LIS3MDL_CTRL_REG1_ADDR | LIS3MDL_MD_BIT;
-		memcpy(tx + 1, devices[dev_index].config_regs.ctrls, 5);
-		if(HAL_SPI_Transmit_DMA(devices[dev_index].hspi,tx, 6) != HAL_OK)
+		devices[dev_index].tx[0] = LIS3MDL_CTRL_REG1_ADDR | LIS3MDL_MD_BIT;
+		memcpy(devices[dev_index].tx + 1, devices[dev_index].config_regs.ctrls, 5);
+		if(HAL_SPI_Transmit_DMA(devices[dev_index].hspi, devices[dev_index].tx, 6) != HAL_OK)
 			return LIS3MDL_PROCESS_ERROR;
-		HAL_Delay(8); // Magic wait time, don't delete and don't ask
 		return LIS3MDL_PROCESS_OK;
 
 	case LIS3MDL_INITIALIZING_INT_REGS:
-		tx[0] = LIS3MDL_INT_CFG_REG_ADDR| LIS3MDL_MD_BIT;
-		memcpy(tx + 1, devices[dev_index].config_regs.ints, 4);
-		if(HAL_SPI_Transmit_DMA(devices[dev_index].hspi,tx, 5) != HAL_OK)
+		devices[dev_index].tx[0] = LIS3MDL_INT_CFG_REG_ADDR| LIS3MDL_MD_BIT;
+		memcpy(devices[dev_index].tx + 1, devices[dev_index].config_regs.ints, 4);
+		if(HAL_SPI_Transmit_DMA(devices[dev_index].hspi, devices[dev_index].tx, 5) != HAL_OK)
 			return LIS3MDL_PROCESS_ERROR;
-		HAL_Delay(8); // Magic wait time, don't delete and don't ask
 		return LIS3MDL_PROCESS_OK;
 
 	case LIS3MDL_SENDING_ADDRESS_TO_WRITE_TO:
@@ -116,8 +112,7 @@ LIS3MDL_Process_Status_t lis3mdl_process(LIS3MDL_Device *devices, uint8_t num_of
 		return LIS3MDL_PROCESS_OK;
 
 	case LIS3MDL_WRITING_DATA:
-		tx[0] = devices[dev_index].tx[0];
-		if(HAL_SPI_Transmit_DMA(devices[dev_index].hspi,tx, 1) != HAL_OK)
+		if(HAL_SPI_Transmit_DMA(devices[dev_index].hspi,devices[dev_index].tx, devices[dev_index].data_size) != HAL_OK)
 					return LIS3MDL_PROCESS_ERROR;
 		return LIS3MDL_PROCESS_OK;
 
@@ -291,6 +286,62 @@ HAL_StatusTypeDef lis3mdl_read_reg(LIS3MDL_Device *devices, uint8_t num_of_devic
 }
 
 /**
+  * @brief Prepares a LIS3MDL device for a register write operation.
+  *
+  * This function configures the LIS3MDL_Device structure to facilitate writing
+  * one or more bytes of data to the sensor's registers. It does not directly
+  * execute the SPI transfer; instead, it sets up the device's state, target
+  * register address, data to be written, and data size. The actual SPI write
+  * transaction via DMA will be handled by a subsequent call to `lis3mdl_process()`.
+  *
+  * @param devices Pointer to an array of LIS3MDL_Device structures.
+  * @param num_of_devices The total number of LIS3MDL devices in the `devices` array.
+  * @param device_index The index of the specific LIS3MDL device within the `devices` array
+  * for which the write operation is being prepared.
+  * @param reg The starting address of the register(s) to be written to on the LIS3MDL sensor.
+  * This should be the raw register address without the read/multi-byte bits.
+  * @param data Pointer to the buffer containing the data bytes to be written.
+  * @param size The number of bytes (registers) to write starting from the `reg` address.
+  *
+  * @retval HAL_OK If the device is successfully prepared for the write operation.
+  * @retval HAL_ERROR If any input parameter is invalid (e.g., NULL `devices` or `data` pointer,
+  * invalid `reg` flags, or `size` out of bounds), or if `lis3mdl_clear_data` fails.
+  * @retval HAL_BUSY If any LIS3MDL device (including the target `device_index`) is
+  * currently busy with another ongoing SPI transaction (i.e., not in `LIS3MDL_IDLE` state).
+  */
+
+HAL_StatusTypeDef lis3mdl_write_reg(LIS3MDL_Device *devices, uint8_t num_of_devices, uint8_t device_index, uint8_t reg, uint8_t *data, uint8_t size){
+	if(devices == NULL || data == NULL)
+		return HAL_ERROR;
+
+	if(get_first_non_idling_device_index(devices, num_of_devices) >= 0)
+		return HAL_BUSY;
+
+	if((reg & LIS3MDL_READ_BIT) == LIS3MDL_READ_BIT || (reg & LIS3MDL_MD_BIT) == LIS3MDL_MD_BIT)
+		return HAL_ERROR;
+
+	if(size < 1 || size > LIS3MDL_BUFFER_SIZE)
+		return HAL_ERROR;
+
+	if(lis3mdl_clear_data(&devices[device_index])!=0)
+		return HAL_ERROR;
+
+	devices[device_index].reg_addr = reg;
+	if(size > 1)
+		devices[device_index].reg_addr |= LIS3MDL_MD_BIT;
+	devices[device_index].data_size = size;
+
+	for(int i=0; i<size; i++){
+		devices[device_index].tx[i] = data[i];
+	}
+
+	devices[device_index].process_state = LIS3MDL_SENDING_ADDRESS_TO_WRITE_TO;
+
+	return HAL_OK;
+
+}
+
+/**
   * @brief Clears the data buffers and resets transfer-related parameters within a LIS3MDL_Device structure.
   *
   * This function zeroes out the transmit (tx) and receive (rx) buffers,
@@ -308,7 +359,7 @@ uint8_t lis3mdl_clear_data(LIS3MDL_Device *device){
 	if(device == NULL)
 		return 1;
 
-	memset(device->tx, 0, LIS3MDL_BUFFER_SIZE);
+	//memset(device->tx, 0, LIS3MDL_BUFFER_SIZE);
 	memset(device->rx, 0, LIS3MDL_BUFFER_SIZE);
 	device->reg_addr = 0;
 	device->data_size = 0;

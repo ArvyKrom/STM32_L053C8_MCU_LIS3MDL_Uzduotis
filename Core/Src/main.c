@@ -54,7 +54,10 @@ TIM_HandleTypeDef htim6;
 /* USER CODE BEGIN PV */
 
 volatile uint8_t spi_cplt_flag = 0;
+uint8_t reg_to_read = LIS3MDL_CTRL_REG1_ADDR;
 LIS3MDL_Magnetic_Data_t magnetic_data;
+uint8_t current_state = 0;
+uint8_t CTRL1_REG_data = 0xFC;
 
 /* USER CODE END PV */
 
@@ -130,9 +133,9 @@ int main(void)
   {
 	HAL_IWDG_Refresh(&hiwdg);
 	lis3mdl_process(lis3mdl_devices, 1, &spi_cplt_flag);
-	if(lis3mdl_get_magnetic_data(lis3mdl_devices, 1, 0, &magnetic_data) == LIS3MDL_DATA_AVAILABLE){
-		int ret = 0; // Do something with the data
-	}
+//	if(lis3mdl_get_magnetic_data(lis3mdl_devices, 1, 0, &magnetic_data) == LIS3MDL_DATA_AVAILABLE){
+//		int ret = 0; // Do something with the data
+//	}
 
     /* USER CODE END WHILE */
 
@@ -203,8 +206,8 @@ static void MX_IWDG_Init(void)
   /* USER CODE END IWDG_Init 1 */
   hiwdg.Instance = IWDG;
   hiwdg.Init.Prescaler = IWDG_PRESCALER_4;
-  hiwdg.Init.Window = 100;
-  hiwdg.Init.Reload = 100;
+  hiwdg.Init.Window = 20;
+  hiwdg.Init.Reload = 20;
   if (HAL_IWDG_Init(&hiwdg) != HAL_OK)
   {
     Error_Handler();
