@@ -192,9 +192,9 @@ LIS3MDL_Data_Retrieval_State_t lis3mdl_get_magnetic_data(LIS3MDL_Device *devices
 
 	case LIS3MDL_DATA_RETRIEVAL_IN_PROGRESS:
 		if(get_first_non_idling_device_index(devices, num_of_devices) < 0){ // Every device is idling including this one
-			results->x = (devices[dev_index].rx[0]) | (devices[dev_index].rx[1] << 8);
-			results->y = (devices[dev_index].rx[2]) | (devices[dev_index].rx[3] << 8);
-			results->z = (devices[dev_index].rx[4]) | (devices[dev_index].rx[5] << 8);
+			results->x = (devices[dev_index].rx[1]) | (devices[dev_index].rx[0] << 8);
+			results->y = (devices[dev_index].rx[3]) | (devices[dev_index].rx[2] << 8);
+			results->z = (devices[dev_index].rx[5]) | (devices[dev_index].rx[4] << 8);
 
 			devices[dev_index].data_retrieval_state = LIS3MDL_STARTING_STATUS_CHECK;
 			return LIS3MDL_DATA_AVAILABLE;

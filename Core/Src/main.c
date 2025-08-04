@@ -25,6 +25,7 @@
 
 #include "lis3mdl.h"
 #include "lis3mdl_registers.h"
+#include "magnetometer.h"
 
 /* USER CODE END Includes */
 
@@ -49,15 +50,25 @@ SPI_HandleTypeDef hspi2;
 DMA_HandleTypeDef hdma_spi2_rx;
 DMA_HandleTypeDef hdma_spi2_tx;
 
+TIM_HandleTypeDef htim2;
 TIM_HandleTypeDef htim6;
 
 /* USER CODE BEGIN PV */
 
 volatile uint8_t spi_cplt_flag = 0;
-uint8_t reg_to_read = LIS3MDL_CTRL_REG1_ADDR;
 LIS3MDL_Magnetic_Data_t magnetic_data;
-uint8_t current_state = 0;
-uint8_t CTRL1_REG_data = 0xFC;
+uint8_t time_to_renew_data = 0;
+
+Magnetometer_leds magnetometer_leds = {
+		.pos_y_led_gpio_port = LED1_GPIO_Port,
+		.pos_y_led_gpio_pin = LED1_Pin,
+		.pos_x_led_gpio_port = LED2_GPIO_Port,
+		.pos_x_led_gpio_pin = LED2_Pin,
+		.neg_y_led_gpio_port = LED3_GPIO_Port,
+		.neg_y_led_gpio_pin = LED3_Pin,
+		.neg_x_led_gpio_port = LED4_GPIO_Port,
+		.neg_x_led_gpio_pin = LED4_Pin,
+};
 
 /* USER CODE END PV */
 
@@ -68,6 +79,7 @@ static void MX_DMA_Init(void);
 static void MX_SPI2_Init(void);
 static void MX_TIM6_Init(void);
 static void MX_IWDG_Init(void);
+static void MX_TIM2_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -123,7 +135,9 @@ int main(void)
   MX_SPI2_Init();
   MX_TIM6_Init();
   MX_IWDG_Init();
+  MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
+  HAL_TIM_Base_Start_IT(&htim2);
 
   /* USER CODE END 2 */
 
@@ -133,9 +147,12 @@ int main(void)
   {
 	HAL_IWDG_Refresh(&hiwdg);
 	lis3mdl_process(lis3mdl_devices, 1, &spi_cplt_flag);
-//	if(lis3mdl_get_magnetic_data(lis3mdl_devices, 1, 0, &magnetic_data) == LIS3MDL_DATA_AVAILABLE){
-//		int ret = 0; // Do something with the data
-//	}
+	if(time_to_renew_data){
+		if(lis3mdl_get_magnetic_data(lis3mdl_devices, 1, 0, &magnetic_data) == LIS3MDL_DATA_AVAILABLE){
+			light_up_led_towards_magnetic_field(magnetometer_leds, magnetic_data);
+			time_to_renew_data = 0;
+		}
+	}
 
     /* USER CODE END WHILE */
 
@@ -257,6 +274,51 @@ static void MX_SPI2_Init(void)
 }
 
 /**
+  * @brief TIM2 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_TIM2_Init(void)
+{
+
+  /* USER CODE BEGIN TIM2_Init 0 */
+
+  /* USER CODE END TIM2_Init 0 */
+
+  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
+
+  /* USER CODE BEGIN TIM2_Init 1 */
+
+  /* USER CODE END TIM2_Init 1 */
+  htim2.Instance = TIM2;
+  htim2.Init.Prescaler = 4000-1;
+  htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim2.Init.Period = 250-1;
+  htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+  if (HAL_TIM_ConfigClockSource(&htim2, &sClockSourceConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim2, &sMasterConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM2_Init 2 */
+
+  /* USER CODE END TIM2_Init 2 */
+
+}
+
+/**
   * @brief TIM6 Initialization Function
   * @param None
   * @retval None
@@ -362,6 +424,12 @@ void HAL_SPI_TxCpltCallback(SPI_HandleTypeDef *hspi){
 void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi){
 	if(hspi->Instance == SPI2){
 		spi_cplt_flag = 1;
+	}
+}
+
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
+	if(htim->Instance == TIM2){
+		time_to_renew_data = 1;
 	}
 }
 
